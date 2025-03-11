@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ElSaberDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Acceso">
+          <Key>
+            <PropertyRef Name="IdAcceso" />
+          </Key>
+          <Property Name="IdAcceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="varbinary" MaxLength="255" Nullable="false" />
+          <Property Name="contrasenia" Type="varbinary" MaxLength="255" Nullable="false" />
+          <Property Name="tipoDeUsuario" Type="varchar" MaxLength="14" Nullable="false" />
+          <Property Name="FK_IdUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="autor" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Devolucion">
+          <Key>
+            <PropertyRef Name="IdDevolucion" />
+          </Key>
+          <Property Name="IdDevolucion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaDevolucion" Type="date" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="250" />
+          <Property Name="estadoLibro" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="FK_IdPrestamo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="codioPostal" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ciudad" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Editorial">
+          <Key>
+            <PropertyRef Name="IdEditorial" />
+          </Key>
+          <Property Name="IdEditorial" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="editorial" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isbn" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="FK_IdAutor" Type="int" Nullable="false" />
+          <Property Name="FK_IdEditorial" Type="int" Nullable="false" />
+          <Property Name="FK_IdGenero" Type="int" Nullable="false" />
+          <Property Name="anioDePublicacion" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="numeroDePaginas" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="rutaPortada" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="cantidadEjemplares" Type="int" Nullable="false" />
+          <Property Name="cantidadEjemplaresPrestados" Type="int" />
+        </EntityType>
+        <EntityType Name="Multa">
+          <Key>
+            <PropertyRef Name="IdMulta" />
+          </Key>
+          <Property Name="IdMulta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="montoTotal" Type="float" Nullable="false" />
+          <Property Name="FK_IdPrestamo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prestamo">
+          <Key>
+            <PropertyRef Name="IdPrestamo" />
+          </Key>
+          <Property Name="IdPrestamo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaPrestamo" Type="date" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="fechaDevolucionEsperada" Type="date" Nullable="false" />
+          <Property Name="FK_IdLibro" Type="int" Nullable="false" />
+          <Property Name="FK_IdUsuario" Type="int" Nullable="false" />
+          <Property Name="FK_IdSocio" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Socio">
+          <Key>
+            <PropertyRef Name="numeroDeSocio" />
+          </Key>
+          <Property Name="numeroDeSocio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="primerApellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="segundoApellido" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="fechaInscripcion" Type="date" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="FK_idDireccion" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="75" Nullable="false" />
+          <Property Name="primerApellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="segundoApellido" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="puesto" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="FK_idDireccion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Dir">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Socio" Type="Self.Socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="IdDireccion" />
+            </Principal>
+            <Dependent Role="Socio">
+              <PropertyRef Name="FK_idDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdAutor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDireccion">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="IdDireccion" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="FK_idDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdEditorial">
+          <End Role="Editorial" Type="Self.Editorial" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editorial">
+              <PropertyRef Name="IdEditorial" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdEditorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdGenero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdLibro">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPres">
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+          <End Role="Devolucion" Type="Self.Devolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestamo">
+              <PropertyRef Name="IdPrestamo" />
+            </Principal>
+            <Dependent Role="Devolucion">
+              <PropertyRef Name="FK_IdPrestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPrestamo">
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+          <End Role="Multa" Type="Self.Multa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestamo">
+              <PropertyRef Name="IdPrestamo" />
+            </Principal>
+            <Dependent Role="Multa">
+              <PropertyRef Name="FK_IdPrestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSocio">
+          <End Role="Socio" Type="Self.Socio" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Socio">
+              <PropertyRef Name="numeroDeSocio" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdSocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuar">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Acceso" Type="Self.Acceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Acceso">
+              <PropertyRef Name="FK_IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElSaberDBModelStoreContainer">
+          <EntitySet Name="Acceso" EntityType="Self.Acceso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Devolucion" EntityType="Self.Devolucion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Direccion" EntityType="Self.Direccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Editorial" EntityType="Self.Editorial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Multa" EntityType="Self.Multa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prestamo" EntityType="Self.Prestamo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Socio" EntityType="Self.Socio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Dir" Association="Self.FK_Dir">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Socio" EntitySet="Socio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdAutor" Association="Self.FK_IdAutor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDireccion" Association="Self.FK_IdDireccion">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdEditorial" Association="Self.FK_IdEditorial">
+            <End Role="Editorial" EntitySet="Editorial" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdGenero" Association="Self.FK_IdGenero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdLibro" Association="Self.FK_IdLibro">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPres" Association="Self.FK_IdPres">
+            <End Role="Prestamo" EntitySet="Prestamo" />
+            <End Role="Devolucion" EntitySet="Devolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPrestamo" Association="Self.FK_IdPrestamo">
+            <End Role="Prestamo" EntitySet="Prestamo" />
+            <End Role="Multa" EntitySet="Multa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSocio" Association="Self.FK_IdSocio">
+            <End Role="Socio" EntitySet="Socio" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuar" Association="Self.FK_IdUsuar">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acceso" EntitySet="Acceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ElSaberDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Acceso">
+          <Key>
+            <PropertyRef Name="IdAcceso" />
+          </Key>
+          <Property Name="IdAcceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="Binary" MaxLength="255" FixedLength="false" Nullable="false" />
+          <Property Name="contrasenia" Type="Binary" MaxLength="255" FixedLength="false" Nullable="false" />
+          <Property Name="tipoDeUsuario" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuar" FromRole="Acceso" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Autor">
+          <Key>
+            <PropertyRef Name="IdAutor" />
+          </Key>
+          <Property Name="IdAutor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="autor1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_IdAutor" FromRole="Autor" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Devolucion">
+          <Key>
+            <PropertyRef Name="IdDevolucion" />
+          </Key>
+          <Property Name="IdDevolucion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaDevolucion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nota" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="estadoLibro" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_IdPrestamo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdPres" FromRole="Devolucion" ToRole="Prestamo" />
+        </EntityType>
+        <EntityType Name="Direccion">
+          <Key>
+            <PropertyRef Name="IdDireccion" />
+          </Key>
+          <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="calle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codioPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Socio" Relationship="Self.FK_Dir" FromRole="Direccion" ToRole="Socio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdDireccion" FromRole="Direccion" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Editorial">
+          <Key>
+            <PropertyRef Name="IdEditorial" />
+          </Key>
+          <Property Name="IdEditorial" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="editorial1" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_IdEditorial" FromRole="Editorial" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Genero">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genero1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_IdGenero" FromRole="Genero" ToRole="Libro" />
+        </EntityType>
+        <EntityType Name="Libro">
+          <Key>
+            <PropertyRef Name="IdLibro" />
+          </Key>
+          <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isbn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_IdAutor" Type="Int32" Nullable="false" />
+          <Property Name="FK_IdEditorial" Type="Int32" Nullable="false" />
+          <Property Name="FK_IdGenero" Type="Int32" Nullable="false" />
+          <Property Name="anioDePublicacion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroDePaginas" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rutaPortada" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidadEjemplares" Type="Int32" Nullable="false" />
+          <Property Name="cantidadEjemplaresPrestados" Type="Int32" />
+          <NavigationProperty Name="Autor" Relationship="Self.FK_IdAutor" FromRole="Libro" ToRole="Autor" />
+          <NavigationProperty Name="Editorial" Relationship="Self.FK_IdEditorial" FromRole="Libro" ToRole="Editorial" />
+          <NavigationProperty Name="Genero" Relationship="Self.FK_IdGenero" FromRole="Libro" ToRole="Genero" />
+          <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdLibro" FromRole="Libro" ToRole="Prestamo" />
+        </EntityType>
+        <EntityType Name="Multa">
+          <Key>
+            <PropertyRef Name="IdMulta" />
+          </Key>
+          <Property Name="IdMulta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="montoTotal" Type="Double" Nullable="false" />
+          <Property Name="FK_IdPrestamo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdPrestamo" FromRole="Multa" ToRole="Prestamo" />
+        </EntityType>
+        <EntityType Name="Prestamo">
+          <Key>
+            <PropertyRef Name="IdPrestamo" />
+          </Key>
+          <Property Name="IdPrestamo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaPrestamo" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaDevolucionEsperada" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FK_IdLibro" Type="Int32" Nullable="false" />
+          <Property Name="FK_IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="FK_IdSocio" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Devolucion" Relationship="Self.FK_IdPres" FromRole="Prestamo" ToRole="Devolucion" />
+          <NavigationProperty Name="Libro" Relationship="Self.FK_IdLibro" FromRole="Prestamo" ToRole="Libro" />
+          <NavigationProperty Name="Multa" Relationship="Self.FK_IdPrestamo" FromRole="Prestamo" ToRole="Multa" />
+          <NavigationProperty Name="Socio" Relationship="Self.FK_IdSocio" FromRole="Prestamo" ToRole="Socio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuario" FromRole="Prestamo" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Socio">
+          <Key>
+            <PropertyRef Name="numeroDeSocio" />
+          </Key>
+          <Property Name="numeroDeSocio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primerApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundoApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaInscripcion" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_idDireccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Direccion" Relationship="Self.FK_Dir" FromRole="Socio" ToRole="Direccion" />
+          <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdSocio" FromRole="Socio" ToRole="Prestamo" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primerApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundoApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="puesto" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FK_idDireccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Acceso" Relationship="Self.FK_IdUsuar" FromRole="Usuario" ToRole="Acceso" />
+          <NavigationProperty Name="Direccion" Relationship="Self.FK_IdDireccion" FromRole="Usuario" ToRole="Direccion" />
+          <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdUsuario" FromRole="Usuario" ToRole="Prestamo" />
+        </EntityType>
+        <Association Name="FK_IdUsuar">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Acceso" Type="Self.Acceso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Acceso">
+              <PropertyRef Name="FK_IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdAutor">
+          <End Role="Autor" Type="Self.Autor" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Autor">
+              <PropertyRef Name="IdAutor" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdAutor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPres">
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+          <End Role="Devolucion" Type="Self.Devolucion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestamo">
+              <PropertyRef Name="IdPrestamo" />
+            </Principal>
+            <Dependent Role="Devolucion">
+              <PropertyRef Name="FK_IdPrestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dir">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Socio" Type="Self.Socio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="IdDireccion" />
+            </Principal>
+            <Dependent Role="Socio">
+              <PropertyRef Name="FK_idDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdDireccion">
+          <End Role="Direccion" Type="Self.Direccion" Multiplicity="1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Direccion">
+              <PropertyRef Name="IdDireccion" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="FK_idDireccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdEditorial">
+          <End Role="Editorial" Type="Self.Editorial" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editorial">
+              <PropertyRef Name="IdEditorial" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdEditorial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdGenero">
+          <End Role="Genero" Type="Self.Genero" Multiplicity="1" />
+          <End Role="Libro" Type="Self.Libro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Genero">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Libro">
+              <PropertyRef Name="FK_IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdLibro">
+          <End Role="Libro" Type="Self.Libro" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Libro">
+              <PropertyRef Name="IdLibro" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdLibro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdPrestamo">
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="1" />
+          <End Role="Multa" Type="Self.Multa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prestamo">
+              <PropertyRef Name="IdPrestamo" />
+            </Principal>
+            <Dependent Role="Multa">
+              <PropertyRef Name="FK_IdPrestamo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdSocio">
+          <End Role="Socio" Type="Self.Socio" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Socio">
+              <PropertyRef Name="numeroDeSocio" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdSocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Prestamo" Type="Self.Prestamo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Prestamo">
+              <PropertyRef Name="FK_IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ElSaberDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Acceso" EntityType="Self.Acceso" />
+          <EntitySet Name="Autor" EntityType="Self.Autor" />
+          <EntitySet Name="Devolucion" EntityType="Self.Devolucion" />
+          <EntitySet Name="Direccion" EntityType="Self.Direccion" />
+          <EntitySet Name="Editorial" EntityType="Self.Editorial" />
+          <EntitySet Name="Genero" EntityType="Self.Genero" />
+          <EntitySet Name="Libro" EntityType="Self.Libro" />
+          <EntitySet Name="Multa" EntityType="Self.Multa" />
+          <EntitySet Name="Prestamo" EntityType="Self.Prestamo" />
+          <EntitySet Name="Socio" EntityType="Self.Socio" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_IdUsuar" Association="Self.FK_IdUsuar">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Acceso" EntitySet="Acceso" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdAutor" Association="Self.FK_IdAutor">
+            <End Role="Autor" EntitySet="Autor" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPres" Association="Self.FK_IdPres">
+            <End Role="Prestamo" EntitySet="Prestamo" />
+            <End Role="Devolucion" EntitySet="Devolucion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dir" Association="Self.FK_Dir">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Socio" EntitySet="Socio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdDireccion" Association="Self.FK_IdDireccion">
+            <End Role="Direccion" EntitySet="Direccion" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdEditorial" Association="Self.FK_IdEditorial">
+            <End Role="Editorial" EntitySet="Editorial" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdGenero" Association="Self.FK_IdGenero">
+            <End Role="Genero" EntitySet="Genero" />
+            <End Role="Libro" EntitySet="Libro" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdLibro" Association="Self.FK_IdLibro">
+            <End Role="Libro" EntitySet="Libro" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdPrestamo" Association="Self.FK_IdPrestamo">
+            <End Role="Prestamo" EntitySet="Prestamo" />
+            <End Role="Multa" EntitySet="Multa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdSocio" Association="Self.FK_IdSocio">
+            <End Role="Socio" EntitySet="Socio" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IdUsuario" Association="Self.FK_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Prestamo" EntitySet="Prestamo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ElSaberDBModelStoreContainer" CdmEntityContainer="ElSaberDBEntities">
+          <EntitySetMapping Name="Acceso">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Acceso">
+              <MappingFragment StoreEntitySet="Acceso">
+                <ScalarProperty Name="IdAcceso" ColumnName="IdAcceso" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+                <ScalarProperty Name="tipoDeUsuario" ColumnName="tipoDeUsuario" />
+                <ScalarProperty Name="FK_IdUsuario" ColumnName="FK_IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Autor">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Autor">
+              <MappingFragment StoreEntitySet="Autor">
+                <ScalarProperty Name="IdAutor" ColumnName="IdAutor" />
+                <ScalarProperty Name="autor1" ColumnName="autor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Devolucion">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Devolucion">
+              <MappingFragment StoreEntitySet="Devolucion">
+                <ScalarProperty Name="IdDevolucion" ColumnName="IdDevolucion" />
+                <ScalarProperty Name="fechaDevolucion" ColumnName="fechaDevolucion" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="estadoLibro" ColumnName="estadoLibro" />
+                <ScalarProperty Name="FK_IdPrestamo" ColumnName="FK_IdPrestamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Direccion">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Direccion">
+              <MappingFragment StoreEntitySet="Direccion">
+                <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codioPostal" ColumnName="codioPostal" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Editorial">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Editorial">
+              <MappingFragment StoreEntitySet="Editorial">
+                <ScalarProperty Name="IdEditorial" ColumnName="IdEditorial" />
+                <ScalarProperty Name="editorial1" ColumnName="editorial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genero">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Genero">
+              <MappingFragment StoreEntitySet="Genero">
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="genero1" ColumnName="genero" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Libro">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Libro">
+              <MappingFragment StoreEntitySet="Libro">
+                <ScalarProperty Name="IdLibro" ColumnName="IdLibro" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="isbn" ColumnName="isbn" />
+                <ScalarProperty Name="FK_IdAutor" ColumnName="FK_IdAutor" />
+                <ScalarProperty Name="FK_IdEditorial" ColumnName="FK_IdEditorial" />
+                <ScalarProperty Name="FK_IdGenero" ColumnName="FK_IdGenero" />
+                <ScalarProperty Name="anioDePublicacion" ColumnName="anioDePublicacion" />
+                <ScalarProperty Name="numeroDePaginas" ColumnName="numeroDePaginas" />
+                <ScalarProperty Name="rutaPortada" ColumnName="rutaPortada" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cantidadEjemplares" ColumnName="cantidadEjemplares" />
+                <ScalarProperty Name="cantidadEjemplaresPrestados" ColumnName="cantidadEjemplaresPrestados" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Multa">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Multa">
+              <MappingFragment StoreEntitySet="Multa">
+                <ScalarProperty Name="IdMulta" ColumnName="IdMulta" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="montoTotal" ColumnName="montoTotal" />
+                <ScalarProperty Name="FK_IdPrestamo" ColumnName="FK_IdPrestamo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prestamo">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Prestamo">
+              <MappingFragment StoreEntitySet="Prestamo">
+                <ScalarProperty Name="IdPrestamo" ColumnName="IdPrestamo" />
+                <ScalarProperty Name="fechaPrestamo" ColumnName="fechaPrestamo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fechaDevolucionEsperada" ColumnName="fechaDevolucionEsperada" />
+                <ScalarProperty Name="FK_IdLibro" ColumnName="FK_IdLibro" />
+                <ScalarProperty Name="FK_IdUsuario" ColumnName="FK_IdUsuario" />
+                <ScalarProperty Name="FK_IdSocio" ColumnName="FK_IdSocio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Socio">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Socio">
+              <MappingFragment StoreEntitySet="Socio">
+                <ScalarProperty Name="numeroDeSocio" ColumnName="numeroDeSocio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="fechaInscripcion" ColumnName="fechaInscripcion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="FK_idDireccion" ColumnName="FK_idDireccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ElSaberDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="ElSaberDBModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="puesto" ColumnName="puesto" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="FK_idDireccion" ColumnName="FK_idDireccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
