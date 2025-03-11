@@ -60,16 +60,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\Constants.cs" />
-    <Compile Include="Utilities\LoggerManager.cs" />
+    <Compile Include="Utilidades\Constantes.cs" />
+    <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Contracts\" />
-    <Folder Include="Services\" />
+    <Folder Include="Contratos\" />
+    <Folder Include="Servicios\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

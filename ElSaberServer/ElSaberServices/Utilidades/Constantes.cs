@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ElSaberServices.Utilities
 {
-    class Constants
+    class Constantes
     {
         public const int ErrorOperation = -1;
         public const int SuccessOperation = 1;

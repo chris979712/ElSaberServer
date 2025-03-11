@@ -110,8 +110,8 @@
     <Compile Include="Usuario.cs">
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\Constants.cs" />
-    <Compile Include="Utilities\LoggerManager.cs" />
+    <Compile Include="Utilidades\Constantes.cs" />
+    <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
@@ -138,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Operaciones\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
