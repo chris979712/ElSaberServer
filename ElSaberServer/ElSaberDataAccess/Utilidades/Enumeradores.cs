@@ -13,5 +13,12 @@ namespace ElSaberDataAccess.Utilidades
             Activo,
             Desactivado
         }
+
+        public enum EnumeradoEstadoPrestamo 
+        {
+            Activo,
+            Vencido,
+            Devuelto,
+        }
     }
 }
