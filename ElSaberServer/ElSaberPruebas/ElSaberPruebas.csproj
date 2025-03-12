@@ -59,6 +59,7 @@
     <Compile Include="Operaciones\PruebasDeInsercion.cs" />
     <Compile Include="Operaciones\PruebasDeModificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Encriptado.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElSaberDataAccess\ElSaberDataAccess.csproj">
