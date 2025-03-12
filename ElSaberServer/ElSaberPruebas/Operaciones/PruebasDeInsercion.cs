@@ -11,7 +11,7 @@ namespace ElSaberServerTest.Operaciones
     public class PruebasDeInsercion
     {
         [Fact]
-        public void PruebaRegistrarUsuarioEnLaBaseDeDatos()
+        public void PruebaRegistrarUsuarioEnLaBaseDeDatosExitosa()
         {
             Direccion direccion = new Direccion()
             {
@@ -41,5 +41,6 @@ namespace ElSaberServerTest.Operaciones
             int resultadoEsperado = 1;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
     }
 }

@@ -18,9 +18,9 @@ namespace ElSaberDataAccess.Operaciones
             int resultadoInsercion = Constantes.ErrorEnLaOperacion;
             try
             { 
-                using(var contextoBaseDeDatos = new ElSaberDataModel())
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
-                    var direccionNueva = new ElSaberDataAccess.Direccion
+                    var direccionNueva = new Direccion
                     {
                         calle = direccion.calle,
                         numero = direccion.numero,

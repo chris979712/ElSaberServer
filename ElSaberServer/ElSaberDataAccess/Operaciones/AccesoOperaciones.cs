@@ -17,7 +17,7 @@ namespace ElSaberDataAccess.Operaciones
             LoggerManager logger = new LoggerManager(this.GetType());
             try
             {
-                using (var contextoBaseDeDatos = new ElSaberDataModel())
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     var cuentaExistente = contextoBaseDeDatos.Acceso.Where(cuenta => cuenta.correo == correo && contrasenia == cuenta.contrasenia).FirstOrDefault();
                     if(cuentaExistente != null)
