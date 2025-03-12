@@ -23,7 +23,7 @@ namespace ElSaberDataAccess.Operaciones
             DireccionOperaciones operacionDireccion = new DireccionOperaciones();
             try
             {
-                using (var contextoBaseDeDatos = new ElSaberDBEntities()){
+                using (var contextoBaseDeDatos = new ElSaberDataModel()){
                     int resultadoInsercionDireccion = operacionDireccion.AgregarNuevaDireccion(direccion);
                     if (resultadoInsercion == Constantes.OperacionExitosa)
                     {
@@ -89,7 +89,7 @@ namespace ElSaberDataAccess.Operaciones
             int resultadoVerificacion = Constantes.ErrorEnLaOperacion;
             try
             {
-                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                using(var contextoBaseDeDatos = new ElSaberDataModel())
                 {
                     var usuarioExistente = contextoBaseDeDatos.Usuario.Where(usuario => usuario.telefono == telefono).FirstOrDefault();
                     var cuentaExistente = contextoBaseDeDatos.Acceso.Where(acceso => acceso.correo == correo).FirstOrDefault();
