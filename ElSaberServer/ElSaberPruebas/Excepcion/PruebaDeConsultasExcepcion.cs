@@ -1,4 +1,5 @@
-﻿using ElSaberDataAccess.Operaciones;
+﻿using ElSaberDataAccess;
+using ElSaberDataAccess.Operaciones;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,26 +11,51 @@ namespace ElSaberPruebas.Excepcion
 {
     public class PruebaDeConsultasExcepcion
     {
+        /**
+         * Pruebas de consulta de usuarios
+         */
         [Fact]
-        public void VerificarExistenciaDeCredencialesPrueba()
+        public void PruebaVerificarExistenciaDeUsuarioPruebaExcepcionExitosa()
         {
             UsuarioOperaciones usuarioOperacion = new UsuarioOperaciones();
             string correo = "chrisvasquez985@gmail.com";
-            string contrasenia = "contraseniasecreta123";
-            int resultadoObtenido = usuarioOperacion.VerificarExistenciaDeUsuario(correo, contrasenia);
+            string telefono = "2281024672";
+            int resultadoObtenido = usuarioOperacion.VerificarExistenciaDeUsuario(telefono, correo);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+         * Pruebas de consulta de usuarios
+         */
+        [Fact]
+        public void PruebaObtenerSociosPorNombreExcepcionExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            string nombre = "Pepe";
+            List<Socio> sociosObtenidos = socioOperaciones.ObtenerSociosPorNombre(nombre);
+            Assert.True(sociosObtenidos.Count == 3);
+        }
+
+        [Fact]
+        public void PruebaConsultarSocioPorNumeroDeSocioExcepcionExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 100;
+            Socio socioObtenido = socioOperaciones.ObtenerSocioPorNumeroDeSocio(numeroDeSocio);
+            Assert.True(socioObtenido.numeroDeSocio == -1);
+        }
+
+        [Fact]
+        public void PruebaVerificarSocioRegistradoEnLaBaseDeDatosExcepcionExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            string telefonoABuscar = "123456789";
+            int resultadoObtenido = socioOperaciones.VerificarSocioRegistradoEnLaBaseDeDatos(telefonoABuscar);
             int resultadoEsperado = -1;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
-        [Fact]
-        public void VerificarExistenciaDeCredencialesSinExistirPrueba()
-        {
-            UsuarioOperaciones usuarioOperacion = new UsuarioOperaciones();
-            string correo = "chrisvasquez999@gmail.com";
-            string contrasenia = "123456Contrasenia";
-            int resultadoObtenido = usuarioOperacion.VerificarExistenciaDeUsuario(correo, contrasenia);
-            int resultadoEsperado = -1;
-            Assert.Equal(resultadoEsperado, resultadoObtenido);
-        }
+
     }
 }

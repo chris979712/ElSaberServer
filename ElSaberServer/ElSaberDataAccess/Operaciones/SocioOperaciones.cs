@@ -50,7 +50,7 @@ namespace ElSaberDataAccess.Operaciones
                                     estado = Enumeradores.EnumeradorEstadoUsuario.Activo.ToString(),
                                     FK_idDireccion = direccionIngresada.IdDireccion
                                 };
-                                contextoBaseDeDatos.Direccion.Add(direccionNueva);
+                                contextoBaseDeDatos.Socio.Add(socioNuevo);
                                 contextoBaseDeDatos.SaveChanges();
                                 contextoTransaccionBaseDeDatos.Commit();
                                 resultadoInsercion = Constantes.OperacionExitosa;
@@ -120,27 +120,31 @@ namespace ElSaberDataAccess.Operaciones
                 using(var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     var nombrePorPartes = nombre.Trim().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    var consulta = contextoBaseDeDatos.Socio.AsQueryable();
-                    IQueryable<Socio> resultadoConsulta = consulta;
+                    string nombreABuscar = "";
+                    string primerApellidoABuscar = "";
+                    string segundoApellidoABuscar = "";
                     switch (nombrePorPartes.Length)
                     {
                         case 1:
-                            resultadoConsulta = consulta.Where(socio => socio.nombre.Contains(nombrePorPartes[0]));
-                            break;
+                            nombreABuscar = nombrePorPartes[0];
+                            sociosObtenidos = contextoBaseDeDatos.Socio.Where(socio => socio.nombre.Contains(nombreABuscar)).ToList();
+                        break;
                         case 2:
-                            resultadoConsulta = consulta.Where(socio => socio.nombre.Contains(nombrePorPartes[0]) &&
-                                socio.primerApellido.Contains(nombrePorPartes[1]));
-                            break;
+                            nombreABuscar = nombrePorPartes[0];
+                            primerApellidoABuscar = nombrePorPartes[1];
+                            sociosObtenidos = contextoBaseDeDatos.Socio.Where(socio => socio.nombre.Contains(nombreABuscar) &&
+                                socio.primerApellido.Contains(primerApellidoABuscar)).ToList();
+                        break;
                         case 3:
-                            resultadoConsulta = consulta.Where(socio => socio.nombre.Contains(nombrePorPartes[0]) &&
-                                socio.primerApellido.Contains(nombrePorPartes[1]) && socio.segundoApellido.Contains(nombrePorPartes[2]));
-                            break;
+                            nombreABuscar = nombrePorPartes[0];
+                            primerApellidoABuscar = nombrePorPartes[1];
+                            segundoApellidoABuscar = nombrePorPartes[2];
+                            sociosObtenidos = contextoBaseDeDatos.Socio.Where(socio => socio.nombre.Contains(nombreABuscar) &&
+                                socio.primerApellido.Contains(primerApellidoABuscar) && socio.segundoApellido.Contains(segundoApellidoABuscar)).ToList();
+                        break;
                     }
-                    if (resultadoConsulta.Count() > 0)
+                    if (sociosObtenidos.Count() == 0)
                     {
-                        sociosObtenidos = resultadoConsulta.ToList();
-                    }
-                    else {
                         sociosObtenidos.Add(new Socio()
                         {
                            numeroDeSocio = Constantes.SinResultadosEncontrados

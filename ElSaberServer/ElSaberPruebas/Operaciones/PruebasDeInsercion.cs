@@ -10,6 +10,12 @@ namespace ElSaberServerTest.Operaciones
 
     public class PruebasDeInsercion
     {
+
+        /**
+         * Pruebas de registros de usuarios
+         *
+         */
+
         [Fact]
         public void PruebaRegistrarUsuarioEnLaBaseDeDatosExitosa()
         {
@@ -42,8 +48,13 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
+        /**
+        * Pruebas de registros de direccion
+        *
+        */
+
         [Fact]
-        public void PruebaRegistrarNuevaDireccion()
+        public void PruebaRegistrarNuevaDireccionExitosa()
         {
             Direccion direccion = new Direccion()
             {
@@ -56,6 +67,34 @@ namespace ElSaberServerTest.Operaciones
             int resultadoObtenido = direccionOperaciones.AgregarNuevaDireccion(direccion);
             int resultadoEsperado = 1;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+        * Pruebas de registros de Socios
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarNuevoSocioExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            Socio socioNuevoPrueba = new Socio()
+            {
+                nombre = "Maria",
+                primerApellido = "Rodriguez",
+                segundoApellido = "Acosta",
+                telefono = "123456789",
+                fechaInscripcion = DateTime.Now,
+            };
+            Direccion direccionNuevaSocio = new Direccion()
+            {
+                calle = "Jardines",
+                numero = "1",
+                codigoPostal = "91100",
+                ciudad = "Xalapa"
+            };
+            int resultadoObtenido = socioOperaciones.RegistrarNuevoSocio(socioNuevoPrueba, direccionNuevaSocio);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado,resultadoObtenido);
         }
 
     }
