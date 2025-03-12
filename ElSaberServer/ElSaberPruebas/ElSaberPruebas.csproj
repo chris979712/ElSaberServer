@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7BD84626-B0BF-425B-9268-707E3614644B}</ProjectGuid>
+    <ProjectGuid>{DDB64157-C5E3-4443-A871-E0F1865825B6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ElSaberServerTest</RootNamespace>
-    <AssemblyName>ElSaberServerTest</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>ElSaberPruebas</RootNamespace>
+    <AssemblyName>ElSaberPruebas</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TestProjectType>UnitTest</TestProjectType>
@@ -40,12 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EntityFramework">
-      <Version>6.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="log4net">
-      <Version>3.0.4</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
