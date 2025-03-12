@@ -38,5 +38,12 @@ namespace ElSaberServices.Servicios
             int resultadoInsercion = usuarioOperaciones.RegistrarUsuarioEnLaBaseDeDatos(usuarioNuevo, accesoNuevo, direccionNueva);
             return resultadoInsercion;
         }
+
+        public int VerificarExistenciaDeUsuario(string correo, string telefonp)
+        {
+            UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
+            int resultadoVerificacion = VerificarCredenciales(correo, telefonp);
+            return resultadoVerificacion;
+        }
     }
 }

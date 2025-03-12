@@ -13,6 +13,9 @@ namespace ElSaberServices.Contratos
     {
         [OperationContract]
         int RegistrarUsuarioAlaBaseDeDatos(UsuarioBinding usuario, DireccionBinding direccion, AccesoBinding acceso);
+
+        [OperationContract]
+        int VerificarExistenciaDeUsuario(string correo, string telefonp);
     }
 
     [DataContract]
