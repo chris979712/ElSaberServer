@@ -98,7 +98,7 @@ namespace ElSaberDataAccess.Operaciones
                 {
                     var usuarioExistente = contextoBaseDeDatos.Usuario.Where(usuario => usuario.telefono == telefono).FirstOrDefault();
                     var cuentaExistente = contextoBaseDeDatos.Acceso.Where(acceso => acceso.correo == correo).FirstOrDefault();
-                    if (usuarioExistente != null)
+                    if (usuarioExistente != null || cuentaExistente != null)
                     {
                         resultadoVerificacion = Constantes.ResultadosCoincidentes;
                     }

@@ -61,11 +61,13 @@
   <ItemGroup>
     <Compile Include="Contratos\IAccesoManejador.cs" />
     <Compile Include="Contratos\IDireccionManejador.cs" />
+    <Compile Include="Contratos\ISocioManejador.cs" />
     <Compile Include="Contratos\IUsuarioManejador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicios\ServicioAcceso.cs" />
     <Compile Include="Servicios\ServicioDireccion.cs" />
     <Compile Include="Servicios\ServicioUsuario.cs" />
+    <Compile Include="Servicios\SevicioSocio.cs" />
     <Compile Include="Utilidades\Constantes.cs" />
     <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
