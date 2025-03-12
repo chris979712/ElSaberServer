@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Operaciones\AccesoOperaciones.cs" />
     <Compile Include="Operaciones\DireccionOperaciones.cs" />
+    <Compile Include="Operaciones\SocioOperaciones.cs" />
     <Compile Include="Operaciones\UsuarioOperaciones.cs" />
     <Compile Include="Prestamo.cs">
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
