@@ -13,9 +13,9 @@ namespace ElSaberDataAccess
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ElSaberDataModel : DbContext
+    public partial class ElSaberDBEntities : DbContext
     {
-        public ElSaberDataModel()
+        public ElSaberDBEntities()
             : base("name=ElSaberDBEntities")
         {
         }

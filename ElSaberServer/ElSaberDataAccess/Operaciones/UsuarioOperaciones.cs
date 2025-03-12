@@ -23,55 +23,60 @@ namespace ElSaberDataAccess.Operaciones
             DireccionOperaciones operacionDireccion = new DireccionOperaciones();
             try
             {
-                using (var contextoBaseDeDatos = new ElSaberDataModel()){
-                    int resultadoInsercionDireccion = operacionDireccion.AgregarNuevaDireccion(direccion);
-                    if (resultadoInsercion == Constantes.OperacionExitosa)
+                using (var contextoBaseDeDatos = new ElSaberDBEntities()){
+                    using (var contextoTransaccionBaseDeDatos = contextoBaseDeDatos.Database.BeginTransaction())
                     {
-                        using (var contextoTransaccionBaseDeDatos = contextoBaseDeDatos.Database.BeginTransaction())
+                        try
                         {
-                            try
+                            var direccionNueva = new Direccion
+                            { 
+                                calle = direccion.calle,
+                                numero = direccion.numero,
+                                codigoPostal = direccion.codigoPostal,
+                                ciudad = direccion.ciudad,
+                            };
+                            contextoBaseDeDatos.Direccion.Add(direccionNueva);
+                            contextoBaseDeDatos.SaveChanges();
+                            var direccionIngresada = contextoBaseDeDatos.Direccion.Where(direccionInsertada => direccionInsertada
+                            .ciudad == direccion.ciudad && direccionInsertada.calle == direccionInsertada.calle &&
+                            direccionInsertada.numero == direccion.numero).FirstOrDefault();
+                            if (direccionIngresada != null)
                             {
-                                var direccionIngresada = contextoBaseDeDatos.Direccion.Where(direccionInsertada => direccionInsertada
-                                    .ciudad == direccion.ciudad && direccionInsertada.calle == direccionInsertada.calle &&
-                                    direccionInsertada.numero == direccion.numero).FirstOrDefault();
-                                if (direccionIngresada != null)
+                                var nuevoUsuarioAInsertar = new Usuario
                                 {
-                                    var nuevoUsuarioAInsertar = new Usuario
-                                    {
-                                        nombre = usuario.nombre,
-                                        primerApellido = usuario.primerApellido,
-                                        segundoApellido = usuario.segundoApellido,
-                                        telefono = usuario.telefono,
-                                        puesto = usuario.puesto,
-                                        estado = Enumeradores.EnumeradorEstadoUsuario.Activo.ToString(),
-                                        FK_idDireccion = direccionIngresada.IdDireccion
-                                    };
-                                    contextoBaseDeDatos.Usuario.Add(nuevoUsuarioAInsertar);
-                                    contextoBaseDeDatos.SaveChanges();
-                                    int idUsuarioIngresado = nuevoUsuarioAInsertar.IdUsuario;
-                                    var nuevoAccesoAInsertar = new Acceso
-                                    {
-                                        correo = acceso.correo,
-                                        contrasenia = acceso.contrasenia,
-                                        tipoDeUsuario = acceso.tipoDeUsuario,
-                                        FK_IdUsuario = idUsuarioIngresado
-                                    };
-                                    contextoBaseDeDatos.Acceso.Add(nuevoAccesoAInsertar);
-                                    contextoBaseDeDatos.SaveChanges();
-                                    contextoTransaccionBaseDeDatos.Commit();
-                                    resultadoInsercion = Constantes.OperacionExitosa;
-                                }
+                                    nombre = usuario.nombre,
+                                    primerApellido = usuario.primerApellido,
+                                    segundoApellido = usuario.segundoApellido,
+                                    telefono = usuario.telefono,
+                                    puesto = usuario.puesto,
+                                    estado = Enumeradores.EnumeradorEstadoUsuario.Activo.ToString(),
+                                    FK_idDireccion = direccionIngresada.IdDireccion
+                                };
+                                contextoBaseDeDatos.Usuario.Add(nuevoUsuarioAInsertar);
+                                contextoBaseDeDatos.SaveChanges();
+                                int idUsuarioIngresado = nuevoUsuarioAInsertar.IdUsuario;
+                                var nuevoAccesoAInsertar = new Acceso
+                                {
+                                    correo = acceso.correo,
+                                    contrasenia = acceso.contrasenia,
+                                    tipoDeUsuario = acceso.tipoDeUsuario,
+                                    FK_IdUsuario = idUsuarioIngresado
+                                };
+                                contextoBaseDeDatos.Acceso.Add(nuevoAccesoAInsertar);
+                                contextoBaseDeDatos.SaveChanges();
+                                contextoTransaccionBaseDeDatos.Commit();
+                                resultadoInsercion = Constantes.OperacionExitosa;
                             }
-                            catch (DbUpdateException dbUpdateException)
-                            {
-                                logger.LogWarn(dbUpdateException);
-                                contextoTransaccionBaseDeDatos.Rollback();
-                            }
-                            catch (SqlException sqlException)
-                            {
-                                logger.LogError(sqlException);
-                                contextoTransaccionBaseDeDatos.Rollback();
-                            }
+                        }
+                        catch (DbUpdateException dbUpdateException)
+                        {
+                            logger.LogWarn(dbUpdateException);
+                            contextoTransaccionBaseDeDatos.Rollback();
+                        }
+                        catch (SqlException sqlException)
+                        {
+                            logger.LogError(sqlException);
+                            contextoTransaccionBaseDeDatos.Rollback();
                         }
                     }
                 }
@@ -89,7 +94,7 @@ namespace ElSaberDataAccess.Operaciones
             int resultadoVerificacion = Constantes.ErrorEnLaOperacion;
             try
             {
-                using(var contextoBaseDeDatos = new ElSaberDataModel())
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     var usuarioExistente = contextoBaseDeDatos.Usuario.Where(usuario => usuario.telefono == telefono).FirstOrDefault();
                     var cuentaExistente = contextoBaseDeDatos.Acceso.Where(acceso => acceso.correo == correo).FirstOrDefault();
