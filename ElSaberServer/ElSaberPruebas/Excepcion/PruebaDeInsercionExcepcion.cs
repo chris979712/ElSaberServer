@@ -1,14 +1,15 @@
-﻿using System;
-using System.Security.Cryptography;
-using System.Text;
-using Xunit;
 using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit;
 
-namespace ElSaberServerTest.Operaciones
+namespace ElSaberPruebas.Excepcion
 {
-
-    public class PruebasDeInsercion
+    public class PruebaDeInsercionExcepcion
     {
         [Fact]
         public void PruebaRegistrarUsuarioEnLaBaseDeDatosExitosa()
@@ -38,7 +39,7 @@ namespace ElSaberServerTest.Operaciones
             };
             UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
             int resultadoObtenido = usuarioOperaciones.RegistrarUsuarioEnLaBaseDeDatos(usuario, acceso, direccion);
-            int resultadoEsperado = 1;
+            int resultadoEsperado = -1;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
@@ -54,9 +55,8 @@ namespace ElSaberServerTest.Operaciones
             };
             DireccionOperaciones direccionOperaciones = new DireccionOperaciones();
             int resultadoObtenido = direccionOperaciones.AgregarNuevaDireccion(direccion);
-            int resultadoEsperado = 1;
+            int resultadoEsperado = -1;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
-
     }
 }

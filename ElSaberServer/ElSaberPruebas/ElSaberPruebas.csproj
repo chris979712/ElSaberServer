@@ -52,8 +52,10 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Excepcion\PruebaDeConsultasExcepcion.cs" />
+    <Compile Include="Excepcion\PruebaDeInsercionExcepcion.cs" />
+    <Compile Include="Excepcion\PruebaDeModificacionExcepcion.cs" />
     <Compile Include="Operaciones\PruebasDeConsulta.cs" />
-    <Compile Include="Operaciones\PruebasDeExcepcion.cs" />
     <Compile Include="Operaciones\PruebasDeInsercion.cs" />
     <Compile Include="Operaciones\PruebasDeModificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
