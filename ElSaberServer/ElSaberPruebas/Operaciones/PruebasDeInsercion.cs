@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberPruebas.Utilities;
 
 namespace ElSaberServerTest.Operaciones
 {
@@ -19,6 +20,7 @@ namespace ElSaberServerTest.Operaciones
         [Fact]
         public void PruebaRegistrarUsuarioEnLaBaseDeDatosExitosa()
         {
+            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123");
             Direccion direccion = new Direccion()
             {
                 calle = "Juarez",
@@ -33,13 +35,13 @@ namespace ElSaberServerTest.Operaciones
                 primerApellido = "Vasquez",
                 segundoApellido = "Zapata",
                 telefono = "2281024672",
-                puesto = "Administrado"
+                puesto = "Administrador"
             };
 
             Acceso acceso = new Acceso()
             {
                 correo = "chrisvasquez985@gmail.com",
-                contrasenia = "contraseniasecreta123",
+                contrasenia = contraseniaEncriptada,
                 tipoDeUsuario = "Administrado"
             };
             UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
