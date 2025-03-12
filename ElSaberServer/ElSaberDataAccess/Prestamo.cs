@@ -28,6 +28,7 @@ namespace ElSaberDataAccess
         public int FK_IdLibro { get; set; }
         public int FK_IdUsuario { get; set; }
         public int FK_IdSocio { get; set; }
+        public string nota { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Devolucion> Devolucion { get; set; }

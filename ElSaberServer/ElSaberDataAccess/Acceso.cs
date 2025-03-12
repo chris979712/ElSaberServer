@@ -15,8 +15,8 @@ namespace ElSaberDataAccess
     public partial class Acceso
     {
         public int IdAcceso { get; set; }
-        public byte[] correo { get; set; }
-        public byte[] contrasenia { get; set; }
+        public string correo { get; set; }
+        public string contrasenia { get; set; }
         public string tipoDeUsuario { get; set; }
         public int FK_IdUsuario { get; set; }
     

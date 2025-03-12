@@ -11,7 +11,7 @@ namespace ElSaberServer
     {
         static void Main(string[] args)
         {
-            using (ServiceHost host = new ServiceHost(typeof(ElSaberServer.Program)))
+            using (ServiceHost host = new ServiceHost(typeof(ElSaberServices.Servicios.ElSaberServices)))
             {
                 host.Open();
                 Console.WriteLine("Service connected");

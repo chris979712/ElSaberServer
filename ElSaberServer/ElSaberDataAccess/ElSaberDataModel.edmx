@@ -10,8 +10,8 @@
             <PropertyRef Name="IdAcceso" />
           </Key>
           <Property Name="IdAcceso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="correo" Type="varbinary" MaxLength="255" Nullable="false" />
-          <Property Name="contrasenia" Type="varbinary" MaxLength="255" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="tipoDeUsuario" Type="varchar" MaxLength="14" Nullable="false" />
           <Property Name="FK_IdUsuario" Type="int" Nullable="false" />
         </EntityType>
@@ -39,7 +39,7 @@
           <Property Name="IdDireccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="calle" Type="varchar" MaxLength="40" Nullable="false" />
           <Property Name="numero" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="codioPostal" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="codigoPostal" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="ciudad" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Editorial">
@@ -93,6 +93,7 @@
           <Property Name="FK_IdLibro" Type="int" Nullable="false" />
           <Property Name="FK_IdUsuario" Type="int" Nullable="false" />
           <Property Name="FK_IdSocio" Type="int" Nullable="false" />
+          <Property Name="nota" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Socio">
           <Key>
@@ -330,8 +331,8 @@
             <PropertyRef Name="IdAcceso" />
           </Key>
           <Property Name="IdAcceso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="correo" Type="Binary" MaxLength="255" FixedLength="false" Nullable="false" />
-          <Property Name="contrasenia" Type="Binary" MaxLength="255" FixedLength="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasenia" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoDeUsuario" Type="String" MaxLength="14" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="FK_IdUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_IdUsuar" FromRole="Acceso" ToRole="Usuario" />
@@ -362,7 +363,7 @@
           <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="calle" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numero" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="codioPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoPostal" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ciudad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Socio" Relationship="Self.FK_Dir" FromRole="Direccion" ToRole="Socio" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_IdDireccion" FromRole="Direccion" ToRole="Usuario" />
@@ -425,6 +426,7 @@
           <Property Name="FK_IdLibro" Type="Int32" Nullable="false" />
           <Property Name="FK_IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="FK_IdSocio" Type="Int32" Nullable="false" />
+          <Property Name="nota" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Devolucion" Relationship="Self.FK_IdPres" FromRole="Prestamo" ToRole="Devolucion" />
           <NavigationProperty Name="Libro" Relationship="Self.FK_IdLibro" FromRole="Prestamo" ToRole="Libro" />
           <NavigationProperty Name="Multa" Relationship="Self.FK_IdPrestamo" FromRole="Prestamo" ToRole="Multa" />
@@ -704,7 +706,7 @@
                 <ScalarProperty Name="IdDireccion" ColumnName="IdDireccion" />
                 <ScalarProperty Name="calle" ColumnName="calle" />
                 <ScalarProperty Name="numero" ColumnName="numero" />
-                <ScalarProperty Name="codioPostal" ColumnName="codioPostal" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
                 <ScalarProperty Name="ciudad" ColumnName="ciudad" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -763,6 +765,7 @@
                 <ScalarProperty Name="FK_IdLibro" ColumnName="FK_IdLibro" />
                 <ScalarProperty Name="FK_IdUsuario" ColumnName="FK_IdUsuario" />
                 <ScalarProperty Name="FK_IdSocio" ColumnName="FK_IdSocio" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

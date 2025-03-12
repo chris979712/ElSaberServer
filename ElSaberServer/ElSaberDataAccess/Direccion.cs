@@ -24,7 +24,7 @@ namespace ElSaberDataAccess
         public int IdDireccion { get; set; }
         public string calle { get; set; }
         public string numero { get; set; }
-        public string codioPostal { get; set; }
+        public string codigoPostal { get; set; }
         public string ciudad { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

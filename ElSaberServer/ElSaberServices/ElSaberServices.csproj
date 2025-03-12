@@ -59,7 +59,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contratos\IAccesoManejador.cs" />
+    <Compile Include="Contratos\IDireccionManejador.cs" />
+    <Compile Include="Contratos\IUsuarioManejador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\ServicioAcceso.cs" />
+    <Compile Include="Servicios\ServicioDireccion.cs" />
+    <Compile Include="Servicios\ServicioUsuario.cs" />
     <Compile Include="Utilidades\Constantes.cs" />
     <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
@@ -67,9 +73,12 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Contratos\" />
-    <Folder Include="Servicios\" />
+    <ProjectReference Include="..\ElSaberDataAccess\ElSaberDataAccess.csproj">
+      <Project>{cf2b7b57-b268-4f07-8557-c198473f318f}</Project>
+      <Name>ElSaberDataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

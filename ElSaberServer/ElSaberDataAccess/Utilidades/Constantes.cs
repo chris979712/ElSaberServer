@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ElSaberDataAccess.Utilities
 {
-    public static class Constants
+    public static class Constantes
     {
-        public const int ErrorOperation = -1;
-        public const int SuccessOperation = 1;
-        public const int NoDataMatches = 0;
-        public const int DataMatches = 1;
+        public const int ErrorEnLaOperacion = -1;
+        public const int OperacionExitosa = 1;
+        public const int SinResultadosEncontrados = 0;
+        public const int ResultadosCoincidentes = 1;
     }
 }

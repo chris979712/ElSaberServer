@@ -97,6 +97,9 @@
     <Compile Include="Multa.cs">
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Operaciones\AccesoOperaciones.cs" />
+    <Compile Include="Operaciones\DireccionOperaciones.cs" />
+    <Compile Include="Operaciones\UsuarioOperaciones.cs" />
     <Compile Include="Prestamo.cs">
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +114,7 @@
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilidades\Constantes.cs" />
+    <Compile Include="Utilidades\Enumeradores.cs" />
     <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +129,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ElSaberDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ElSaberDataModel.edmx</DependentUpon>
@@ -135,12 +142,6 @@
       <DependentUpon>ElSaberDataModel.edmx</DependentUpon>
       <LastGenOutput>ElSaberDataModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Operaciones\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
