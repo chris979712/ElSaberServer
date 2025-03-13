@@ -115,6 +115,27 @@ namespace ElSaberServerTest.Operaciones
             int resultadoEsperado = 0;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        /**
+         * Pruebas de consulta de libros
+         */
+        [Fact]
+        public void PruebaValidarExistenciaLibrosEnLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int resultadoEsperado = 1;
+            int resultadoObtenido = libroOperaciones.ValidarExistenciaLibrosEnLaBaseDeDatos();
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaObtenerIdLibroPorCodigoISBNExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string isbn = "9781501142970";
+            int resultadoObtenido = libroOperaciones.ObtenerIdLibroPorCodigoISBN(isbn);
+            Assert.True(resultadoObtenido > 0);
+        }
     }
 
     public class DatabaseFixtureQuery : IDisposable

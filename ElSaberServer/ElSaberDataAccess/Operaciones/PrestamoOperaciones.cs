@@ -32,6 +32,16 @@ namespace ElSaberDataAccess.Operaciones
                         FK_IdSocio=prestamo.FK_IdSocio,
                     };
                     contextoBaseDeDatos.Prestamo.Add(nuevoPrestamo);
+
+                    var libro = contextoBaseDeDatos.Libro.FirstOrDefault(entidad=>entidad.IdLibro==prestamo.FK_IdLibro);
+                    if (libro != null) 
+                    {
+                        if (libro.cantidadEjemplares > Constantes.ValorPorDefecto) 
+                        {
+                            libro.cantidadEjemplares -= 1;
+                            libro.cantidadEjemplaresPrestados += 1;
+                        }
+                    }
                     contextoBaseDeDatos.SaveChanges();
                     resultadoInsercion = Constantes.OperacionExitosa;
                 }

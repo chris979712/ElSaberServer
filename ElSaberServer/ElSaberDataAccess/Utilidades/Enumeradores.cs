@@ -20,5 +20,13 @@ namespace ElSaberDataAccess.Utilidades
             Vencido,
             Devuelto,
         }
+
+        public enum EnumeradorEstadoLibro 
+        {
+            Disponible,
+            Prestado,
+            Daniado,
+        }
+
     }
 }

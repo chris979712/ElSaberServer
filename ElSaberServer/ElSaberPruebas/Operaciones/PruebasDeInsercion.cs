@@ -4,6 +4,8 @@ using System.Text;
 using Xunit;
 using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilidades;
+using ElSaberDataAccess.Utilities;
 
 namespace ElSaberServerTest.Operaciones
 {
@@ -40,7 +42,7 @@ namespace ElSaberServerTest.Operaciones
             {
                 correo = "chrisvasquez985@gmail.com",
                 contrasenia = "contraseniasecreta123",
-                tipoDeUsuario = "Administrado"
+                tipoDeUsuario = "Administrador"
             };
             UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
             int resultadoObtenido = usuarioOperaciones.RegistrarUsuarioEnLaBaseDeDatos(usuario, acceso, direccion);
@@ -97,5 +99,63 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado,resultadoObtenido);
         }
 
+        /**
+        * Pruebas de registros de Libros
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarLibroEnLaBaseDeDatosExitosa() 
+        {
+            Libro libro = new Libro
+            {
+                titulo = "Eso",
+                isbn = "9781501142970",
+                FK_IdAutor = 1,
+                FK_IdEditorial = 1,
+                FK_IdGenero = 1,
+                anioDePublicacion = "1986",
+                numeroDePaginas = "1135",
+                rutaPortada = "eso.jpg",
+                estado = Enumeradores.EnumeradorEstadoLibro.Disponible.ToString(),
+                cantidadEjemplares = 1,
+                cantidadEjemplaresPrestados=Constantes.ValorPorDefecto,
+            };
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int resultadoEsperado = 1;
+            int resultadoObtenido = libroOperaciones.RegistrarLibroEnLaBaseDeDatos(libro);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);            
+        }
+
+        [Fact]
+        public void PruebaAumentarNumeroLibrosDisponiblesPorISBNExitosa() 
+        {            
+            LibroOperaciones libroOperaciones=new LibroOperaciones();
+            string isbn = "9781501142970";
+            int resultadoEsperado = 1;
+            int resultadoObtenido=libroOperaciones.AumentarNumeroLibrosDisponiblesPorISBN(isbn);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+        * Pruebas de registros de Prestamos
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarPrestamoEnLaBaseDeDatosExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int resultadoEsperado = 1;
+            Prestamo prestamo = new Prestamo()
+            {
+                fechaPrestamo = DateTime.Today,
+                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
+                nota="Buen libro",
+                FK_IdLibro=1,
+                FK_IdSocio=1,
+                FK_IdUsuario=1,
+            };
+            int resultadoObtenido = prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
     }
 }
