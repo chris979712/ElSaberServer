@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contraseña Regenerada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .code-box {
+            border: 2px solid #28a745;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #28a745;
+            background: #eaffea;
+            border-radius: 5px;
+        }
+
+        .message {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .quote {
+            margin-top: 15px;
+            font-style: italic;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contraseña Regenerada</h1>
+    <p>Biblioteca El Saber</p>
+    <div class="container">
+        <p><strong>Nueva contraseña</strong></p>
+        <p class="message">Querido usuario, su contraseña ha sido restablecida con éxito, a continuación se muestra su nueva contraseña:</p>
+        <div class="code-box">{contrasenia}</div>
+        <p class="quote">"El conocimiento es poder." - Francis Bacon</p>
+    </div>
+</body>
+</html>

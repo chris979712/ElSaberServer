@@ -22,7 +22,7 @@ namespace ElSaberServerTest.Operaciones
         {
             AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
             string usuario = "chrisvasquez985@gmail.com";
-            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123"); 
+            string contraseniaEncriptada ="contraseniasecreta123"; 
             int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
             int resultadoEsperado = 1;
             Assert.Equal(resultadoEsperado, resultadoVerificacion);
@@ -35,6 +35,26 @@ namespace ElSaberServerTest.Operaciones
             string usuario = "chrisvasquez985@gmail.com";
             string contraseniaEncriptada = Encriptado.hashToSHA2("secreto123");
             int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
+            int resultadoEsperado = 0;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaVerificarCorreoExistente()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            int resultadoVerificacion = accesoOperaciones.VerificarCorreoExistente(usuario);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaVerificarCorreoInexistente()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez999@gmail.com";
+            int resultadoVerificacion = accesoOperaciones.VerificarCorreoExistente(usuario);
             int resultadoEsperado = 0;
             Assert.Equal(resultadoEsperado, resultadoVerificacion);
         }
@@ -148,7 +168,7 @@ namespace ElSaberServerTest.Operaciones
     {
         public DatabaseFixtureQuery()
         {
-            InsertarSociosPruebaDeConsulta();
+            //InsertarSociosPruebaDeConsulta();
         }
 
         public void InsertarSociosPruebaDeConsulta()
