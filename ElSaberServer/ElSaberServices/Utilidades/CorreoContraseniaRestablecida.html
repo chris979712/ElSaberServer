@@ -3,57 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contraseña Regenerada</title>
+    <title>Restablecimiento de Contraseña</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Georgia', serif;
             text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
+            background-color: #f8f9fa;
+            padding: 40px;
+            color: #333;
+        }
+
+        .outer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
             margin: auto;
+            border: 1px solid #ccc;
+        }
+
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .code-box {
-            border: 2px solid #28a745;
-            padding: 10px;
-            margin-top: 10px;
-            font-size: 20px;
+            border: 2px solid #0056b3;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 24px;
             font-weight: bold;
-            color: #28a745;
-            background: #eaffea;
+            color: #0056b3;
+            background: #e9f5ff;
             border-radius: 5px;
+            letter-spacing: 3px;
         }
 
-        .message {
-            margin-top: 15px;
-            font-size: 14px;
-            color: #555;
+        .biblioteca {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .titulo {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
+
+        .intructions {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: justify;
         }
 
         .quote {
-            margin-top: 15px;
+            margin-top: 25px;
             font-style: italic;
-            font-size: 14px;
+            font-size: 16px;
             color: #666;
+        }
+
+        .info {
+            font-style: normal;
+            font-size: 14px;
+            color: black;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>Contraseña Regenerada</h1>
-    <p>Biblioteca El Saber</p>
-    <div class="container">
-        <p><strong>Nueva contraseña</strong></p>
-        <p class="message">Querido usuario, su contraseña ha sido restablecida con éxito, a continuación se muestra su nueva contraseña:</p>
-        <div class="code-box">{contrasenia}</div>
-        <p class="quote">"El conocimiento es poder." - Francis Bacon</p>
+    <div class="outer-container">
+        <div class="container">
+            <div class="header">Contraseña Regenerada</div>
+            <p class="biblioteca"><strong>Biblioteca El Saber</strong></p>
+            <p class="titulo"><strong>Nueva contraseña</strong></p>
+            <p class="intructions">Querido usuario, su contraseña ha sido restablecida con éxito, a continuación se muestra su nueva contraseña:</p>
+            <div class="code-box">{contrasenia}</div>
+            <p class="info"><strong>Favor de no compartir este correo con nadie.</strong></p>
+            <p class="info"><strong>Atte: Biblioteca el saber</strong></p>
+            <p class="quote">"La lectura es para la mente lo que el ejercicio es para el cuerpo."<br>― Joseph Addison</p>
+        </div>
     </div>
 </body>
 </html>

@@ -8,47 +8,88 @@
         body {
             font-family: 'Georgia', serif;
             text-align: center;
-            background-color: #f4f4f4;
-            padding: 20px;
+            background-color: #f8f9fa;
+            padding: 40px;
             color: #333;
+        }
+
+        .outer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
         .container {
             background: white;
-            padding: 20px;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
             margin: auto;
+            border: 1px solid #ccc;
+        }
+
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .code-box {
-            border: 2px solid #007BFF;
-            padding: 15px;
-            margin-top: 10px;
-            font-size: 22px;
+            border: 2px solid #0056b3;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 24px;
             font-weight: bold;
-            color: #007BFF;
+            color: #0056b3;
             background: #e9f5ff;
             border-radius: 5px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+        }
+
+        .biblioteca {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .titulo {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
+
+        .intructions {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: justify;
         }
 
         .quote {
-            margin-top: 20px;
+            margin-top: 25px;
             font-style: italic;
-            font-size: 14px;
-            color: #555;
+            font-size: 16px;
+            color: #666;
         }
     </style>
 </head>
 <body>
-    <h1>Restablecimiento de Contraseña</h1>
-    <p><strong>Biblioteca El Saber</strong></p>
-    <div class="container">
-        <p><strong>Código de verificación</strong></p>
-        <div class="code-box"><strong>{codigo}</strong></string></div>
-        <p class="quote">"Un lector vive mil vidas antes de morir. Aquel que nunca lee vive solo una."<br>― George R.R. Martin</p>
+    <div class="outer-container">
+        <div class="container">
+            <div class="header">Restablecimiento de Contraseña</div>
+            <p class="biblioteca"><strong>Biblioteca El Saber</strong></p>
+            <p class="titulo"><strong>Código de verificación</strong></p>
+            <p class="intructions">Estimado usuario, se ha solicitado un restablecimiento de contraseña; a continuación se muestra el código de verificación:</p>
+            <div class="code-box">{codigo}</div>
+            <p class="quote">"Un lector vive mil vidas antes de morir. Aquel que nunca lee vive solo una."<br>― George R.R. Martin</p>
+        </div>
     </div>
 </body>
 </html>
