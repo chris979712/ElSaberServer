@@ -171,6 +171,18 @@ namespace ElSaberServices.Servicios
             return generosRecuperados;
         }
 
+        public int RegistrarNuevaEditorial(string editorial)
+        {
+            LibroOperaciones libroOperaciones=new LibroOperaciones();
+            return libroOperaciones.RegistrarNuevaEditorialEnLaBaseDeDatos(editorial);
+        }
+
+        public int RegistrarNuevoAutor(string autor)
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            return libroOperaciones.RegistrarNuevoAutorEnLaBaseDeDatos(autor);
+        }
+
         public int RegistrarNuevoLibro(LibroBinding libro)
         {
             LibroOperaciones libroOperaciones = new LibroOperaciones();

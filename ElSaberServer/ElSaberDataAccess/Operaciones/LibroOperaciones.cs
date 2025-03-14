@@ -376,5 +376,67 @@ namespace ElSaberDataAccess.Operaciones
             }
             return editorialesObtenidas;
         }
+
+        public int RegistrarNuevoAutorEnLaBaseDeDatos(string autor) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoInsercion = Constantes.ErrorEnLaOperacion;
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
+                {
+                    var nuevoAutor = new Autor
+                    {
+                        autor1 = autor,
+                    };
+                    contextoBaseDeDatos.Autor.Add(nuevoAutor);
+                    resultadoInsercion=contextoBaseDeDatos.SaveChanges();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoInsercion;
+        }
+
+        public int RegistrarNuevaEditorialEnLaBaseDeDatos(string editorial)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoInsercion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var nuevaEditorial = new Editorial 
+                    {
+                        editorial1 = editorial,
+                    };
+                    contextoBaseDeDatos.Editorial.Add(nuevaEditorial);
+                    resultadoInsercion = contextoBaseDeDatos.SaveChanges();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoInsercion;
+        }
     }
 }
