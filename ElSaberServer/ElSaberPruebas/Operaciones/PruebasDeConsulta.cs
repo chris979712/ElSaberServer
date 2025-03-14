@@ -3,6 +3,7 @@ using ElSaberDataAccess.Operaciones;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -162,6 +163,112 @@ namespace ElSaberServerTest.Operaciones
             int resultadoEsperado = 0;
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        /**
+         * Pruebas de consulta de libros
+         */
+        [Fact]
+        public void PruebaValidarExistenciaLibrosEnLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int resultadoEsperado = 1;
+            int resultadoObtenido = libroOperaciones.ValidarExistenciaLibrosEnLaBaseDeDatos();
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaObtenerIdLibroPorCodigoISBNExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string isbn = "9781501142970";
+            int resultadoObtenido = libroOperaciones.ObtenerIdLibroPorCodigoISBN(isbn);
+            Assert.True(resultadoObtenido > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarLibrosPorTituloExitosa() 
+        {
+            LibroOperaciones libroOperaciones=new LibroOperaciones();            
+            string titulo = "Eso";
+            List <Libro> librosObtenidos=new List<Libro>();
+            librosObtenidos=libroOperaciones.RecuperarLibrosPorTitulo(titulo);
+            Libro libro = librosObtenidos.FirstOrDefault();
+            Assert.True(libro.IdLibro>0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarLibrosPorISBNExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string isbn = "9781501142970";
+            List<Libro> librosObtenidos = new List<Libro>();
+            librosObtenidos = libroOperaciones.RecuperarLibrosPorISBN(isbn);
+            Libro libro = librosObtenidos.FirstOrDefault();
+            Assert.True(libro.IdLibro > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarLibrosPorIdAutorExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int idAutor = 1;
+            List<Libro> librosObtenidos = new List<Libro>();
+            librosObtenidos = libroOperaciones.RecuperarLibrosPorIdAutor(idAutor);
+            Libro libro = librosObtenidos.FirstOrDefault();
+            Assert.True(libro.IdLibro > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarLibrosPorIdGeneroExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int idGenero = 1;
+            List<Libro> librosObtenidos = new List<Libro>();
+            librosObtenidos = libroOperaciones.RecuperarLibrosPorIdGenero(idGenero);
+            Libro libro = librosObtenidos.FirstOrDefault();
+            Assert.True(libro.IdLibro > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarGenerosDeLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones=new LibroOperaciones();
+            List<Genero> generosObtenidos=libroOperaciones.RecuperarGenerosDeLaBaseDeDatos();
+            Genero genero = generosObtenidos.FirstOrDefault();
+            Assert.True(genero.IdGenero>0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarAutoresDeLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<Autor> autoresObtenidos = libroOperaciones.RecuperarAutoresDeLaBaseDeDatos();
+            Autor autor = autoresObtenidos.FirstOrDefault();
+            Assert.True(autor.IdAutor > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarEditorialesDeLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<Editorial> editorialesObtenidas = libroOperaciones.RecuperarEditorialesDeLaBaseDeDatos();
+            Editorial editorial = editorialesObtenidas.FirstOrDefault();
+            Assert.True(editorial.IdEditorial > 0);
+        }
+
+        /**
+         * Pruebas de consulta de prestamos
+         */
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosYVencidosPorNumeroSocioExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones=new PrestamoOperaciones();
+            int numeroSocio = 1;
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosYVencidosPorNumeroSocio(numeroSocio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo > 0);
+        }
+
     }
 
     public class DatabaseFixtureQuery : IDisposable
