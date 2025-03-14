@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,20 @@ namespace ElSaberPruebas.Excepcion
 {
     public class PruebaDeConsultasExcepcion
     {
+        /**
+         * Pruebas de consulta de Acceso
+         */
+        [Fact]
+        public void PruebaVerificarCredencialesExcepcion()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123");
+            int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
         /**
          * Pruebas de consulta de usuarios
          */

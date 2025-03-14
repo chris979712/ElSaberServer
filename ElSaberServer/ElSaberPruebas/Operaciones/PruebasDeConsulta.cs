@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,52 @@ namespace ElSaberServerTest.Operaciones
 
     public class PruebasDeConsulta : IClassFixture<DatabaseFixtureQuery>
     {
+
+        /**
+         * Pruebas de consulta de Acceso
+         */
+        [Fact]
+        public void PruebaVerificarCredencialesExitosa()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            string contraseniaEncriptada ="contraseniasecreta123"; 
+            int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaVerificarCredencialesInexistentesExitosa()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            string contraseniaEncriptada = Encriptado.hashToSHA2("secreto123");
+            int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
+            int resultadoEsperado = 0;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaVerificarCorreoExistente()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            int resultadoVerificacion = accesoOperaciones.VerificarCorreoExistente(usuario);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaVerificarCorreoInexistente()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez999@gmail.com";
+            int resultadoVerificacion = accesoOperaciones.VerificarCorreoExistente(usuario);
+            int resultadoEsperado = 0;
+            Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
         /**
          * Pruebas de consulta de usuarios
          */
@@ -228,7 +275,7 @@ namespace ElSaberServerTest.Operaciones
     {
         public DatabaseFixtureQuery()
         {
-            InsertarSociosPruebaDeConsulta();
+            //InsertarSociosPruebaDeConsulta();
         }
 
         public void InsertarSociosPruebaDeConsulta()
