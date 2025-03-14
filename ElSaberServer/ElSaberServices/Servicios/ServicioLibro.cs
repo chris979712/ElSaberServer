@@ -17,6 +17,22 @@ namespace ElSaberServices.Servicios
             return libroOperaciones.AumentarNumeroLibrosDisponiblesPorISBN(isbn);
         }
 
+        public List<EditorialBinding> ObtenerEditoriales()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<Editorial> editorialesObtenidas=libroOperaciones.RecuperarEditorialesDeLaBaseDeDatos();
+            List<EditorialBinding> editorialesRecuperadas = new List<EditorialBinding>();
+            foreach (Editorial editorialObtenida in editorialesObtenidas) 
+            {
+                editorialesRecuperadas.Add(new EditorialBinding
+                {
+                    IdEditorial=editorialObtenida.IdEditorial,
+                    Editorial=editorialObtenida.editorial1,
+                });
+            }
+            return editorialesRecuperadas;
+        }
+
         public int ObtenerIdLibroPorISBN(string isbn)
         {
             LibroOperaciones libroOperaciones = new LibroOperaciones();            

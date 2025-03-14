@@ -41,6 +41,9 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         List<AutorBinding> ObtenerListaDeAutores();
+
+        [OperationContract]
+        List<EditorialBinding> ObtenerEditoriales();
     }
 
     [DataContract]
@@ -99,5 +102,15 @@ namespace ElSaberServices.Contratos
 
         [DataMember]
         public string Autor { get; set; }
+    }
+
+    [DataContract]
+    public class EditorialBinding 
+    {
+        [DataMember]
+        public int IdEditorial { get; set; }
+
+        [DataMember]
+        public string Editorial { get; set; }  
     }
 }

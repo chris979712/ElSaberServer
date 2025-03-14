@@ -200,8 +200,17 @@ namespace ElSaberServerTest.Operaciones
             Assert.True(autor.IdAutor > 0);
         }
 
+        [Fact]
+        public void PruebaRecuperarEditorialesDeLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<Editorial> editorialesObtenidas = libroOperaciones.RecuperarEditorialesDeLaBaseDeDatos();
+            Editorial editorial = editorialesObtenidas.FirstOrDefault();
+            Assert.True(editorial.IdEditorial > 0);
+        }
+
         /**
-         * Pruebas de consulta de libros
+         * Pruebas de consulta de prestamos
          */
         [Fact]
         public void PruebaRecuperarPrestamosActivosYVencidosPorNumeroSocioExitosa() 

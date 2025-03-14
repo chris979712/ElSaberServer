@@ -1,5 +1,7 @@
 using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilidades;
+using ElSaberDataAccess.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +94,85 @@ namespace ElSaberPruebas.Excepcion
             };
             int resultadoObtenido = socioOperaciones.RegistrarNuevoSocio(socioNuevoPrueba, direccionNuevaSocio);
             int resultadoEsperado = 1;
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+        * Pruebas de registros de Libros
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarLibroEnLaBaseDeDatosExcepcionExitosa()
+        {
+            Libro libro = new Libro
+            {
+                titulo = "Eso",
+                isbn = "9781501142970",
+                FK_IdAutor = 1,
+                FK_IdEditorial = 1,
+                FK_IdGenero = 1,
+                anioDePublicacion = "1986",
+                numeroDePaginas = "1135",
+                rutaPortada = "eso.jpg",
+                estado = Enumeradores.EnumeradorEstadoLibro.Disponible.ToString(),
+                cantidadEjemplares = 1,
+                cantidadEjemplaresPrestados = Constantes.ValorPorDefecto,
+            };
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int resultadoEsperado = -1;
+            int resultadoObtenido = libroOperaciones.RegistrarLibroEnLaBaseDeDatos(libro);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaAumentarNumeroLibrosDisponiblesPorISBNExcepcionExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string isbn = "9781501142970";
+            int resultadoEsperado = -1;
+            int resultadoObtenido = libroOperaciones.AumentarNumeroLibrosDisponiblesPorISBN(isbn);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+        * Pruebas de registros de Prestamos
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarPrestamoEnLaBaseDeDatosExcepcionExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int resultadoEsperado = -1;
+            Prestamo prestamo = new Prestamo()
+            {
+                fechaPrestamo = DateTime.Today,
+                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
+                nota = "Buen libro",
+                FK_IdLibro = 1,
+                FK_IdSocio = 1,
+                FK_IdUsuario = 1,
+            };
+            int resultadoObtenido = prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        /**
+        * Pruebas de registros de Devolucion
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarDevolucionEnLaBaseDeDatosExitosa()
+        {
+            DevolucionOperaciones devolucionOperaciones = new DevolucionOperaciones();
+            int resultadoEsperado = -1;
+            Devolucion devolucion = new Devolucion()
+            {
+                FK_IdPrestamo = 1,
+                fechaDevolucion = DateTime.Today,
+                nota = "Nada",
+                estadoLibro = Enumeradores.EnumeradorEstadoLibro.Disponible.ToString(),
+            };
+            int resultadoObtenido = devolucionOperaciones.RegistrarDevolucionEnLaBaseDeDatos(devolucion);
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
     }

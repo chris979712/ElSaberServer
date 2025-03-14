@@ -348,5 +348,33 @@ namespace ElSaberDataAccess.Operaciones
             }
             return autoresObtenidos;
         }
+
+        public List<Editorial> RecuperarEditorialesDeLaBaseDeDatos() 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Editorial> editorialesObtenidas = new List<Editorial>();
+            Editorial editorial = new Editorial 
+            {
+                IdEditorial=Constantes.ErrorEnLaOperacion,
+            };
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    editorialesObtenidas = contextoBaseDeDatos.Editorial.ToList();
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                editorialesObtenidas.Add(editorial);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                editorialesObtenidas.Add(editorial);
+            }
+            return editorialesObtenidas;
+        }
     }
 }
