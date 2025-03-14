@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecimiento de Contraseña</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 40px;
+            color: #333;
+        }
+
+        .outer-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            margin: auto;
+            border: 2px solid #800020;
+        }
+
+        .header {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .code-box {
+            border: 2px solid #0056b3;
+            padding: 20px;
+            margin-top: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #0056b3;
+            background: #e9f5ff;
+            border-radius: 5px;
+            letter-spacing: 3px;
+            text-align: center;
+        }
+
+        .biblioteca {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 20px;
+            color: black;
+            text-align: center;
+        }
+
+        .titulo {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: center;
+        }
+
+        .intructions {
+            font-style: normal;
+            margin-top: 25px;
+            font-size: 16px;
+            color: black;
+            text-align: justify;
+        }
+
+        .quote {
+            margin-top: 25px;
+            font-style: italic;
+            font-size: 16px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="outer-container">
+        <div class="container">
+            <div class="header">Restablecimiento de Contraseña</div>
+            <p class="biblioteca"><strong>Biblioteca El Saber</strong></p>
+            <p class="titulo"><strong>Código de verificación</strong></p>
+            <p class="intructions">Estimado usuario, se ha solicitado un restablecimiento de contraseña; a continuación se muestra el código de verificación:</p>
+            <div class="code-box">{codigo}</div>
+            <p class="quote">"Un lector vive mil vidas antes de morir. Aquel que nunca lee vive solo una."<br>― George R.R. Martin</p>
+        </div>
+    </div>
+</body>
+</html>

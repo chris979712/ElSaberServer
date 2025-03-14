@@ -33,6 +33,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,22 +54,55 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\ElSaberProxy\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Excepcion\PruebaDeConsultasExcepcion.cs" />
     <Compile Include="Excepcion\PruebaDeInsercionExcepcion.cs" />
     <Compile Include="Excepcion\PruebaDeModificacionExcepcion.cs" />
+    <Compile Include="Operaciones\PruebaGeneradorDeContrasenias.cs" />
     <Compile Include="Operaciones\PruebasDeConsulta.cs" />
     <Compile Include="Operaciones\PruebasDeInsercion.cs" />
     <Compile Include="Operaciones\PruebasDeModificacion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servidor\PruebasRestablecimientoCuenta.cs" />
+    <Compile Include="Utilities\Encriptado.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElSaberDataAccess\ElSaberDataAccess.csproj">
       <Project>{cf2b7b57-b268-4f07-8557-c198473f318f}</Project>
       <Name>ElSaberDataAccess</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ElSaberServices\ElSaberServices.csproj">
+      <Project>{8d628501-e49e-4102-890a-dda538019c44}</Project>
+      <Name>ElSaberServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Connected Services\ElSaberProxy\ElSaberServices.wsdl" />
+    <None Include="Properties\DataSources\ElSaberServices.Contratos.SocioBinding.datasource" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\ElSaberProxy\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ElSaberProxy\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ElSaberProxy\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ElSaberProxy\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

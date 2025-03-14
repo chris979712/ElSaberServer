@@ -14,6 +14,11 @@ namespace ElSaberServices.Contratos
     {
         [OperationContract]
         int VerificarCredenciales(string correo, string telefono);
+        [OperationContract]
+        int VerificarCorreoExistente(string correo);
+        [OperationContract]
+        int ModificarContrasenia(string correo, string contrasenia);
+
     }
 
     [DataContract]
