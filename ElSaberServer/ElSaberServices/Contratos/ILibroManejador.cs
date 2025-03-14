@@ -44,6 +44,12 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         List<EditorialBinding> ObtenerEditoriales();
+
+        [OperationContract]
+        int RegistrarNuevoAutor(string autor);
+        
+        [OperationContract]
+        int RegistrarNuevaEditorial(string editorial);
     }
 
     [DataContract]

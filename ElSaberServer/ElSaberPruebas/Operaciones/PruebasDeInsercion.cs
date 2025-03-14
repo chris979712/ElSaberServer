@@ -137,6 +137,26 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
+        [Fact]
+        public void PruebaRegistrarNuevoAutorEnLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string autor = "George R.R. Martin";
+            int resultadoEsperado = 1;
+            int resultadoObtenido=libroOperaciones.RegistrarNuevoAutorEnLaBaseDeDatos(autor);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaRegistrarNuevaEditorialEnLaBaseDeDatosExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            string editorial = "Editores Mexicanos Unidos";
+            int resultadoEsperado = 1;
+            int resultadoObtenido = libroOperaciones.RegistrarNuevaEditorialEnLaBaseDeDatos(editorial);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
         /**
         * Pruebas de registros de Prestamos
         *
