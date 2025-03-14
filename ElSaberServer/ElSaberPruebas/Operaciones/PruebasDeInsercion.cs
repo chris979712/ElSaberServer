@@ -157,5 +157,25 @@ namespace ElSaberServerTest.Operaciones
             int resultadoObtenido = prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo);
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        /**
+        * Pruebas de registros de Devolucion
+        *
+        */
+        [Fact]
+        public void PruebaRegistrarDevolucionEnLaBaseDeDatosExitosa() 
+        {
+            DevolucionOperaciones devolucionOperaciones=new DevolucionOperaciones();
+            int resultadoEsperado = 1;
+            Devolucion devolucion = new Devolucion() 
+            {
+                FK_IdPrestamo=1,
+                fechaDevolucion=DateTime.Today,
+                nota="Nada",
+                estadoLibro=Enumeradores.EnumeradorEstadoLibro.Disponible.ToString(),
+            };
+            int resultadoObtenido = devolucionOperaciones.RegistrarDevolucionEnLaBaseDeDatos(devolucion);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
     }
 }

@@ -60,5 +60,36 @@ namespace ElSaberDataAccess.Operaciones
             }
             return resultadoInsercion;            
         }
+
+        public List<Prestamo> RecuperarPrestamosActivosYVencidosPorNumeroSocio(int numeroSocio) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Prestamo> prestamosObtenidos = new List<Prestamo>();
+            Prestamo prestamo = new Prestamo()
+            {
+                IdPrestamo = Constantes.ErrorEnLaOperacion,
+            };
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
+                {
+                    prestamosObtenidos = contextoBaseDeDatos.Prestamo
+                        .Where(entidad => entidad.FK_IdSocio == numeroSocio &&
+                        entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Activo.ToString() || 
+                        entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Vencido.ToString()).ToList();
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                prestamosObtenidos.Add(prestamo);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                prestamosObtenidos.Add(prestamo);
+            }
+            return prestamosObtenidos;
+        }
     }
 }

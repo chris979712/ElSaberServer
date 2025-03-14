@@ -150,5 +150,203 @@ namespace ElSaberDataAccess.Operaciones
             }
             return resultadoInsercion;
         }
+
+        public List<Libro> RecuperarLibrosPorTitulo(string titulo) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Libro> librosObtenidos= new List<Libro>();
+            Libro libro = new Libro()
+            {
+                IdLibro = Constantes.ErrorEnLaOperacion,
+            };
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
+                {
+                    librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.titulo.Contains(titulo)).ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                librosObtenidos.Add(libro);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                librosObtenidos.Add(libro);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                librosObtenidos.Add(libro);
+            }
+            return librosObtenidos;
+        }
+
+        public List<Libro> RecuperarLibrosPorISBN(string isbn)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Libro> librosObtenidos = new List<Libro>();
+            Libro libro = new Libro()
+            {
+                IdLibro = Constantes.ErrorEnLaOperacion,
+            };
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.isbn.Contains(isbn)).ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                librosObtenidos.Add(libro);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                librosObtenidos.Add(libro);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                librosObtenidos.Add(libro);
+            }
+            return librosObtenidos;
+        }
+
+        public List<Libro> RecuperarLibrosPorIdAutor(int idAutor)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Libro> librosObtenidos = new List<Libro>();
+            Libro libro = new Libro()
+            {
+                IdLibro = Constantes.ErrorEnLaOperacion,
+            };
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.FK_IdAutor==idAutor).ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                librosObtenidos.Add(libro);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                librosObtenidos.Add(libro);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                librosObtenidos.Add(libro);
+            }
+            return librosObtenidos;
+        }
+
+        public List<Libro> RecuperarLibrosPorIdGenero(int idGenero)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Libro> librosObtenidos = new List<Libro>();
+            Libro libro = new Libro()
+            {
+                IdLibro = Constantes.ErrorEnLaOperacion,
+            };
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.FK_IdGenero == idGenero).ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                librosObtenidos.Add(libro);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                librosObtenidos.Add(libro);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                librosObtenidos.Add(libro);
+            }
+            return librosObtenidos;
+        }
+
+        public List<Genero> RecuperarGenerosDeLaBaseDeDatos()
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Genero> generosObtenidos = new List<Genero>();
+            Genero genero = new Genero()
+            {
+                IdGenero = Constantes.ErrorEnLaOperacion,
+            };
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
+                {
+                    generosObtenidos=contextoBaseDeDatos.Genero.ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                generosObtenidos.Add(genero);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                generosObtenidos.Add(genero);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                generosObtenidos.Add(genero);
+            }
+            return generosObtenidos;
+        }
+
+        public List<Autor> RecuperarAutoresDeLaBaseDeDatos()
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Autor> autoresObtenidos = new List<Autor>();
+            Autor autor = new Autor()
+            {
+                IdAutor = Constantes.ErrorEnLaOperacion,
+            };
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    autoresObtenidos = contextoBaseDeDatos.Autor.ToList();
+                }
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                logger.LogWarn(dbUpdateException);
+                autoresObtenidos.Add(autor);
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                autoresObtenidos.Add(autor);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                autoresObtenidos.Add(autor);
+            }
+            return autoresObtenidos;
+        }
     }
 }
