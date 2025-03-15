@@ -6,6 +6,7 @@ using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
 using ElSaberDataAccess.Utilidades;
 using ElSaberPruebas.Utilities;
+using ElSaberDataAccess.Utilities;
 
 namespace ElSaberServerTest.Operaciones
 {

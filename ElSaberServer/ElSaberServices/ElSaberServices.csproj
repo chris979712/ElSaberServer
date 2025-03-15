@@ -60,11 +60,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contratos\IAccesoManejador.cs" />
+    <Compile Include="Contratos\IDevolucionManejador.cs" />
+    <Compile Include="Contratos\ILibroManejador.cs" />
+    <Compile Include="Contratos\IPrestamoManejador.cs" />
     <Compile Include="Contratos\IRestablecimientoCuentaManejador.cs" />
     <Compile Include="Contratos\IDireccionManejador.cs" />
     <Compile Include="Contratos\ISocioManejador.cs" />
     <Compile Include="Contratos\IUsuarioManejador.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicios\ServicioDevolucion.cs" />
+    <Compile Include="Servicios\ServicioLibro.cs" />
+    <Compile Include="Servicios\ServicioPrestamo.cs" />
     <Compile Include="Servicios\ServicioRestablecimientoCuenta.cs" />
     <Compile Include="Servicios\ServicioAcceso.cs" />
     <Compile Include="Servicios\ServicioDireccion.cs" />

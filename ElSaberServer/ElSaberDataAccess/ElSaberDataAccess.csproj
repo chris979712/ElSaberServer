@@ -98,7 +98,10 @@
       <DependentUpon>ElSaberDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Operaciones\AccesoOperaciones.cs" />
+    <Compile Include="Operaciones\DevolucionOperaciones.cs" />
     <Compile Include="Operaciones\DireccionOperaciones.cs" />
+    <Compile Include="Operaciones\LibroOperaciones.cs" />
+    <Compile Include="Operaciones\PrestamoOperaciones.cs" />
     <Compile Include="Operaciones\SocioOperaciones.cs" />
     <Compile Include="Operaciones\UsuarioOperaciones.cs" />
     <Compile Include="Prestamo.cs">
