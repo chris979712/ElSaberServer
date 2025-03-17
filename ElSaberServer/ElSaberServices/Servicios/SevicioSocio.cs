@@ -23,6 +23,7 @@ namespace ElSaberServices.Servicios
                 segundoApellido = socioObtenido.segundoApellido,
                 telefono = socioObtenido.telefono,
                 fechaDeInscripcion = socioObtenido.fechaInscripcion,
+                fechaDeNacimiento = socioObtenido.fechaNacimiento,
                 estado = socioObtenido.estado,
                 direccion = new DireccionBinding()
                 {
@@ -50,6 +51,7 @@ namespace ElSaberServices.Servicios
                     segundoApellido = socioObtenido.segundoApellido,
                     telefono = socioObtenido.telefono,
                     fechaDeInscripcion = socioObtenido.fechaInscripcion,
+                    fechaDeNacimiento = socioObtenido.fechaNacimiento,
                     estado = socioObtenido.estado,
                     direccion = new DireccionBinding()
                     {
@@ -73,7 +75,8 @@ namespace ElSaberServices.Servicios
                 primerApellido = socio.primerApellido,
                 segundoApellido = socio.segundoApellido,
                 telefono = socio.telefono,
-                fechaInscripcion = socio.fechaDeInscripcion
+                fechaInscripcion = socio.fechaDeInscripcion,
+                fechaNacimiento = socio.fechaDeNacimiento,
             };
             Direccion direccionNueva = new Direccion()
             {

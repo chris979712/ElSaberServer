@@ -107,6 +107,7 @@
           <Property Name="fechaInscripcion" Type="date" Nullable="false" />
           <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="FK_idDireccion" Type="int" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -446,6 +447,7 @@
           <Property Name="FK_idDireccion" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Direccion" Relationship="Self.FK_Dir" FromRole="Socio" ToRole="Direccion" />
           <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdSocio" FromRole="Socio" ToRole="Prestamo" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -771,6 +773,7 @@
           <EntitySetMapping Name="Socio">
             <EntityTypeMapping TypeName="ElSaberDBModel.Socio">
               <MappingFragment StoreEntitySet="Socio">
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
                 <ScalarProperty Name="numeroDeSocio" ColumnName="numeroDeSocio" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />

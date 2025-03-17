@@ -280,6 +280,8 @@ namespace ElSaberServerTest.Operaciones
 
         public void InsertarSociosPruebaDeConsulta()
         {
+            DateTime fechaDeNacimiento;
+            bool fecha = DateTime.TryParse("2004-09-12", out fechaDeNacimiento);
             SocioOperaciones socioOperaciones = new SocioOperaciones();
             Socio socioNuevoPrueba = new Socio()
             {
@@ -288,6 +290,7 @@ namespace ElSaberServerTest.Operaciones
                 segundoApellido = "Torres",
                 telefono = "123456789",
                 fechaInscripcion = DateTime.Now,
+                fechaNacimiento = fechaDeNacimiento,
             };
             Direccion direccionNuevaSocio = new Direccion()
             {
@@ -303,6 +306,7 @@ namespace ElSaberServerTest.Operaciones
                 segundoApellido = "Jimenez",
                 telefono = "987654321",
                 fechaInscripcion = DateTime.Now,
+                fechaNacimiento = fechaDeNacimiento,
             };
             Direccion direccionNuevaSocioDos = new Direccion()
             {
@@ -318,6 +322,7 @@ namespace ElSaberServerTest.Operaciones
                 segundoApellido = "Gonzalez",
                 telefono = "1122334455",
                 fechaInscripcion = DateTime.Now,
+                fechaNacimiento = fechaDeNacimiento,
             };
             Direccion direccionNuevaSocioTres = new Direccion()
             {

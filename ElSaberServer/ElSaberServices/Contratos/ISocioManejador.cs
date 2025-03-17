@@ -40,6 +40,8 @@ namespace ElSaberServices.Contratos
         [DataMember]
         public DateTime fechaDeInscripcion {  get; set; }
         [DataMember]
+        public DateTime fechaDeNacimiento {  get; set; }
+        [DataMember]
         public DireccionBinding direccion { get; set; }
     }
 }

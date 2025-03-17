@@ -47,6 +47,7 @@ namespace ElSaberDataAccess.Operaciones
                                     segundoApellido = socio.segundoApellido,
                                     telefono = socio.telefono,
                                     fechaInscripcion = socio.fechaInscripcion,
+                                    fechaNacimiento = socio.fechaNacimiento,
                                     estado = Enumeradores.EnumeradorEstadoUsuario.Activo.ToString(),
                                     FK_idDireccion = direccionIngresada.IdDireccion
                                 };

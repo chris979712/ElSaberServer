@@ -81,21 +81,24 @@ namespace ElSaberServerTest.Operaciones
         public void PruebaRegistrarNuevoSocioExitosa()
         {
             SocioOperaciones socioOperaciones = new SocioOperaciones();
-            Socio socioNuevoPrueba = new Socio()
-            {
-                nombre = "Maria",
-                primerApellido = "Rodriguez",
-                segundoApellido = "Acosta",
-                telefono = "123456789",
-                fechaInscripcion = DateTime.Now,
-            };
-            Direccion direccionNuevaSocio = new Direccion()
-            {
-                calle = "Jardines",
-                numero = "1",
-                codigoPostal = "91100",
-                ciudad = "Xalapa"
-            };
+            DateTime fechaDeNacimiento;
+            bool fecha = DateTime.TryParse("2004-09-12", out fechaDeNacimiento);
+                Socio socioNuevoPrueba = new Socio()
+                {
+                    nombre = "Maria",
+                    primerApellido = "Rodriguez",
+                    segundoApellido = "Acosta",
+                    telefono = "123456789",
+                    fechaInscripcion = DateTime.Now,
+                    fechaNacimiento = fechaDeNacimiento
+                };
+                Direccion direccionNuevaSocio = new Direccion()
+                {
+                    calle = "Jardines",
+                    numero = "1",
+                    codigoPostal = "91100",
+                    ciudad = "Xalapa"
+                };
             int resultadoObtenido = socioOperaciones.RegistrarNuevoSocio(socioNuevoPrueba, direccionNuevaSocio);
             int resultadoEsperado = 1;
             Assert.Equal(resultadoEsperado,resultadoObtenido);

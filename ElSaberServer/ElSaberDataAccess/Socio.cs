@@ -28,6 +28,7 @@ namespace ElSaberDataAccess
         public System.DateTime fechaInscripcion { get; set; }
         public string estado { get; set; }
         public int FK_idDireccion { get; set; }
+        public System.DateTime fechaNacimiento { get; set; }
     
         public virtual Direccion Direccion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
