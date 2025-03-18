@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -112,7 +113,7 @@ namespace ElSaberDataAccess.Operaciones
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             List<Socio> sociosObtenidos = new List<Socio>();
-            Socio errorEnLaConecion = new Socio()
+            Socio errorEnLaConexion = new Socio()
             {
                 numeroDeSocio = Constantes.ErrorEnLaOperacion
             };
@@ -146,22 +147,42 @@ namespace ElSaberDataAccess.Operaciones
                     }
                     if (sociosObtenidos.Count() == 0)
                     {
-                        sociosObtenidos.Add(new Socio()
+                        Socio socioSinCoincidencias = new Socio()
                         {
-                           numeroDeSocio = Constantes.SinResultadosEncontrados
-                        });
+                            numeroDeSocio = Constantes.SinResultadosEncontrados,
+                        };
+                        socioSinCoincidencias.Direccion = new Direccion()
+                        {
+                            IdDireccion = Constantes.SinResultadosEncontrados,
+                        };
+                        sociosObtenidos.Add(socioSinCoincidencias);
+                    }
+                    else
+                    {
+                        foreach (var socioObtenido in sociosObtenidos)
+                        {
+                            var socioDireccion = contextoBaseDeDatos.Direccion.Where(direccion => direccion.IdDireccion == socioObtenido.FK_idDireccion).FirstOrDefault();
+                            if (socioDireccion != null)
+                            {
+                                socioObtenido.Direccion = socioDireccion;
+                            }
+                            else
+                            {
+                                sociosObtenidos.Insert(0, errorEnLaConexion);
+                            }
+                        }
                     }
                 }
             }
             catch(SqlException sqlException)
             {
                 logger.LogError(sqlException);
-                sociosObtenidos.Add(errorEnLaConecion);
+                sociosObtenidos.Insert(0,errorEnLaConexion);
             }
             catch(EntityException entityException)
             {
                 logger.LogFatal(entityException);
-                sociosObtenidos.Add(errorEnLaConecion);
+                sociosObtenidos.Insert(0,errorEnLaConexion);
             }
             return sociosObtenidos;
         }
@@ -184,6 +205,10 @@ namespace ElSaberDataAccess.Operaciones
                     else
                     {
                         socioObtenido.numeroDeSocio = Constantes.SinResultadosEncontrados;
+                        socioObtenido.Direccion = new Direccion()
+                        {
+                            IdDireccion = Constantes.SinResultadosEncontrados
+                        };
                     }
                     
                 }

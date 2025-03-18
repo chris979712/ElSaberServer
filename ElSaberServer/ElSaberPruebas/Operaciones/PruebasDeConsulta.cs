@@ -275,7 +275,7 @@ namespace ElSaberServerTest.Operaciones
     {
         public DatabaseFixtureQuery()
         {
-            //InsertarSociosPruebaDeConsulta();
+            InsertarSociosPruebaDeConsulta();
         }
 
         public void InsertarSociosPruebaDeConsulta()

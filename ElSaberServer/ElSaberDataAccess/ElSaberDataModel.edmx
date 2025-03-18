@@ -62,13 +62,13 @@
           </Key>
           <Property Name="IdLibro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="isbn" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="isbn" Type="varchar" MaxLength="13" />
           <Property Name="FK_IdAutor" Type="int" Nullable="false" />
           <Property Name="FK_IdEditorial" Type="int" Nullable="false" />
           <Property Name="FK_IdGenero" Type="int" Nullable="false" />
           <Property Name="anioDePublicacion" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="numeroDePaginas" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="rutaPortada" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="rutaPortada" Type="text" Nullable="false" />
           <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="cantidadEjemplares" Type="int" Nullable="false" />
           <Property Name="cantidadEjemplaresPrestados" Type="int" />
@@ -390,13 +390,13 @@
           </Key>
           <Property Name="IdLibro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="titulo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="isbn" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isbn" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="FK_IdAutor" Type="Int32" Nullable="false" />
           <Property Name="FK_IdEditorial" Type="Int32" Nullable="false" />
           <Property Name="FK_IdGenero" Type="Int32" Nullable="false" />
           <Property Name="anioDePublicacion" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="numeroDePaginas" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="rutaPortada" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rutaPortada" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cantidadEjemplares" Type="Int32" Nullable="false" />
           <Property Name="cantidadEjemplaresPrestados" Type="Int32" />

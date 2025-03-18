@@ -120,7 +120,7 @@ namespace ElSaberServerTest.Operaciones
                 FK_IdGenero = 1,
                 anioDePublicacion = "1986",
                 numeroDePaginas = "1135",
-                rutaPortada = "eso.jpg",
+                rutaPortada = "\"D:\\\\Users\\\\Chris\\\\Repos\\\\Elsaberclient\\\\ClienteBiblioteca\\\\ImagenesLibro\\\\El quijote.jpg\"",
                 estado = Enumeradores.EnumeradorEstadoLibro.Disponible.ToString(),
                 cantidadEjemplares = 1,
                 cantidadEjemplaresPrestados=Constantes.ValorPorDefecto,
