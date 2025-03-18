@@ -75,9 +75,11 @@ namespace ElSaberDataAccess.Operaciones
                 using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
                 {
                     prestamosObtenidos = contextoBaseDeDatos.Prestamo
-                        .Where(entidad => entidad.FK_IdSocio == numeroSocio &&
-                        entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Activo.ToString() || 
-                        entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Vencido.ToString()).ToList();
+                    .Where(entidad => entidad.FK_IdSocio == numeroSocio &&
+                    (entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Activo.ToString() ||
+                    entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Vencido.ToString()))
+                    .ToList();
+
                 }
             }
             catch (SqlException sqlException)
