@@ -37,8 +37,7 @@ namespace ElSaberServices.Servicios
         {
             Prestamo nuevoPrestamo = new Prestamo() 
             {
-                fechaPrestamo=prestamo.FechaPrestamo,
-                estado=prestamo.Estado,
+                fechaPrestamo=prestamo.FechaPrestamo,                
                 fechaDevolucionEsperada=prestamo.FechaDevolucionEsperada,
                 nota=prestamo.Nota,
                 FK_IdLibro=prestamo.FK_IdLibro,
@@ -47,6 +46,12 @@ namespace ElSaberServices.Servicios
             };
             PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
             return prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(nuevoPrestamo);
+        }
+
+        public int ValidarPrestamosVencidosPorNumeroSocio(int numeroSocio)
+        {
+            PrestamoOperaciones prestamoOperaciones=new PrestamoOperaciones();
+            return prestamoOperaciones.ValidarExistenciaPrestamosVencidosPorNumeroSocio(numeroSocio);
         }
     }
 }

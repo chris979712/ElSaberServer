@@ -50,6 +50,12 @@ namespace ElSaberServices.Contratos
         
         [OperationContract]
         int RegistrarNuevaEditorial(string editorial);
+
+        [OperationContract]
+        int ValidarDisponibilidadPorIdLibro(int idLibro);
+
+        [OperationContract]
+        string ObtenerTituloPorIdLibro(int idLibro);
     }
 
     [DataContract]

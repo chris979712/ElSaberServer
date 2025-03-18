@@ -1,4 +1,5 @@
-﻿using ElSaberDataAccess.Utilities;
+﻿using ElSaberDataAccess.Utilidades;
+using ElSaberDataAccess.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -20,6 +21,12 @@ namespace ElSaberDataAccess.Operaciones
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
                 {
+
+                    var prestamo = contextoBaseDeDatos.Prestamo.FirstOrDefault(entidad => entidad.IdPrestamo == devolucion.FK_IdPrestamo);
+                    if (prestamo != null) 
+                    {
+                        prestamo.estado = Enumeradores.EnumeradoEstadoPrestamo.Devuelto.ToString();
+                    }                    
                     var nuevaDevolucion = new Devolucion() 
                     {
                         FK_IdPrestamo=devolucion.FK_IdPrestamo,

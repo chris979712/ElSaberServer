@@ -171,6 +171,12 @@ namespace ElSaberServices.Servicios
             return generosRecuperados;
         }
 
+        public string ObtenerTituloPorIdLibro(int idLibro)
+        {
+            LibroOperaciones libroOperaciones=new LibroOperaciones();
+            return libroOperaciones.ObtenerTituloLibroPorId(idLibro);
+        }
+
         public int RegistrarNuevaEditorial(string editorial)
         {
             LibroOperaciones libroOperaciones=new LibroOperaciones();
@@ -195,11 +201,16 @@ namespace ElSaberServices.Servicios
                 FK_IdGenero=libro.FK_IdGenero,  
                 anioDePublicacion=libro.AnioDePublicacion,
                 numeroDePaginas=libro.NumeroDePaginas,
-                rutaPortada=libro.RutaPortada,
-                estado=libro.Estado,
+                rutaPortada=libro.RutaPortada,                
                 cantidadEjemplares=libro.CantidadEjemplares,
             };
             return libroOperaciones.RegistrarLibroEnLaBaseDeDatos(nuevoLibro);
+        }
+
+        public int ValidarDisponibilidadPorIdLibro(int idLibro)
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            return libroOperaciones.ValidarLibroDisponiblePorIdLibro(idLibro);
         }
 
         public int ValidarExistenciaDeLibros()
