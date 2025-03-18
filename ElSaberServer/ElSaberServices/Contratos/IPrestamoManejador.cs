@@ -16,6 +16,9 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         List<PrestamoBinding> ObtenerPrestamosActivosYVencidosPorNumeroSocio(int numeroSocio);
+
+        [OperationContract]
+        int ValidarPrestamosVencidosPorNumeroSocio(int numeroSocio);
     }
 
     [DataContract]

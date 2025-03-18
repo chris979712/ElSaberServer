@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess.Utilidades;
 using ElSaberDataAccess.Utilities;
+using log4net.Repository.Hierarchy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -90,6 +91,30 @@ namespace ElSaberDataAccess.Operaciones
                 prestamosObtenidos.Add(prestamo);
             }
             return prestamosObtenidos;
+        }
+
+        public int ValidarExistenciaPrestamosVencidosPorNumeroSocio(int numeroSocio) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoValidacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    bool tienePrestamosVencidos = contextoBaseDeDatos.Prestamo
+                    .Any(entidad => entidad.FK_IdSocio == numeroSocio && entidad.estado == Enumeradores.EnumeradoEstadoPrestamo.Vencido.ToString());
+                    resultadoValidacion = tienePrestamosVencidos ? Constantes.OperacionExitosa : Constantes.ValorPorDefecto;
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);                
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);                
+            }
+            return resultadoValidacion;
         }
     }
 }

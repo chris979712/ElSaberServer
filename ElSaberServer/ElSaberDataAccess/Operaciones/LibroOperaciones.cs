@@ -438,5 +438,57 @@ namespace ElSaberDataAccess.Operaciones
             }
             return resultadoInsercion;
         }
+
+        public int ValidarLibroDisponiblePorIdLibro(int idLibro) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoValidacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var cantidadEjemplares = contextoBaseDeDatos.Libro
+                    .Where(entidad => entidad.IdLibro == idLibro)
+                    .Select(entidad => entidad.cantidadEjemplares)
+                    .FirstOrDefault();                    
+                    resultadoValidacion = (cantidadEjemplares > Constantes.ValorPorDefecto) ? Constantes.OperacionExitosa : Constantes.ValorPorDefecto;
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoValidacion;
+        }
+
+        public string ObtenerTituloLibroPorId(int idLibro) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            string tituloLibro = Constantes.ErrorConexion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var libro = contextoBaseDeDatos.Libro.FirstOrDefault(entidad => entidad.IdLibro == idLibro);                    
+                    if (libro != null)
+                    {
+                        tituloLibro = libro.titulo;
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return tituloLibro;
+        }
     }
 }

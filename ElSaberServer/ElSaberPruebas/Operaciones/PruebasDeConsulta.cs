@@ -256,6 +256,36 @@ namespace ElSaberServerTest.Operaciones
             Assert.True(editorial.IdEditorial > 0);
         }
 
+        [Fact]
+        public void PruebaValidarLibroDisponiblePorIdLibroExitosa() 
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int idLibro = 2;
+            int resultadoEsperado = 1;
+            int resultadoObtenido = libroOperaciones.ValidarLibroDisponiblePorIdLibro(idLibro);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaValidarExistenciaPrestamosVencidosPorNumeroSocioExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int numeroSocio = 1;
+            int resultadoEsperado = 0;
+            int resultadoObtenido = prestamoOperaciones.ValidarExistenciaPrestamosVencidosPorNumeroSocio(numeroSocio);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaObtenerTituloLibroPorIdExitosa() 
+        {
+            LibroOperaciones libroOperaciones=new LibroOperaciones();
+            int idLibro = 1;
+            string resultadoEsperado = "Eso";
+            string resultadoObtenido = libroOperaciones.ObtenerTituloLibroPorId(idLibro);
+            Assert.Equal(resultadoEsperado,resultadoObtenido);            
+        }
+
         /**
          * Pruebas de consulta de prestamos
          */
