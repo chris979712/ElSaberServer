@@ -1,4 +1,5 @@
 ﻿using ElSaberDataAccess.Utilities;
+using ElSaberDataAccess.Utilidades;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -101,6 +102,52 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return resultadoModificacion;
+        }
+
+        public DatosUsuario IniciarSesion(string correo, string contrasenia)
+        {
+            DatosUsuario usuario = new DatosUsuario()
+            {
+                IdAcceso = Constantes.ErrorEnLaOperacion
+            };
+
+            LoggerManager logger = new LoggerManager(this.GetType());
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var usuarioObtenido = contextoBaseDeDatos.Acceso.Where(acceso => acceso.correo == correo && acceso.contrasenia == contrasenia).Join(
+                        contextoBaseDeDatos.Usuario, acceso => acceso.FK_IdUsuario, u => u.IdUsuario, (acceso, u) => new DatosUsuario
+                        {
+                            IdAcceso = acceso.IdAcceso,
+                            Correo = acceso.correo,
+                            TipoDeUsuario = acceso.tipoDeUsuario,
+                            FK_IdUsuario = u.IdUsuario,
+                            Nombre = u.nombre,
+                            PrimerApellido = u.primerApellido,
+                            SegundoApellido = u.segundoApellido,
+                            Puesto = u.puesto
+                        }).FirstOrDefault();
+                    
+                    if (usuarioObtenido != null)
+                    {
+                        usuario = usuarioObtenido;
+                    }
+                    else
+                    {
+                        usuario.IdAcceso = Constantes.SinResultadosEncontrados;
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return usuario;
         }
     }
 }

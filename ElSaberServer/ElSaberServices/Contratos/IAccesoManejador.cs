@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElSaberDataAccess;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace ElSaberServices.Contratos
         [OperationContract]
         int ModificarContrasenia(string correo, string contrasenia);
 
+        [OperationContract]
+        AccesoBinding IniciarSesion(string correo, string contrasenia);
     }
 
     [DataContract]

@@ -1,8 +1,11 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilidades;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +27,14 @@ namespace ElSaberPruebas.Excepcion
             int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(usuario, contraseniaEncriptada);
             int resultadoEsperado = 1;
             Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaIniciarSesionEntityException()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            DatosUsuario datosUsuario = accesoOperaciones.IniciarSesion("ejemplo@prueba.com", "secreto123");
+            Assert.True(datosUsuario.IdAcceso == -1);
         }
 
         /**
