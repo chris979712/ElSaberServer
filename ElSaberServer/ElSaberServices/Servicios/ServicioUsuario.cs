@@ -17,8 +17,8 @@ namespace ElSaberServices.Servicios
             Usuario usuarioNuevo = new Usuario()
             {
                 nombre = usuario.nombre,
-                primerApellido = usuario.nombre,
-                segundoApellido = usuario.nombre,
+                primerApellido = usuario.primerApellido,
+                segundoApellido = usuario.segundoApellido,
                 telefono = usuario.telefono,
                 puesto = usuario.puesto,
             };

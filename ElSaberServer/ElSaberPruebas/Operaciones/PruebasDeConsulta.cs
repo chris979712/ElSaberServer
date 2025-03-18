@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilidades;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,42 @@ namespace ElSaberServerTest.Operaciones
             int resultadoVerificacion = accesoOperaciones.VerificarCorreoExistente(usuario);
             int resultadoEsperado = 0;
             Assert.Equal(resultadoEsperado, resultadoVerificacion);
+        }
+
+        [Fact]
+        public void PruebaIniciarSesionExitosa()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string usuario = "chrisvasquez985@gmail.com";
+            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123");
+            DatosUsuario usuarioObtenido = accesoOperaciones.IniciarSesion(usuario, contraseniaEncriptada);
+            int resultadoOperacion = -1;
+            Assert.NotNull(usuarioObtenido);
+            Assert.NotEqual(resultadoOperacion, usuarioObtenido.IdAcceso);
+        }
+
+        [Fact]
+        public void PruebaIniciarSesionCorreoIncorrecto()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string correo = "chrisvasquez999@gmail.com";
+            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123");
+            DatosUsuario usuarioObtenido = accesoOperaciones.IniciarSesion(correo, contraseniaEncriptada);
+            int resultadoEsperado = 0;
+            Assert.NotNull(usuarioObtenido);
+            Assert.Equal(resultadoEsperado, usuarioObtenido.IdAcceso);
+        }
+
+        [Fact]
+        public void PruebaIniciarSesionContraseniaIncorrecta()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            string correo = "chrisvasquez985@gmail.com";
+            string contraseniaEncriptada = Encriptado.hashToSHA2("secreto123");
+            DatosUsuario usuarioObtenido = accesoOperaciones.IniciarSesion(correo, contraseniaEncriptada);
+            int resultadoEsperado = 0;
+            Assert.NotNull(usuarioObtenido);
+            Assert.Equal(resultadoEsperado, usuarioObtenido.IdAcceso);
         }
 
         /**

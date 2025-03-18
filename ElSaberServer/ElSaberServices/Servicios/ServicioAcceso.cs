@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilidades;
 
 namespace ElSaberServices.Servicios
 {
@@ -30,6 +31,27 @@ namespace ElSaberServices.Servicios
             AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
             int resultadoVerificacion = accesoOperaciones.VerificarCredenciales(correo, telefono);
             return resultadoVerificacion;
+        }
+
+        public AccesoBinding IniciarSesion(string correo, string contrasenia)
+        {
+            AccesoOperaciones accesoOperaciones= new AccesoOperaciones();
+            DatosUsuario usuario = accesoOperaciones.IniciarSesion(correo, contrasenia);
+            AccesoBinding accesoBinding = new AccesoBinding()
+            {
+                IdAcceso = usuario.IdAcceso,
+                correo = usuario.Correo,
+                tipoDeUsuario = usuario.TipoDeUsuario,
+                IdUsuario = new UsuarioBinding
+                {
+                    IdUsuario = usuario.FK_IdUsuario,
+                    nombre = usuario.Nombre,
+                    primerApellido = usuario.PrimerApellido,
+                    segundoApellido = usuario.SegundoApellido,
+                    puesto = usuario.Puesto,
+                },
+            };
+            return accesoBinding;
         }
     }
 }
