@@ -62,19 +62,21 @@ namespace ElSaberServices.Contratos
     public class LibroBinding
     {
         [DataMember]
+        public int idLibro { get; set; }
+        [DataMember]
         public string Titulo { get; set; }
 
         [DataMember]
         public string Isbn { get; set; }
 
         [DataMember]
-        public int FK_IdAutor { get; set; }
+        public AutorBinding autor { get; set; }
 
         [DataMember]
-        public int FK_IdEditorial { get; set; }
+        public EditorialBinding editorial { get; set; }
 
         [DataMember]
-        public int FK_IdGenero { get; set; }
+        public GeneroBinding genero { get; set; }
 
         [DataMember]
         public string AnioDePublicacion { get; set; }

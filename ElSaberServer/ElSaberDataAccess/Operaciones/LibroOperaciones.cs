@@ -155,15 +155,29 @@ namespace ElSaberDataAccess.Operaciones
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             List<Libro> librosObtenidos= new List<Libro>();
-            Libro libro = new Libro()
-            {
-                IdLibro = Constantes.ErrorEnLaOperacion,
-            };
+            Libro libro = CrearLibroExcepcion();
             try 
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities()) 
                 {
                     librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.titulo.Contains(titulo)).ToList();
+                    if(librosObtenidos.Count > 0)
+                    {
+                        foreach (Libro libroObtenido in librosObtenidos)
+                        {
+                            Autor autor = contextoBaseDeDatos.Autor.Where(autorbd => autorbd.IdAutor == libroObtenido.FK_IdAutor).FirstOrDefault();
+                            libroObtenido.Autor = autor;
+                            Genero genero = contextoBaseDeDatos.Genero.Where(generobd => generobd.IdGenero == libroObtenido.FK_IdGenero).FirstOrDefault();
+                            libroObtenido.Genero = genero;
+                            Editorial editorial = contextoBaseDeDatos.Editorial.Where(editorialbd => editorialbd.IdEditorial == libroObtenido.FK_IdEditorial).FirstOrDefault();
+                            libroObtenido.Editorial = editorial;
+                        }
+                    }
+                    else
+                    {
+                        Libro libroSinCoincidencias = CrearLibroSinCoincidencias();
+                        librosObtenidos.Add(libroSinCoincidencias);
+                    }
                 }
             }
             catch (DbUpdateException dbUpdateException)
@@ -188,15 +202,29 @@ namespace ElSaberDataAccess.Operaciones
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             List<Libro> librosObtenidos = new List<Libro>();
-            Libro libro = new Libro()
-            {
-                IdLibro = Constantes.ErrorEnLaOperacion,
-            };
+            Libro libro = CrearLibroExcepcion();
             try
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.isbn.Contains(isbn)).ToList();
+                    if (librosObtenidos.Count > 0)
+                    {
+                        foreach (Libro libroObtenido in librosObtenidos)
+                        {
+                            Autor autor = contextoBaseDeDatos.Autor.Where(autorbd => autorbd.IdAutor == libroObtenido.FK_IdAutor).FirstOrDefault();
+                            libroObtenido.Autor = autor;
+                            Genero genero = contextoBaseDeDatos.Genero.Where(generobd => generobd.IdGenero == libroObtenido.FK_IdGenero).FirstOrDefault();
+                            libroObtenido.Genero = genero;
+                            Editorial editorial = contextoBaseDeDatos.Editorial.Where(editorialbd => editorialbd.IdEditorial == libroObtenido.FK_IdEditorial).FirstOrDefault();
+                            libroObtenido.Editorial = editorial;
+                        }
+                    }
+                    else
+                    {
+                        Libro libroSinCoincidencias = CrearLibroSinCoincidencias();
+                        librosObtenidos.Add(libroSinCoincidencias);
+                    }
                 }
             }
             catch (DbUpdateException dbUpdateException)
@@ -221,15 +249,29 @@ namespace ElSaberDataAccess.Operaciones
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             List<Libro> librosObtenidos = new List<Libro>();
-            Libro libro = new Libro()
-            {
-                IdLibro = Constantes.ErrorEnLaOperacion,
-            };
+            Libro libro = CrearLibroExcepcion();
             try
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.FK_IdAutor==idAutor).ToList();
+                    if (librosObtenidos.Count > 0)
+                    {
+                        foreach (Libro libroObtenido in librosObtenidos)
+                        {
+                            Autor autor = contextoBaseDeDatos.Autor.Where(autorbd => autorbd.IdAutor == libroObtenido.FK_IdAutor).FirstOrDefault();
+                            libroObtenido.Autor = autor;
+                            Genero genero = contextoBaseDeDatos.Genero.Where(generobd => generobd.IdGenero == libroObtenido.FK_IdGenero).FirstOrDefault();
+                            libroObtenido.Genero = genero;
+                            Editorial editorial = contextoBaseDeDatos.Editorial.Where(editorialbd => editorialbd.IdEditorial == libroObtenido.FK_IdEditorial).FirstOrDefault();
+                            libroObtenido.Editorial = editorial;
+                        }
+                    }
+                    else
+                    {
+                        Libro libroSinCoincidencias = CrearLibroSinCoincidencias();
+                        librosObtenidos.Add(libroSinCoincidencias);
+                    }
                 }
             }
             catch (DbUpdateException dbUpdateException)
@@ -254,15 +296,29 @@ namespace ElSaberDataAccess.Operaciones
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             List<Libro> librosObtenidos = new List<Libro>();
-            Libro libro = new Libro()
-            {
-                IdLibro = Constantes.ErrorEnLaOperacion,
-            };
+            Libro libro = CrearLibroExcepcion();
             try
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
                     librosObtenidos = contextoBaseDeDatos.Libro.Where(entidad => entidad.FK_IdGenero == idGenero).ToList();
+                    if (librosObtenidos.Count > 0)
+                    {
+                        foreach (Libro libroObtenido in librosObtenidos)
+                        {
+                            Autor autor = contextoBaseDeDatos.Autor.Where(autorbd => autorbd.IdAutor == libroObtenido.FK_IdAutor).FirstOrDefault();
+                            libroObtenido.Autor = autor;
+                            Genero genero = contextoBaseDeDatos.Genero.Where(generobd => generobd.IdGenero == libroObtenido.FK_IdGenero).FirstOrDefault();
+                            libroObtenido.Genero = genero;
+                            Editorial editorial = contextoBaseDeDatos.Editorial.Where(editorialbd => editorialbd.IdEditorial == libroObtenido.FK_IdEditorial).FirstOrDefault();
+                            libroObtenido.Editorial = editorial;
+                        }
+                    }
+                    else
+                    {
+                        Libro libroSinCoincidencias = CrearLibroSinCoincidencias();
+                        librosObtenidos.Add(libroSinCoincidencias);
+                    }
                 }
             }
             catch (DbUpdateException dbUpdateException)
@@ -489,6 +545,76 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return tituloLibro;
+        }
+
+        private Libro CrearLibroSinCoincidencias()
+        {
+            Editorial editorial = new Editorial()
+            {
+                IdEditorial = Constantes.SinResultadosEncontrados,
+                editorial1 = " "
+            };
+            Autor autor = new Autor()
+            {
+                IdAutor = Constantes.SinResultadosEncontrados,
+                autor1 = " "
+            };
+            Genero genero = new Genero()
+            {
+                IdGenero = Constantes.SinResultadosEncontrados,
+                genero1 = " "
+            };
+            Libro libroSinCoincidencias = new Libro()
+            {
+                IdLibro = Constantes.SinResultadosEncontrados,
+                Genero = genero,
+                Autor = autor,
+                Editorial = editorial,
+                titulo = " ",
+                anioDePublicacion = " ",
+                cantidadEjemplares = 0,
+                cantidadEjemplaresPrestados = 0,
+                estado = " ",
+                numeroDePaginas = " ",
+                rutaPortada = " ",
+                isbn = " ",
+            };
+            return libroSinCoincidencias;
+        }
+
+        private Libro CrearLibroExcepcion()
+        {
+            Editorial editorial = new Editorial()
+            {
+                IdEditorial = Constantes.ErrorEnLaOperacion,
+                editorial1 = " "
+            };
+            Autor autor = new Autor()
+            {
+                IdAutor = Constantes.ErrorEnLaOperacion,
+                autor1 = " "
+            };
+            Genero genero = new Genero()
+            {
+                IdGenero = Constantes.ErrorEnLaOperacion,
+                genero1 = " "
+            };
+            Libro libroSinCoincidencias = new Libro()
+            {
+                IdLibro = Constantes.ErrorEnLaOperacion,
+                Genero = genero,
+                Autor = autor,
+                Editorial = editorial,
+                titulo = " ",
+                anioDePublicacion = " ",
+                cantidadEjemplares = 0,
+                cantidadEjemplaresPrestados = 0,
+                estado = " ",
+                numeroDePaginas = " ",
+                rutaPortada = " ",
+                isbn = " ",
+            };
+            return libroSinCoincidencias;
         }
     }
 }

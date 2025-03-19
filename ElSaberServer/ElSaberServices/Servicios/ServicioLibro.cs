@@ -46,20 +46,37 @@ namespace ElSaberServices.Servicios
             List<LibroBinding> librosRecibidos = new List<LibroBinding>();
             foreach (Libro libroObtenido in librosObtenidos) 
             {
-                librosRecibidos.Add(new LibroBinding()
+                AutorBinding autorBinding = new AutorBinding()
                 {
-                    Titulo=libroObtenido.titulo,
-                    Isbn=libroObtenido.isbn,
-                    FK_IdAutor=libroObtenido.FK_IdAutor,
-                    FK_IdEditorial=libroObtenido.FK_IdEditorial,
-                    FK_IdGenero=libroObtenido.FK_IdGenero,
-                    AnioDePublicacion=libroObtenido.anioDePublicacion,
-                    NumeroDePaginas=libroObtenido.numeroDePaginas,
-                    RutaPortada=libroObtenido.rutaPortada,
-                    Estado=libroObtenido.estado,
-                    CantidadEjemplares=libroObtenido.cantidadEjemplares,
-                    CantidadEjemplaresPrestados= (int)libroObtenido.cantidadEjemplaresPrestados,
-                });
+                    IdAutor = libroObtenido.Autor.IdAutor,
+                    Autor = libroObtenido.Autor.autor1
+                };
+                GeneroBinding generoBinding = new GeneroBinding()
+                {
+                    IdGenero = libroObtenido.Genero.IdGenero,
+                    Genero = libroObtenido.Genero.genero1
+                };
+                EditorialBinding editorialBinding = new EditorialBinding()
+                {
+                    IdEditorial = libroObtenido.Editorial.IdEditorial,
+                    Editorial = libroObtenido.Editorial.editorial1
+                };
+                LibroBinding libro = new LibroBinding()
+                {
+                    idLibro = libroObtenido.IdLibro,
+                    Titulo = libroObtenido.titulo,
+                    Isbn = libroObtenido.isbn,
+                    editorial = editorialBinding,
+                    genero = generoBinding,
+                    autor = autorBinding,
+                    AnioDePublicacion = libroObtenido.anioDePublicacion,
+                    NumeroDePaginas = libroObtenido.numeroDePaginas,
+                    RutaPortada = libroObtenido.rutaPortada,
+                    Estado = libroObtenido.estado,
+                    CantidadEjemplares = libroObtenido.cantidadEjemplares,
+                    CantidadEjemplaresPrestados = (int)libroObtenido.cantidadEjemplaresPrestados,
+                };
+                librosRecibidos.Add(libro);
             }
             return librosRecibidos;
         }
@@ -71,20 +88,37 @@ namespace ElSaberServices.Servicios
             List<LibroBinding> librosRecibidos = new List<LibroBinding>();
             foreach (Libro libroObtenido in librosObtenidos)
             {
-                librosRecibidos.Add(new LibroBinding()
+                AutorBinding autorBinding = new AutorBinding()
                 {
+                    IdAutor = libroObtenido.Autor.IdAutor,
+                    Autor = libroObtenido.Autor.autor1
+                };
+                GeneroBinding generoBinding = new GeneroBinding()
+                {
+                    IdGenero = libroObtenido.Genero.IdGenero,
+                    Genero = libroObtenido.Genero.genero1
+                };
+                EditorialBinding editorialBinding = new EditorialBinding()
+                {
+                    IdEditorial = libroObtenido.Editorial.IdEditorial,
+                    Editorial = libroObtenido.Editorial.editorial1
+                };
+                LibroBinding libro = new LibroBinding()
+                {
+                    idLibro = libroObtenido.IdLibro,
                     Titulo = libroObtenido.titulo,
                     Isbn = libroObtenido.isbn,
-                    FK_IdAutor = libroObtenido.FK_IdAutor,
-                    FK_IdEditorial = libroObtenido.FK_IdEditorial,
-                    FK_IdGenero = libroObtenido.FK_IdGenero,
+                    editorial = editorialBinding,
+                    genero = generoBinding,
+                    autor = autorBinding,
                     AnioDePublicacion = libroObtenido.anioDePublicacion,
                     NumeroDePaginas = libroObtenido.numeroDePaginas,
                     RutaPortada = libroObtenido.rutaPortada,
                     Estado = libroObtenido.estado,
                     CantidadEjemplares = libroObtenido.cantidadEjemplares,
                     CantidadEjemplaresPrestados = (int)libroObtenido.cantidadEjemplaresPrestados,
-                });
+                };
+                librosRecibidos.Add(libro);
             }
             return librosRecibidos;
         }
@@ -96,20 +130,37 @@ namespace ElSaberServices.Servicios
             List<LibroBinding> librosRecibidos = new List<LibroBinding>();
             foreach (Libro libroObtenido in librosObtenidos)
             {
-                librosRecibidos.Add(new LibroBinding()
+                AutorBinding autorBinding = new AutorBinding()
                 {
+                    IdAutor = libroObtenido.Autor.IdAutor,
+                    Autor = libroObtenido.Autor.autor1
+                };
+                GeneroBinding generoBinding = new GeneroBinding()
+                {
+                    IdGenero = libroObtenido.Genero.IdGenero,
+                    Genero = libroObtenido.Genero.genero1
+                };
+                EditorialBinding editorialBinding = new EditorialBinding()
+                {
+                    IdEditorial = libroObtenido.Editorial.IdEditorial,
+                    Editorial = libroObtenido.Editorial.editorial1
+                };
+                LibroBinding libro = new LibroBinding()
+                {
+                    idLibro = libroObtenido.IdLibro,
                     Titulo = libroObtenido.titulo,
                     Isbn = libroObtenido.isbn,
-                    FK_IdAutor = libroObtenido.FK_IdAutor,
-                    FK_IdEditorial = libroObtenido.FK_IdEditorial,
-                    FK_IdGenero = libroObtenido.FK_IdGenero,
+                    editorial = editorialBinding,
+                    genero = generoBinding,
+                    autor = autorBinding,
                     AnioDePublicacion = libroObtenido.anioDePublicacion,
                     NumeroDePaginas = libroObtenido.numeroDePaginas,
                     RutaPortada = libroObtenido.rutaPortada,
                     Estado = libroObtenido.estado,
                     CantidadEjemplares = libroObtenido.cantidadEjemplares,
                     CantidadEjemplaresPrestados = (int)libroObtenido.cantidadEjemplaresPrestados,
-                });
+                };
+                librosRecibidos.Add(libro);
             }
             return librosRecibidos;
         }
@@ -121,20 +172,37 @@ namespace ElSaberServices.Servicios
             List<LibroBinding> librosRecibidos = new List<LibroBinding>();
             foreach (Libro libroObtenido in librosObtenidos)
             {
-                librosRecibidos.Add(new LibroBinding()
+                AutorBinding autorBinding = new AutorBinding()
                 {
+                    IdAutor = libroObtenido.Autor.IdAutor,
+                    Autor = libroObtenido.Autor.autor1
+                };
+                GeneroBinding generoBinding = new GeneroBinding()
+                {
+                    IdGenero = libroObtenido.Genero.IdGenero,
+                    Genero = libroObtenido.Genero.genero1
+                };
+                EditorialBinding editorialBinding = new EditorialBinding()
+                {
+                    IdEditorial = libroObtenido.Editorial.IdEditorial,
+                    Editorial = libroObtenido.Editorial.editorial1
+                };
+                LibroBinding libro = new LibroBinding()
+                {
+                    idLibro = libroObtenido.IdLibro,
                     Titulo = libroObtenido.titulo,
                     Isbn = libroObtenido.isbn,
-                    FK_IdAutor = libroObtenido.FK_IdAutor,
-                    FK_IdEditorial = libroObtenido.FK_IdEditorial,
-                    FK_IdGenero = libroObtenido.FK_IdGenero,
+                    editorial = editorialBinding,
+                    genero = generoBinding,
+                    autor = autorBinding,
                     AnioDePublicacion = libroObtenido.anioDePublicacion,
                     NumeroDePaginas = libroObtenido.numeroDePaginas,
                     RutaPortada = libroObtenido.rutaPortada,
                     Estado = libroObtenido.estado,
                     CantidadEjemplares = libroObtenido.cantidadEjemplares,
                     CantidadEjemplaresPrestados = (int)libroObtenido.cantidadEjemplaresPrestados,
-                });
+                };
+                librosRecibidos.Add(libro);
             }
             return librosRecibidos;
         }
@@ -196,9 +264,9 @@ namespace ElSaberServices.Servicios
             {
                 titulo=libro.Titulo,
                 isbn=libro.Isbn,
-                FK_IdAutor=libro.FK_IdAutor,
-                FK_IdEditorial=libro.FK_IdEditorial,
-                FK_IdGenero=libro.FK_IdGenero,  
+                FK_IdAutor=libro.autor.IdAutor,
+                FK_IdEditorial=libro.editorial.IdEditorial,
+                FK_IdGenero=libro.genero.IdGenero,  
                 anioDePublicacion=libro.AnioDePublicacion,
                 numeroDePaginas=libro.NumeroDePaginas,
                 rutaPortada=libro.RutaPortada,                
