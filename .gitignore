@@ -325,6 +325,7 @@ ElSaberServer/ElSaberServer/ElSaberServerCLI/bin
 ElSaberServer/ElSaberServer/ElSaberServerCLI/obj
 ElSaberServer/ElSaberServer/ElSaberServices/bin
 ElSaberServer/ElSaberServer/ElSaberServices/obj
+ElSaberServer/ElSaberServer/ElSaberServices/ImagenesLibro
 
 ElSaberServer/ElSaberDataAccess/bin
 ElSaberServer/ElSaberDataAccess/obj
@@ -332,4 +333,5 @@ ElSaberServer/ElSaberServerCLI/bin
 ElSaberServer/ElSaberServerCLI/obj
 ElSaberServer/ElSaberServices/bin
 ElSaberServer/ElSaberServices/obj
+ElSaberServer/ElSaberServices/ImagenesLibro
 

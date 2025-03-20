@@ -56,6 +56,11 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         string ObtenerTituloPorIdLibro(int idLibro);
+
+        [OperationContract]
+        string GuardarImagenLibro(string tituloLibro, byte[] imagenLibro, string extension);
+        [OperationContract]
+        byte[] ObtenerImagenLibro(string tituloLibro);
     }
 
     [DataContract]
@@ -95,6 +100,10 @@ namespace ElSaberServices.Contratos
 
         [DataMember]
         public int CantidadEjemplaresPrestados { get; set; }
+        [DataMember]
+        public byte[] imagenLibro { get; set; }
+        [DataMember]
+        public string Extension { get; set; }
     }
 
     [DataContract]

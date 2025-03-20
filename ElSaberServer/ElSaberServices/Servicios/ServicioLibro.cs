@@ -1,8 +1,10 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
+using ElSaberDataAccess.Utilities;
 using ElSaberServices.Contratos;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,51 @@ namespace ElSaberServices.Servicios
         {
             LibroOperaciones libroOperaciones= new LibroOperaciones();            
             return libroOperaciones.AumentarNumeroLibrosDisponiblesPorISBN(isbn);
+        }
+
+        public string GuardarImagenLibro(string tituloLibro, byte[] imagenLibro, string extension)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            string resultadoInsercion = Constantes.ErrorEnLaOperacion.ToString();
+            try
+            {
+                if (imagenLibro != null || imagenLibro.Length != 0)
+                {
+                    string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
+                    string servidorPath = Path.GetFullPath(Path.Combine(directorioBase, "../../../"));
+                    string rutaDestino = Path.Combine(servidorPath, "ElSaberServices/ImagenesLibro");
+                    if (!Directory.Exists(rutaDestino))
+                    {
+                        Directory.CreateDirectory(rutaDestino);
+                    }
+                    string rutaArchivo = Path.Combine(rutaDestino, tituloLibro + extension);
+                    File.WriteAllBytes(rutaArchivo,imagenLibro);
+                    string rutaRelativa = Path.Combine("ElSaberServices", "ImagenesLibro");
+                    string rutaArchivoFinal = Path.Combine(rutaRelativa, tituloLibro + extension);
+                    resultadoInsercion = rutaArchivoFinal;
+                }
+                else
+                {
+                    resultadoInsercion = "Imagen nula";
+                }
+            }
+            catch(UnauthorizedAccessException exception)
+            {
+                logger.LogError(exception);
+            }
+            catch(DirectoryNotFoundException exception)
+            {
+                logger.LogError(exception);
+            }
+            catch(IOException ioException)
+            {
+                logger.LogError(ioException);
+            }
+            catch(ArgumentException exception)
+            {
+                logger.LogError(exception);
+            }
+            return resultadoInsercion;
         }
 
         public List<EditorialBinding> ObtenerEditoriales()
@@ -37,6 +84,40 @@ namespace ElSaberServices.Servicios
         {
             LibroOperaciones libroOperaciones = new LibroOperaciones();            
             return libroOperaciones.ObtenerIdLibroPorCodigoISBN(isbn);
+        }
+
+        public byte[] ObtenerImagenLibro(string tituloLibro)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            Byte[] imagenObtenida = new byte[Byte.MinValue];
+            try
+            {
+                string[] extensiones = { ".jpg", ".jpeg", ".png" };
+                foreach(var extension in extensiones)
+                {
+                    string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
+                    string servidorPath = Path.GetFullPath(Path.Combine(directorioBase, "../../../"));
+                    string rutaDestino = Path.Combine(servidorPath, "ElSaberServices/ImagenesLibro");
+                    string rutaArchivo = Path.Combine(rutaDestino, tituloLibro + extension);
+                    if (File.Exists(rutaArchivo))
+                    {
+                        imagenObtenida = File.ReadAllBytes(rutaArchivo);
+                    }
+                }
+            }
+            catch(FileNotFoundException fileNotFoundException)
+            {
+                logger.LogError(fileNotFoundException);
+            }
+            catch(UnauthorizedAccessException unauthorizedAccessException)
+            {
+                logger.LogError(unauthorizedAccessException);
+            }
+            catch(IOException IOException)
+            {
+                logger.LogError(IOException);
+            }
+            return imagenObtenida;
         }
 
         public List<LibroBinding> ObtenerLibrosPorIdAutor(int idAutor)
