@@ -89,15 +89,16 @@ namespace ElSaberServices.Servicios
         public byte[] ObtenerImagenLibro(string tituloLibro)
         {
             LoggerManager logger = new LoggerManager(this.GetType());
-            Byte[] imagenObtenida = new byte[Byte.MinValue];
+            Byte[] imagenObtenida = null;
             try
             {
                 string[] extensiones = { ".jpg", ".jpeg", ".png" };
-                foreach(var extension in extensiones)
+                string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
+                string servidorPath = Path.GetFullPath(Path.Combine(directorioBase, "../../../"));
+                string rutaDestino = Path.Combine(servidorPath, "ElSaberServices/ImagenesLibro");
+                foreach (var extension in extensiones)
                 {
-                    string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
-                    string servidorPath = Path.GetFullPath(Path.Combine(directorioBase, "../../../"));
-                    string rutaDestino = Path.Combine(servidorPath, "ElSaberServices/ImagenesLibro");
+  
                     string rutaArchivo = Path.Combine(rutaDestino, tituloLibro + extension);
                     if (File.Exists(rutaArchivo))
                     {
