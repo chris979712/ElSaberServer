@@ -3,6 +3,7 @@ using ElSaberDataAccess.Operaciones;
 using ElSaberServices.Contratos;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +65,28 @@ namespace ElSaberServices.Servicios
                 });
             }
             return sociosRecibidos;
+        }
+
+        public int EditarDatosSocio(int numeroDeSocio, SocioBinding socio)
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            Socio socioAModificar = new Socio()
+            {
+                nombre = socio.nombre,
+                primerApellido = socio.primerApellido,
+                segundoApellido = socio.segundoApellido,
+                telefono = socio.telefono,
+                fechaInscripcion = socio.fechaDeInscripcion,
+                fechaNacimiento = socio.fechaDeNacimiento,
+                Direccion = new Direccion()
+                {
+                    ciudad = socio.direccion.ciudad,
+                    calle = socio.direccion.calle,
+                    codigoPostal = socio.direccion.codigoPostal
+                }
+
+            };
+            return socioOperaciones.EditarDatosDeSocio(numeroDeSocio,socioAModificar);
         }
 
         public int ModificarEstadoSocio(int numeroDeSocio, string estado)

@@ -1,4 +1,5 @@
-﻿using ElSaberDataAccess.Operaciones;
+﻿using ElSaberDataAccess;
+using ElSaberDataAccess.Operaciones;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -57,6 +58,60 @@ namespace ElSaberServerTest.Operaciones
             int resultadoModificacion = socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estadoSocio);
             int resultadoEsperado = 0;
             Assert.Equal(resultadoModificacion, resultadoEsperado);
+        }
+
+        [Fact]
+        public void PruebaModificarDatosSocioExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 1;
+            DateTime fechaInscipcion = DateTime.Parse("2025-04-12");
+            DateTime fechaNacimiento = DateTime.Parse("2008-06-12");
+            Socio socio = new Socio()
+            {
+                nombre = "Juan",
+                primerApellido = "Cumplido",
+                segundoApellido = "Negrete",
+                telefono = "2281001122",
+                fechaInscripcion = fechaInscipcion,
+                fechaNacimiento = fechaNacimiento,
+                Direccion = new Direccion()
+                {
+                    calle = "Av.Xalapa",
+                    codigoPostal = 91101.ToString(),
+                    ciudad = "Xalapa"
+                }
+            };
+            int resultadoEsperado = 1;
+            int resultadoModificacion = socioOperaciones.EditarDatosDeSocio(numeroDeSocio,socio);
+            Assert.Equal(resultadoEsperado, resultadoModificacion);
+        }
+
+        [Fact]
+        public void PruebaModificarDatosSocioSinExistenciaExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 919191;
+            DateTime fechaInscipcion = DateTime.Parse("2025-04-12");
+            DateTime fechaNacimiento = DateTime.Parse("2008-06-12");
+            Socio socio = new Socio()
+            {
+                nombre = "Juan",
+                primerApellido = "Cumplido",
+                segundoApellido = "Negrete",
+                telefono = "2281001122",
+                fechaInscripcion = fechaInscipcion,
+                fechaNacimiento = fechaNacimiento,
+                Direccion = new Direccion()
+                {
+                    calle = "Av.Xalapa",
+                    codigoPostal = 91101.ToString(),
+                    ciudad = "Xalapa"
+                }
+            };
+            int resultadoEsperado = 0;
+            int resultadoModificacion = socioOperaciones.EditarDatosDeSocio(numeroDeSocio, socio);
+            Assert.Equal(resultadoEsperado, resultadoModificacion);
         }
 
     }

@@ -19,6 +19,30 @@ namespace ElSaberServices.Servicios
             return libroOperaciones.AumentarNumeroLibrosDisponiblesPorISBN(isbn);
         }
 
+        public int CambiarEstadoDeLibro(string isbn, string estado)
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones(); 
+            return libroOperaciones.CambiarEstadoDeLibro(isbn, estado);
+        }
+
+        public int EditarDetallesDeLibro(string isbn, LibroBinding libro)
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            Libro libroAActualizar = new Libro()
+            {
+                titulo = libro.Titulo,
+                anioDePublicacion = libro.AnioDePublicacion,
+                cantidadEjemplares = libro.CantidadEjemplares,
+                numeroDePaginas = libro.NumeroDePaginas,
+                rutaPortada = libro.RutaPortada,
+                FK_IdAutor = libro.autor.IdAutor,
+                FK_IdEditorial = libro.editorial.IdEditorial,
+                FK_IdGenero = libro.genero.IdGenero,
+
+            };
+            return libroOperaciones.EditarDatosLibro(isbn, libroAActualizar);
+        }
+
         public string GuardarImagenLibro(string tituloLibro, byte[] imagenLibro, string extension)
         {
             LoggerManager logger = new LoggerManager(this.GetType());

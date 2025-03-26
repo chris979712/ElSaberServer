@@ -467,7 +467,7 @@ namespace ElSaberDataAccess.Operaciones
 
         public int RegistrarNuevaEditorialEnLaBaseDeDatos(string editorial)
         {
-            LoggerManager logger = new LoggerManager(this.GetType());
+            Utilities.LoggerManager logger = new LoggerManager(this.GetType());
             int resultadoInsercion = Constantes.ErrorEnLaOperacion;
             try
             {
@@ -558,9 +558,9 @@ namespace ElSaberDataAccess.Operaciones
             };
             try
             {
-                using(var databaseContext = new ElSaberDBEntities())
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
                 {
-                    var libros = databaseContext.Libro.ToList();
+                    var libros = contextoBaseDeDatos.Libro.ToList();
                     if(libros.Count == 0)
                     {
                         InventarioLibro libro = new InventarioLibro() { cantidadTotal = Constantes.SinResultadosEncontrados };
@@ -570,7 +570,7 @@ namespace ElSaberDataAccess.Operaciones
                     {
                         foreach (var libro in libros)
                         {
-                            int librosEnPrestamo = databaseContext.Prestamo.Where(prestamo => prestamo.FK_IdLibro == libro.IdLibro && prestamo.estado == "Activo").Count();
+                            int librosEnPrestamo = contextoBaseDeDatos.Prestamo.Where(prestamo => prestamo.FK_IdLibro == libro.IdLibro && prestamo.estado == "Activo").Count();
                             int cantidadLibrosDisponibles = libro.cantidadEjemplares - librosEnPrestamo;
                             InventarioLibro libroInventario = new InventarioLibro()
                             {
@@ -597,6 +597,145 @@ namespace ElSaberDataAccess.Operaciones
             }
             return inventarioLibros;
 
+        }
+
+        public List<LibroMasPrestado> ObtenerLibrosMasPrestadosPorFecha(string fechaInicio, string fechaFin)
+        {
+            List<LibroMasPrestado> librosMasPrestado = new List<LibroMasPrestado>();
+            LoggerManager loggerManager = new LoggerManager(this.GetType());
+            LibroMasPrestado libroMasPrestadoExcepcion = new LibroMasPrestado()
+            {
+                isbn = "-1"
+            };
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    DateTime fechaInicioParseada = DateTime.Parse(fechaInicio);
+                    DateTime fechaFinParseada = DateTime.Parse(fechaFin);
+                    var prestamosAgrupados = contextoBaseDeDatos.Prestamo.Where(prestamo => prestamo.fechaDevolucionEsperada >= fechaInicioParseada && prestamo.fechaDevolucionEsperada <= fechaFinParseada).
+                        GroupBy(prestamo => prestamo.FK_IdLibro).Select(masPrestados => new
+                        {
+                            IdLibro = masPrestados.Key,
+                            CantidadPrestamos = masPrestados.Count()
+                        }).OrderByDescending(prestamo => prestamo.CantidadPrestamos).Take(10).ToList();
+                    if(prestamosAgrupados.Count > 0)
+                    {
+                        foreach(var prestamo in prestamosAgrupados)
+                        {
+                            var libro = contextoBaseDeDatos.Libro.FirstOrDefault(librolambda => librolambda.IdLibro == prestamo.IdLibro);
+                            if(libro != null)
+                            {
+                                librosMasPrestado.Add(new LibroMasPrestado()
+                                {
+                                    isbn = libro.isbn,
+                                    titulo = libro.titulo,
+                                    cantidadDeEjemplares = libro.cantidadEjemplares.ToString(),
+                                    autor = libro.Autor.autor1,
+                                    genero = libro.Genero.genero1
+                                });
+                            }
+                        }
+                    }
+                    else
+                    {
+                        librosMasPrestado.Add(new LibroMasPrestado()
+                        {
+                            cantidadDeEjemplares = "0"
+                        });
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                loggerManager.LogError(sqlException);
+                librosMasPrestado.Insert(0, libroMasPrestadoExcepcion);
+            }
+            catch (EntityException entityException)
+            {
+                loggerManager.LogFatal(entityException);
+                librosMasPrestado.Insert(0, libroMasPrestadoExcepcion);
+            }
+            return librosMasPrestado;
+        }
+
+        public int CambiarEstadoDeLibro(string ISBN, string estado)
+        {
+            LoggerManager loggerManager = new LoggerManager(this.GetType());
+            int resultadoModificacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var libro = contextoBaseDeDatos.Libro.FirstOrDefault(libroLambda => libroLambda.isbn == ISBN);
+                    if(libro == null)
+                    {
+                        resultadoModificacion = Constantes.SinResultadosEncontrados;
+                    }
+                    else
+                    {
+                        libro.estado = estado;
+                        contextoBaseDeDatos.SaveChanges();
+                        resultadoModificacion = Constantes.OperacionExitosa;
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                loggerManager.LogError(sqlException);
+            }
+            catch(DbUpdateException dbUpdateException)
+            {
+                loggerManager.LogError(dbUpdateException);
+            }
+            catch (EntityException entityException)
+            {
+                loggerManager.LogFatal(entityException);
+            }
+            return resultadoModificacion;
+        }
+
+        public int EditarDatosLibro(string ISBN, Libro libroAModificar)
+        {
+            LoggerManager loggerManager = new LoggerManager(this.GetType());
+            int resultadoModificacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var libro = contextoBaseDeDatos.Libro.FirstOrDefault(libroLambda => libroLambda.isbn == ISBN);
+                    if (libro != null)
+                    {
+                        libro.titulo = libroAModificar.titulo;
+                        libro.anioDePublicacion = libroAModificar.anioDePublicacion;
+                        libro.cantidadEjemplares = libroAModificar.cantidadEjemplares;
+                        libro.numeroDePaginas = libroAModificar.numeroDePaginas;
+                        libro.rutaPortada = libroAModificar.rutaPortada;
+                        libro.FK_IdAutor = libroAModificar.FK_IdAutor;
+                        libro.FK_IdEditorial = libroAModificar.FK_IdEditorial;
+                        libro.FK_IdGenero = libroAModificar.FK_IdGenero;
+                        contextoBaseDeDatos.SaveChanges();
+                        resultadoModificacion = Constantes.OperacionExitosa;
+                    }
+                    else
+                    {
+                        resultadoModificacion = Constantes.SinResultadosEncontrados;
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                loggerManager.LogError(sqlException);
+            }
+            catch (DbUpdateException dbUpdateException)
+            {
+                loggerManager.LogError(dbUpdateException);
+            }
+            catch (EntityException entityException)
+            {
+                loggerManager.LogFatal(entityException);
+            }
+            return resultadoModificacion;
         }
 
         private Libro CrearLibroSinCoincidencias()
