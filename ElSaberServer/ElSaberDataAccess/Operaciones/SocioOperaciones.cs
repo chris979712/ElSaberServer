@@ -225,5 +225,42 @@ namespace ElSaberDataAccess.Operaciones
             }
             return socioObtenido;
         }
+
+        public int CambiarEstadoDeSocio(int numeroDeSocio, string estado)
+        {
+            int resultadoModificacion = Constantes.ErrorEnLaOperacion;
+            LoggerManager logger = new LoggerManager(this.GetType());
+            try
+            {
+                using (var databaseContext = new ElSaberDBEntities())
+                {
+                    var socioObtenido = databaseContext.Socio.Where(socio => socio.numeroDeSocio == numeroDeSocio).FirstOrDefault();
+                    if (socioObtenido != null)
+                    {
+                        socioObtenido.estado = estado;
+                        databaseContext.SaveChanges();
+                        resultadoModificacion = Constantes.OperacionExitosa;
+                    }
+                    else
+                    {
+                        resultadoModificacion = Constantes.SinResultadosEncontrados;
+                    }
+
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (DbUpdateException dpUpdateException)
+            {
+                logger.LogError(dpUpdateException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoModificacion;
+        }
     }
 }

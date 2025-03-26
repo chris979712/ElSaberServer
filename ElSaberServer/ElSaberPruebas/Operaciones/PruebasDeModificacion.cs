@@ -34,5 +34,30 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, resultadoModificacion);
         }
 
+        /**
+         * Prueba Modificacion Socio
+         */
+        [Fact]
+        public void PruebaModificarEstadoSocioExistenteExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 1;
+            string estadoSocio = "Desactivo";
+            int resultadoModificacion = socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estadoSocio);
+            int resultadoEsperado = 1;
+            Assert.Equal(resultadoModificacion, resultadoEsperado);
+        }
+
+        [Fact]
+        public void PruebaModificarEstadoSocioNoExistenteExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 91291;
+            string estadoSocio = "Desactivo";
+            int resultadoModificacion = socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estadoSocio);
+            int resultadoEsperado = 0;
+            Assert.Equal(resultadoModificacion, resultadoEsperado);
+        }
+
     }
 }

@@ -21,5 +21,16 @@ namespace ElSaberPruebas.Excepcion
             int resultadoEsperado = -1;
             Assert.Equal(resultadoEsperado, resultadoModificacion);
         }
+
+        [Fact]
+        public void PruebaModificarEstadoSocioExcepcionExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 91291;
+            string estadoSocio = "Desactivo";
+            int resultadoModificacion = socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estadoSocio);
+            int resultadoEsperado = -1;
+            Assert.Equal(resultadoModificacion, resultadoEsperado);
+        }
     }
 }

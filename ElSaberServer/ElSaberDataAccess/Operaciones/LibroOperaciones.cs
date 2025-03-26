@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess.Utilidades;
 using ElSaberDataAccess.Utilities;
+using log4net.Repository.Hierarchy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -545,6 +546,57 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return tituloLibro;
+        }
+
+        public List<InventarioLibro> ObtenerInventarioLibros()
+        {
+            List<InventarioLibro> inventarioLibros = new List<InventarioLibro>();
+            LoggerManager logger = new LoggerManager(this.GetType());
+            InventarioLibro inventarioLibroExcepcion = new InventarioLibro()
+            {
+                cantidadTotal = -1
+            };
+            try
+            {
+                using(var databaseContext = new ElSaberDBEntities())
+                {
+                    var libros = databaseContext.Libro.ToList();
+                    if(libros.Count == 0)
+                    {
+                        InventarioLibro libro = new InventarioLibro() { cantidadTotal = Constantes.SinResultadosEncontrados };
+                        inventarioLibros.Insert(0, libro);
+                    }
+                    else
+                    {
+                        foreach (var libro in libros)
+                        {
+                            int librosEnPrestamo = databaseContext.Prestamo.Where(prestamo => prestamo.FK_IdLibro == libro.IdLibro && prestamo.estado == "Activo").Count();
+                            int cantidadLibrosDisponibles = libro.cantidadEjemplares - librosEnPrestamo;
+                            InventarioLibro libroInventario = new InventarioLibro()
+                            {
+                                ISBN = libro.isbn,
+                                tituloLibro = libro.titulo,
+                                cantidadDisponible = cantidadLibrosDisponibles,
+                                cantidadNoDisponible = librosEnPrestamo,
+                                cantidadTotal = libro.cantidadEjemplares
+                            };
+                            inventarioLibros.Add(libroInventario);
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                inventarioLibros.Insert(0, inventarioLibroExcepcion);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                inventarioLibros.Insert(0, inventarioLibroExcepcion);
+            }
+            return inventarioLibros;
+
         }
 
         private Libro CrearLibroSinCoincidencias()

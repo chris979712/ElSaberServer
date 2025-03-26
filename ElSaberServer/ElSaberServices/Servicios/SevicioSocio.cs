@@ -66,6 +66,12 @@ namespace ElSaberServices.Servicios
             return sociosRecibidos;
         }
 
+        public int ModificarEstadoSocio(int numeroDeSocio, string estado)
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            return socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estado);
+        }
+
         public int RegistrarSocioEnBaseDeDatos(SocioBinding socio)
         {
             SocioOperaciones socioOperaciones = new SocioOperaciones();
@@ -92,8 +98,7 @@ namespace ElSaberServices.Servicios
         public int VerificarExistenciaDeSocioEnBaseDeDatos(string telefono)
         {
             SocioOperaciones socioOperaciones = new SocioOperaciones();
-            int resultadoVerificacion = socioOperaciones.VerificarSocioRegistradoEnLaBaseDeDatos(telefono);
-            return resultadoVerificacion;
+            return socioOperaciones.VerificarSocioRegistradoEnLaBaseDeDatos(telefono);
         }
     }
 }
