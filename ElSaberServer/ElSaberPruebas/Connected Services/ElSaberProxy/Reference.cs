@@ -893,4 +893,55 @@ namespace ElSaberPruebas.ElSaberProxy {
             return base.Channel.ObtenerReporteInventarioLibrosAsync();
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ElSaberProxy.IReporteLibroMasPrestadoManejador")]
+    public interface IReporteLibroMasPrestadoManejador {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrest" +
+            "ado", ReplyAction="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrest" +
+            "adoResponse")]
+        byte[] ObtenerReporteLibrosMasPrestado(string fechaInicioBusqueda, string fechaFinBusqueda);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrest" +
+            "ado", ReplyAction="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrest" +
+            "adoResponse")]
+        System.Threading.Tasks.Task<byte[]> ObtenerReporteLibrosMasPrestadoAsync(string fechaInicioBusqueda, string fechaFinBusqueda);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IReporteLibroMasPrestadoManejadorChannel : ElSaberPruebas.ElSaberProxy.IReporteLibroMasPrestadoManejador, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ReporteLibroMasPrestadoManejadorClient : System.ServiceModel.ClientBase<ElSaberPruebas.ElSaberProxy.IReporteLibroMasPrestadoManejador>, ElSaberPruebas.ElSaberProxy.IReporteLibroMasPrestadoManejador {
+        
+        public ReporteLibroMasPrestadoManejadorClient() {
+        }
+        
+        public ReporteLibroMasPrestadoManejadorClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ReporteLibroMasPrestadoManejadorClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ReporteLibroMasPrestadoManejadorClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ReporteLibroMasPrestadoManejadorClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public byte[] ObtenerReporteLibrosMasPrestado(string fechaInicioBusqueda, string fechaFinBusqueda) {
+            return base.Channel.ObtenerReporteLibrosMasPrestado(fechaInicioBusqueda, fechaFinBusqueda);
+        }
+        
+        public System.Threading.Tasks.Task<byte[]> ObtenerReporteLibrosMasPrestadoAsync(string fechaInicioBusqueda, string fechaFinBusqueda) {
+            return base.Channel.ObtenerReporteLibrosMasPrestadoAsync(fechaInicioBusqueda, fechaFinBusqueda);
+        }
+    }
 }

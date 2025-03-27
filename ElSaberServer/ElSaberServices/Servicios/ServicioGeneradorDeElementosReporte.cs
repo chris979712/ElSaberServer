@@ -50,22 +50,6 @@ namespace ElSaberServices.Servicios
         public Table GenerarTablaReporteInventarioLibros(List<InventarioLibro> inventarioDeLibros)
         {
             Table tablaInventarioLibros = new Table(5, true);
-            Color colorFondoEncabezado = ColorConstants.LIGHT_GRAY;
-            var negrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLDITALIC);
-            var timesNewRoman = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
-            Cell CrearCeldaEncabezado(string texto)
-            {
-                return new Cell()
-                    .Add(new Paragraph(texto).SetFont(negrita))
-                    .SetBackgroundColor(colorFondoEncabezado) 
-                    .SetTextAlignment(TextAlignment.CENTER);
-            }
-            Cell CrearCeldaElementos(string texto)
-            {
-                return new Cell()
-                    .Add(new Paragraph(texto).SetFont(timesNewRoman))
-                    .SetTextAlignment(TextAlignment.CENTER);
-            }
             tablaInventarioLibros.AddCell(CrearCeldaEncabezado("Título del libro"));
             tablaInventarioLibros.AddCell(CrearCeldaEncabezado("ISBN"));
             tablaInventarioLibros.AddCell(CrearCeldaEncabezado("Total de ejemplares"));
@@ -81,6 +65,43 @@ namespace ElSaberServices.Servicios
             }
 
             return tablaInventarioLibros;
+        }
+
+        public Table GenerarTablaLibrosMasPrestados(List<LibroMasPrestado> libroMasPrestados)
+        {
+            Table tablaLibrosMasPrestados = new Table(5, true);
+            tablaLibrosMasPrestados.AddCell(CrearCeldaEncabezado("Título del libro"));
+            tablaLibrosMasPrestados.AddCell(CrearCeldaEncabezado("ISBN"));
+            tablaLibrosMasPrestados.AddCell(CrearCeldaEncabezado("Autor"));
+            tablaLibrosMasPrestados.AddCell(CrearCeldaEncabezado("Genero"));
+            tablaLibrosMasPrestados.AddCell(CrearCeldaEncabezado("Total ejemplares"));
+            foreach(var libro in  libroMasPrestados)
+            {
+                tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.titulo));
+                tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.isbn));
+                tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.autor));
+                tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.genero));
+                tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.cantidadDeEjemplares));
+            }
+            return tablaLibrosMasPrestados;
+        }
+
+        private Cell CrearCeldaEncabezado(string texto)
+        {
+            var negrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLDITALIC);
+            Color colorFondoEncabezado = ColorConstants.LIGHT_GRAY;
+            return new Cell()
+                   .Add(new Paragraph(texto).SetFont(negrita))
+                   .SetBackgroundColor(colorFondoEncabezado)
+                   .SetTextAlignment(TextAlignment.CENTER);
+        }
+
+        private Cell CrearCeldaElementos(string texto)
+        {
+            var timesNewRoman = PdfFontFactory.CreateFont(StandardFonts.TIMES_ROMAN);
+            return new Cell()
+                    .Add(new Paragraph(texto).SetFont(timesNewRoman))
+                    .SetTextAlignment(TextAlignment.CENTER);
         }
 
         public Paragraph GenerarPieFinalDeReporte(string texto)

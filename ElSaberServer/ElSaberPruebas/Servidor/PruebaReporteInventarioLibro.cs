@@ -10,7 +10,7 @@ namespace ElSaberPruebas.Servidor
     public class PruebaReporteInventarioLibro
     {
         [Fact]
-        public void PruebaCreacionDeReporteInventarioLibro()
+        public void PruebaCreacionDeReporteInventarioLibroExitosa()
         {
             ElSaberProxy.ReporteInventarioLibroManejadorClient reporteInventarioLibroManejador = new ElSaberProxy.ReporteInventarioLibroManejadorClient();
             byte[] reporteObtenido = reporteInventarioLibroManejador.ObtenerReporteInventarioLibros();

@@ -1,12 +1,12 @@
 ﻿using ElSaberDataAccess.Operaciones;
 using ElSaberDataAccess.Utilidades;
-using ElSaberDataAccess.Utilities;
 using ElSaberServices.Contratos;
+using ElSaberServices.Utilities;
 using iText.Kernel.Exceptions;
 using iText.Kernel.Pdf;
 using iText.Layout;
-using iText.Layout.Borders;
 using iText.Layout.Element;
+using log4net.Repository.Hierarchy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,34 +16,35 @@ using System.Threading.Tasks;
 
 namespace ElSaberServices.Servicios
 {
-    public partial class ElSaberServices : IReporteInventarioLibroManejador
+    public partial class ElSaberServices : IReporteLibroMasPrestadoManejador
     {
-        public byte[] ObtenerReporteInventarioLibros()
+        public byte[] ObtenerReporteLibrosMasPrestado(string fechaInicioBusqueda, string fechaFinBusqueda)
         {
-            byte[] reporteInventario = new byte[0];
+            byte[] ReporteLibrosMasPrestados = new byte[0];
             LibroOperaciones libroOperaciones = new LibroOperaciones();
-            List<InventarioLibro> inventarioLibros = libroOperaciones.ObtenerInventarioLibros();
-            if (inventarioLibros[0].cantidadTotal == -1)
+            List<LibroMasPrestado> librosMasPrestados = libroOperaciones.ObtenerLibrosMasPrestadosPorFecha(fechaInicioBusqueda, fechaFinBusqueda);
+            if (librosMasPrestados[0].cantidadDeEjemplares.Equals("-1"))
             {
-                reporteInventario = new byte[255];
+                ReporteLibrosMasPrestados = new byte[255];
             }
-            else if (inventarioLibros[0].cantidadTotal > 0)
+            else if (!librosMasPrestados[0].cantidadDeEjemplares.Equals("0"))
             {
                 LoggerManager logger = new LoggerManager(this.GetType());
                 try
                 {
-                    using (MemoryStream memoriaStream = new MemoryStream())
+                    using(MemoryStream memoriaStream = new MemoryStream())
                     {
+                        ServicioGeneradorDeElementosReporte servicio = new ServicioGeneradorDeElementosReporte();
                         ServicioGeneradorDeElementosReporte generadorElementos = new ServicioGeneradorDeElementosReporte();
                         PdfWriter escritor = new PdfWriter(memoriaStream);
                         PdfDocument pdf = new PdfDocument(escritor);
                         Document documento = new Document(pdf);
                         documento.SetMargins(40, 40, 40, 40);
                         Paragraph parrafoInicial = generadorElementos.GenerarParrafoInicial();
-                        Paragraph tipoDeReporte = generadorElementos.GenerarTipoDeReporte("Reporte de inventario de libros");
-                        Table tablaInventario = generadorElementos.GenerarTablaReporteInventarioLibros(inventarioLibros);
-                        Paragraph generarParrafoFinal = generadorElementos.GenerarPieFinalDeReporte("\nEl presente reporte muestra el inventario " +
-                            "general de los libros con los que cuenta la Biblioteca El Saber a dia " + DateTime.Now.ToString("dd") + " de " + DateTime.Now.ToString("MM") + " del " + DateTime.Now.ToString("yyyy"));
+                        Paragraph tipoDeReporte = generadorElementos.GenerarTipoDeReporte("Reporte de Libros más prestados");
+                        Table tablaInventario = generadorElementos.GenerarTablaLibrosMasPrestados(librosMasPrestados);
+                        Paragraph generarParrafoFinal = generadorElementos.GenerarPieFinalDeReporte("\nEl presente reporte muestra los libros más prestados " +
+                            "en la Biblioteca El Saber desde entre las fechas "+fechaInicioBusqueda+" - "+fechaFinBusqueda);
                         Image imagenEncabezado = generadorElementos.AgregarImagenEncabezado(pdf);
                         documento.Add(imagenEncabezado);
                         documento.Add(parrafoInicial);
@@ -52,19 +53,19 @@ namespace ElSaberServices.Servicios
                         documento.Add(generarParrafoFinal);
                         generadorElementos.AgregarBordeAlDocumento(pdf);
                         documento.Close();
-                        reporteInventario = memoriaStream.ToArray();
+                        ReporteLibrosMasPrestados = memoriaStream.ToArray();
                         string rutaDescargas = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-                        string rutaArchivo = Path.Combine(rutaDescargas, "ReporteInventarioLibros.pdf");
-                        File.WriteAllBytes(rutaArchivo, reporteInventario);
+                        string rutaArchivo = Path.Combine(rutaDescargas, "ReporteLibrosMasPrestados.pdf");
+                        File.WriteAllBytes(rutaArchivo, ReporteLibrosMasPrestados);
                     }
                 }
-                catch(PdfException pdfException)
+                catch (PdfException pdfException)
                 {
                     logger.LogError(pdfException);
-                    reporteInventario = new byte[1];
-                }   
+                ReporteLibrosMasPrestados = new byte[1];
+                }
             }
-            return reporteInventario;
+            return ReporteLibrosMasPrestados;
         }
     }
 }

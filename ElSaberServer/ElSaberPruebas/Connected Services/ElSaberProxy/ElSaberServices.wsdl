@@ -108,6 +108,18 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IReporteLibroMasPrestadoManejador_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="600000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:import namespace="http://schemas.datacontract.org/2004/07/ElSaberServices.Contratos" />
@@ -674,6 +686,21 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
+      <xs:element name="ObtenerReporteLibrosMasPrestado">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="fechaInicioBusqueda" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="fechaFinBusqueda" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ObtenerReporteLibrosMasPrestadoResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="ObtenerReporteLibrosMasPrestadoResult" nillable="true" type="xs:base64Binary" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
     </xs:schema>
     <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
       <xs:element name="anyType" nillable="true" type="xs:anyType" />
@@ -1105,6 +1132,12 @@
   <wsdl:message name="IReporteInventarioLibroManejador_ObtenerReporteInventarioLibros_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerReporteInventarioLibrosResponse" />
   </wsdl:message>
+  <wsdl:message name="IReporteLibroMasPrestadoManejador_ObtenerReporteLibrosMasPrestado_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteLibrosMasPrestado" />
+  </wsdl:message>
+  <wsdl:message name="IReporteLibroMasPrestadoManejador_ObtenerReporteLibrosMasPrestado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerReporteLibrosMasPrestadoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarioManejador">
     <wsdl:operation name="RegistrarUsuarioAlaBaseDeDatos">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioManejador/RegistrarUsuarioAlaBaseDeDatos" message="tns:IUsuarioManejador_RegistrarUsuarioAlaBaseDeDatos_InputMessage" />
@@ -1281,6 +1314,12 @@
     <wsdl:operation name="ObtenerReporteInventarioLibros">
       <wsdl:input wsaw:Action="http://tempuri.org/IReporteInventarioLibroManejador/ObtenerReporteInventarioLibros" message="tns:IReporteInventarioLibroManejador_ObtenerReporteInventarioLibros_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IReporteInventarioLibroManejador/ObtenerReporteInventarioLibrosResponse" message="tns:IReporteInventarioLibroManejador_ObtenerReporteInventarioLibros_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IReporteLibroMasPrestadoManejador">
+    <wsdl:operation name="ObtenerReporteLibrosMasPrestado">
+      <wsdl:input wsaw:Action="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrestado" message="tns:IReporteLibroMasPrestadoManejador_ObtenerReporteLibrosMasPrestado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrestadoResponse" message="tns:IReporteLibroMasPrestadoManejador_ObtenerReporteLibrosMasPrestado_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUsuarioManejador" type="tns:IUsuarioManejador">
@@ -1679,6 +1718,19 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IReporteLibroMasPrestadoManejador" type="tns:IReporteLibroMasPrestadoManejador">
+    <wsp:PolicyReference URI="#NetTcpBinding_IReporteLibroMasPrestadoManejador_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ObtenerReporteLibrosMasPrestado">
+      <soap12:operation soapAction="http://tempuri.org/IReporteLibroMasPrestadoManejador/ObtenerReporteLibrosMasPrestado" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="ElSaberServices">
     <wsdl:port name="NetTcpBinding_IUsuarioManejador" binding="tns:NetTcpBinding_IUsuarioManejador">
       <soap12:address location="net.tcp://localhost:1441/ServicioUsuario" />
@@ -1729,6 +1781,12 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IReporteInventarioLibroManejador" binding="tns:NetTcpBinding_IReporteInventarioLibroManejador">
+      <soap12:address location="net.tcp://localhost:1441/ServicioReporteInventarioLibro" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:1441/ServicioReporteInventarioLibro</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IReporteLibroMasPrestadoManejador" binding="tns:NetTcpBinding_IReporteLibroMasPrestadoManejador">
       <soap12:address location="net.tcp://localhost:1441/ServicioReporteInventarioLibro" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:1441/ServicioReporteInventarioLibro</wsa10:Address>

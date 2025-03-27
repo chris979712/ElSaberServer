@@ -152,6 +152,7 @@
     <Compile Include="Contratos\ILibroManejador.cs" />
     <Compile Include="Contratos\IPrestamoManejador.cs" />
     <Compile Include="Contratos\IReporteInventarioLibroManejador.cs" />
+    <Compile Include="Contratos\IReporteLibroMasPrestadoManejador.cs" />
     <Compile Include="Contratos\IRestablecimientoCuentaManejador.cs" />
     <Compile Include="Contratos\IDireccionManejador.cs" />
     <Compile Include="Contratos\ISocioManejador.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Servicios\ServicioLibro.cs" />
     <Compile Include="Servicios\ServicioPrestamo.cs" />
     <Compile Include="Servicios\ServicioReporteInventarioLibro.cs" />
+    <Compile Include="Servicios\ServicioReporteLibroMasPrestado.cs" />
     <Compile Include="Servicios\ServicioRestablecimientoCuenta.cs" />
     <Compile Include="Servicios\ServicioAcceso.cs" />
     <Compile Include="Servicios\ServicioDireccion.cs" />
