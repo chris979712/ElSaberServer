@@ -59,5 +59,20 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoModificacion, resultadoEsperado);
         }
 
+        /**
+         * Prueba Modificacion Prestamo
+         */
+        [Fact]
+        public void PruebaEditarPrestamoPorIdPrestamoExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int idPrestamo = 1;
+            string nuevaNota = "Nueva nota de edicion";
+            DateTime nuevaFechaDevolucion=DateTime.Now;
+            int resultadoEsperado = 1;
+            int resultadoObtenido = prestamoOperaciones.EditarPrestamoPorIdPrestamo(idPrestamo,nuevaNota,nuevaFechaDevolucion);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
     }
 }
