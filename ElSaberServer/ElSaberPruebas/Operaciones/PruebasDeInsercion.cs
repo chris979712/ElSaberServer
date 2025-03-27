@@ -114,7 +114,7 @@ namespace ElSaberServerTest.Operaciones
             Libro libro = new Libro
             {
                 titulo = "Eso",
-                isbn = "9781501142970",
+                isbn = "1111111111111",
                 FK_IdAutor = 1,
                 FK_IdEditorial = 1,
                 FK_IdGenero = 1,

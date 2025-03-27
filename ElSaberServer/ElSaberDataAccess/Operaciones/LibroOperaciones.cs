@@ -613,7 +613,7 @@ namespace ElSaberDataAccess.Operaciones
                 {
                     DateTime fechaInicioParseada = DateTime.Parse(fechaInicio);
                     DateTime fechaFinParseada = DateTime.Parse(fechaFin);
-                    var prestamosAgrupados = contextoBaseDeDatos.Prestamo.Where(prestamo => prestamo.fechaDevolucionEsperada >= fechaInicioParseada && prestamo.fechaDevolucionEsperada <= fechaFinParseada).
+                    var prestamosAgrupados = contextoBaseDeDatos.Prestamo.Where(prestamo => prestamo.fechaPrestamo >= fechaInicioParseada && prestamo.fechaPrestamo <= fechaFinParseada).
                         GroupBy(prestamo => prestamo.FK_IdLibro).Select(masPrestados => new
                         {
                             IdLibro = masPrestados.Key,

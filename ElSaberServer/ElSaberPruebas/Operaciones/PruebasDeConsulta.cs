@@ -4,6 +4,7 @@ using ElSaberDataAccess.Utilidades;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -323,6 +324,69 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado,resultadoObtenido);            
         }
 
+        [Fact]
+        public void PruebaObtenerLibrosMasPrestadosPorFechaExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<LibroMasPrestado> libroMasPrestados = new List<LibroMasPrestado>();
+            LibroMasPrestado libroMasPrestado1 = new LibroMasPrestado()
+            {
+                titulo = "El principito",
+                isbn = "9781501142970",
+                autor = "George R.R. Martin",
+                genero = "No ficción",
+                cantidadDeEjemplares = "12"
+            };
+            LibroMasPrestado libroMasPrestado2 = new LibroMasPrestado()
+            {
+                titulo = "Eso",
+                isbn = "1111111111111",
+                autor = "George R.R. Martin",
+                genero = "Terror",
+                cantidadDeEjemplares = "1"
+            };
+            libroMasPrestados.Add(libroMasPrestado1);
+            libroMasPrestados.Add(libroMasPrestado2);
+            List<LibroMasPrestado> libroMasPrestadosObtenidos = libroOperaciones.ObtenerLibrosMasPrestadosPorFecha("2025-03-26", "2025-03-28");
+            Assert.Equal(libroMasPrestados.Count, libroMasPrestadosObtenidos.Count);
+        }
+
+        [Fact]
+        public void PruebaObtenerLibrosMasPrestadosPorFechaSinActividadExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<LibroMasPrestado> libroMasPrestadosObtenidos = libroOperaciones.ObtenerLibrosMasPrestadosPorFecha("2025-03-29", "2025-04-28");
+            string cantidadEjemplaresPrestados = "0";
+            Assert.Equal(libroMasPrestadosObtenidos[0].cantidadDeEjemplares, cantidadEjemplaresPrestados);
+        }
+
+        [Fact]
+        public void PruebaObtenerInventarioDeLibrosExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<InventarioLibro> inventarioLibros = new List<InventarioLibro>();
+            InventarioLibro libroInventario1 = new InventarioLibro()
+            {
+                tituloLibro = "El principito",
+                ISBN = "9781501142970",
+                cantidadDisponible = 8,
+                cantidadNoDisponible = 2,
+                cantidadTotal = 10
+            };
+            InventarioLibro libroInventario2 = new InventarioLibro()
+            {
+                tituloLibro = "Eso",
+                ISBN = "1111111111111",
+                cantidadDisponible = 0,
+                cantidadNoDisponible = 1,
+                cantidadTotal = 1
+            };
+            inventarioLibros.Add(libroInventario1);
+            inventarioLibros.Add(libroInventario2);
+            List<InventarioLibro> inventarioLibrosObtenido = libroOperaciones.ObtenerInventarioLibros();
+            Assert.Equal(inventarioLibros.Count,inventarioLibrosObtenido.Count);
+        }
+
         /**
          * Pruebas de consulta de prestamos
          */
@@ -343,6 +407,43 @@ namespace ElSaberServerTest.Operaciones
         public DatabaseFixtureQuery()
         {
             InsertarSociosPruebaDeConsulta();
+            //InsertarPrestamosYLibros();
+        }
+
+        public void InsertarPrestamosYLibros()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            Prestamo prestamo = new Prestamo()
+            {
+                fechaPrestamo = DateTime.Today,
+                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
+                nota = "Buen libro",
+                FK_IdLibro = 1,
+                FK_IdSocio = 1,
+                FK_IdUsuario = 1,
+            };
+            Prestamo prestamo2 = new Prestamo()
+            {
+                fechaPrestamo = DateTime.Today,
+                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
+                nota = "Buen libro",
+                FK_IdLibro = 1,
+                FK_IdSocio = 1,
+                FK_IdUsuario = 1,
+            };
+            Prestamo prestamo3 = new Prestamo()
+            {
+                fechaPrestamo = DateTime.Today,
+                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
+                nota = "Buen libro",
+                FK_IdLibro = 2,
+                FK_IdSocio = 1,
+                FK_IdUsuario = 1,
+            };
+            prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo);
+            prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo2);
+            prestamoOperaciones.RegistrarPrestamoEnLaBaseDeDatos(prestamo3);
         }
 
         public void InsertarSociosPruebaDeConsulta()
