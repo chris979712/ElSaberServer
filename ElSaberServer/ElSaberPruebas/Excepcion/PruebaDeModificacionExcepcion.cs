@@ -80,6 +80,7 @@ namespace ElSaberPruebas.Excepcion
             Assert.Equal(resultadoObtenido, resultadoEsperado);
         }
 
+        [Fact]
         public void PruebaEditarDatosDeLibroExcepcionExitosa()
         {
             LibroOperaciones libroOperaciones = new LibroOperaciones();
