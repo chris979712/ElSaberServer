@@ -262,5 +262,59 @@ namespace ElSaberDataAccess.Operaciones
             }
             return resultadoModificacion;
         }
+
+        public int EditarDatosDeSocio(int numeroDeSocio, Socio socioAModificar)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());       
+            int resultadoModificacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    using(var transaccionBaseDeDatos = contextoBaseDeDatos.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var socio = contextoBaseDeDatos.Socio.FirstOrDefault(socioLambda => socioLambda.numeroDeSocio == numeroDeSocio);
+                            if (socio != null)
+                            {
+                                var direccion = contextoBaseDeDatos.Direccion.FirstOrDefault(direccionLambda => direccionLambda.IdDireccion == socio.FK_idDireccion);
+                                direccion.ciudad = socioAModificar.Direccion.ciudad;
+                                direccion.codigoPostal = socioAModificar.Direccion.codigoPostal;
+                                direccion.calle = socioAModificar.Direccion.calle;
+                                socio.nombre = socioAModificar.nombre;
+                                socio.primerApellido = socioAModificar.primerApellido;
+                                socio.segundoApellido = socioAModificar.segundoApellido;
+                                socio.telefono = socioAModificar.telefono;
+                                socio.fechaInscripcion = socioAModificar.fechaInscripcion;
+                                socio.fechaNacimiento = socioAModificar.fechaNacimiento;
+                                contextoBaseDeDatos.SaveChanges();
+                                transaccionBaseDeDatos.Commit();
+                                resultadoModificacion = Constantes.OperacionExitosa;
+                            }
+                            else
+                            {
+                                resultadoModificacion = Constantes.SinResultadosEncontrados;
+                            }
+                        }
+                        catch (DbUpdateException dpUpdateException)
+                        {
+                            logger.LogError(dpUpdateException);
+                            transaccionBaseDeDatos.Rollback();
+                        }
+                        catch (EntityException entityException)
+                        {
+                            logger.LogFatal(entityException);
+                            transaccionBaseDeDatos.Rollback();
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            return resultadoModificacion;
+        }
     }
 }

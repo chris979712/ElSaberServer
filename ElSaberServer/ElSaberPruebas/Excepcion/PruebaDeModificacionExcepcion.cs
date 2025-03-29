@@ -57,5 +57,72 @@ namespace ElSaberPruebas.Excepcion
             int resultadoObtenido = usuarioOperaciones.EditarUsuarioPorIdAcceso(idAcceso, usuario, nuevoCorreo);
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        public void PruebaModificarDatosSocioExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 1;
+            DateTime fechaInscipcion = DateTime.Parse("2025-04-12");
+            DateTime fechaNacimiento = DateTime.Parse("2008-06-12");
+            Socio socio = new Socio()
+            {
+                nombre = "Juan",
+                primerApellido = "Cumplido",
+                segundoApellido = "Negrete",
+                telefono = "2281001122",
+                fechaInscripcion = fechaInscipcion,
+                fechaNacimiento = fechaNacimiento,
+                Direccion = new Direccion()
+                {
+                    calle = "Av.Xalapa",
+                    codigoPostal = 91101.ToString(),
+                    ciudad = "Xalapa"
+                }
+            };
+            int resultadoEsperado = -1;
+            int resultadoModificacion = socioOperaciones.EditarDatosDeSocio(numeroDeSocio, socio);
+            Assert.Equal(resultadoEsperado, resultadoModificacion);
+        }
+
+        [Fact]
+        public void PruebaModificarEstadoSocioExistenteExitosa()
+        {
+            SocioOperaciones socioOperaciones = new SocioOperaciones();
+            int numeroDeSocio = 1;
+            string estadoSocio = "Desactivo";
+            int resultadoModificacion = socioOperaciones.CambiarEstadoDeSocio(numeroDeSocio, estadoSocio);
+            int resultadoEsperado = -1;
+            Assert.Equal(resultadoModificacion, resultadoEsperado);
+        }
+
+        [Fact]
+        public void PruebaModificarEstadoDeLibroExcepcionExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            int resultadoEsperado = -1;
+            int resultadoObtenido = libroOperaciones.CambiarEstadoDeLibro("1111111112222", "NoDisponible");
+            Assert.Equal(resultadoObtenido, resultadoEsperado);
+        }
+
+        [Fact]
+        public void PruebaEditarDatosDeLibroExcepcionExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            Libro libroAModificar = new Libro()
+            {
+                titulo = "El principito",
+                anioDePublicacion = "2000",
+                cantidadEjemplares = 12,
+                numeroDePaginas = "175",
+                rutaPortada = "/ImagenesLibros/Elprincipito.jpg",
+                FK_IdAutor = 1,
+                FK_IdEditorial = 2,
+                FK_IdGenero = 3,
+            };
+            int resultadoObtenido = libroOperaciones.EditarDatosLibro("1111111111111", libroAModificar);
+            int resultadoEsperado = -1;
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
     }
 }

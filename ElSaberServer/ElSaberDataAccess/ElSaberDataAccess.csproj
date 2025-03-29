@@ -121,6 +121,7 @@
     <Compile Include="Utilidades\DatosUsuario.cs" />
     <Compile Include="Utilidades\Enumeradores.cs" />
     <Compile Include="Utilidades\InventarioLibro.cs" />
+    <Compile Include="Utilidades\LibroMasPrestado.cs" />
     <Compile Include="Utilidades\LoggerManager.cs" />
   </ItemGroup>
   <ItemGroup>

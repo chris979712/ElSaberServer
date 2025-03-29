@@ -21,6 +21,8 @@ namespace ElSaberServices.Contratos
         [OperationContract]
         SocioBinding ConsultarSocioPorNumeroDeSocio(int numeroDeSocio);
         [OperationContract]
+        int EditarDatosSocio(int numeroDeSocio, SocioBinding socio);
+        [OperationContract]
         int ModificarEstadoSocio(int numeroDeSocio, string estado);
     }
 

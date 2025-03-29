@@ -174,6 +174,23 @@ namespace ElSaberPruebas.Excepcion
             Assert.False(editorial.IdEditorial > 0);
         }
 
+        [Fact]
+        public void PruebaObtenerLibrosMasPrestadosPorFechaExcepcionExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<LibroMasPrestado> libroMasPrestadosObtenidos = libroOperaciones.ObtenerLibrosMasPrestadosPorFecha("2025-03-29", "2025-04-28");
+            string cantidadEjemplaresPrestados = "-1";
+            Assert.Equal(libroMasPrestadosObtenidos[0].cantidadDeEjemplares, cantidadEjemplaresPrestados);
+        }
+
+        [Fact]
+        public void PruebaObtenerInventarioDeLibrosExcepcionExitosa()
+        {
+            LibroOperaciones libroOperaciones = new LibroOperaciones();
+            List<InventarioLibro> inventarioLibrosObtenido = libroOperaciones.ObtenerInventarioLibros();
+            Assert.Equal(-1, inventarioLibrosObtenido[0].cantidadTotal);
+        }
+
         /**
          * Pruebas de consulta de prestamos
          */

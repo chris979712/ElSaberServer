@@ -12,11 +12,11 @@ namespace ElSaberDataAccess.Utilidades
 
         public string ISBN { get; set; }
 
-        public int cantidadTotal { get; set; };
+        public int cantidadTotal { get; set; }
 
-        public int cantidadDisponible { get; set; };
+        public int cantidadDisponible { get; set; }
 
-        public int cantidadNoDisponible { get; set; };
+        public int cantidadNoDisponible { get; set; }
 
     }
 }

@@ -46,6 +46,12 @@ namespace ElSaberServices.Contratos
         List<EditorialBinding> ObtenerEditoriales();
 
         [OperationContract]
+        int CambiarEstadoDeLibro(string isbn, string estado);
+
+        [OperationContract]
+        int EditarDetallesDeLibro(string isbn, LibroBinding libro);
+
+        [OperationContract]
         int RegistrarNuevoAutor(string autor);
         
         [OperationContract]
