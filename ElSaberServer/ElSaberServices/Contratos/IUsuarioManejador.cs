@@ -16,6 +16,12 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         int VerificarExistenciaDeUsuario(string correo, string telefonp);
+
+        [OperationContract]
+        int DesactivarUsuarioPorIdUsuario(int idUsuario);
+
+        [OperationContract]
+        int EditarInformacionUsuarioPorIdAcceso(int idAcceso,UsuarioBinding usuario,string correo);
     }
 
     [DataContract]

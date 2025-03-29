@@ -1,4 +1,5 @@
-﻿using ElSaberDataAccess.Operaciones;
+﻿using ElSaberDataAccess;
+using ElSaberDataAccess.Operaciones;
 using System;
 using System.Security.Cryptography;
 using System.Text;
@@ -74,5 +75,43 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
+        /**
+         * Prueba Modificacion Usuario
+         */
+        [Fact]
+        public void PruebaDesactivarUsuarioPorIdExitosa() 
+        {
+            UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
+            int idUsuario = 1;
+            int resultadoEsperado = 1;
+            int resultadoObtenido=usuarioOperaciones.DesactivarUsuarioPorId(idUsuario);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
+        [Fact]
+        public void PruebaEditarUsuarioPorIdAccesoExitosa() 
+        {
+            UsuarioOperaciones usuarioOperaciones=new UsuarioOperaciones();
+            int idAcceso = 1;
+            int resultadoEsperado = 1;
+            Usuario usuario = new Usuario()
+            {
+                nombre = "Ivan",
+                primerApellido = "Rodriguez",
+                segundoApellido = "Franco",
+                telefono = "2294634506",
+                puesto = "Mostrador",
+                Direccion = new Direccion()
+                {
+                    calle = "Av. principal",
+                    ciudad = "Jalcomulco",
+                    codigoPostal = "94000",
+                    numero = "78"
+                }
+            };            
+            string nuevoCorreo = "cetis175z@gmail.com";            
+            int resultadoObtenido=usuarioOperaciones.EditarUsuarioPorIdAcceso(idAcceso, usuario, nuevoCorreo);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
     }
 }
