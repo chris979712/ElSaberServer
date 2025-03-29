@@ -53,9 +53,6 @@ namespace ElSaberServices.Servicios
                         generadorElementos.AgregarBordeAlDocumento(pdf);
                         documento.Close();
                         reporteInventario = memoriaStream.ToArray();
-                        string rutaDescargas = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-                        string rutaArchivo = Path.Combine(rutaDescargas, "ReporteInventarioLibros.pdf");
-                        File.WriteAllBytes(rutaArchivo, reporteInventario);
                     }
                 }
                 catch(PdfException pdfException)

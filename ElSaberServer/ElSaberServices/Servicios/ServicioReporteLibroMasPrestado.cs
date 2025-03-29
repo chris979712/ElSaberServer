@@ -54,9 +54,6 @@ namespace ElSaberServices.Servicios
                         generadorElementos.AgregarBordeAlDocumento(pdf);
                         documento.Close();
                         ReporteLibrosMasPrestados = memoriaStream.ToArray();
-                        string rutaDescargas = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
-                        string rutaArchivo = Path.Combine(rutaDescargas, "ReporteLibrosMasPrestados.pdf");
-                        File.WriteAllBytes(rutaArchivo, ReporteLibrosMasPrestados);
                     }
                 }
                 catch (PdfException pdfException)
