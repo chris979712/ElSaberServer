@@ -19,6 +19,21 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         int ValidarPrestamosVencidosPorNumeroSocio(int numeroSocio);
+
+        [OperationContract]
+        List<PrestamoBinding> RecuperarTodosPrestamosPorNumeroSocio(int numeroSocio);
+
+        [OperationContract]
+        List<PrestamoBinding> RecuperarPrestamosActivosPorNumeroSocio(int numeroSocio);
+
+        [OperationContract]
+        List<PrestamoBinding> ObtenerPrestamosActivosPorISBN(string isbn);
+
+        [OperationContract]
+        List<PrestamoBinding> ObtenerPrestamosActivosPorFechaInicio(DateTime fechaInicio);
+
+        [OperationContract]
+        int EditarPrestamoPorId(int idPrestamo, string nota, DateTime fechaDevolucionEsperada);
     }
 
     [DataContract]

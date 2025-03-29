@@ -400,6 +400,72 @@ namespace ElSaberServerTest.Operaciones
             Assert.True(prestamo.IdPrestamo > 0);
         }
 
+        [Fact]
+        public void PruebaRecuperarTodosLosPrestamosPorNumeroSocioExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int numeroSocio = 1;
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarTodosLosPrestamosPorNumeroSocio(numeroSocio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarTodosLosPrestamosPorNumeroSocioFallido()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int numeroSocio = 1000;
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarTodosLosPrestamosPorNumeroSocio(numeroSocio);
+            Assert.True(prestamosObtenidos.Count == 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorNumeroSocioExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int numeroSocio = 1;
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorNumeroSocio(numeroSocio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorISBNExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones= new PrestamoOperaciones();
+            string isbn = "9781501142970";
+            List<Prestamo> prestamosObtenidos=prestamoOperaciones.RecuperarPrestamosActivosPorISBN(isbn);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorISBNFallida()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            string isbn = "1234567890123";
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorISBN(isbn);            
+            Assert.True(prestamosObtenidos.Count()==0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorFechaInicioExitosa() 
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            DateTime fechaInicio = DateTime.Parse("2025-03-26");
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorFechaInicio(fechaInicio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo > 0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorFechaInicioFallida()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            DateTime fechaInicio = DateTime.Parse("2020-03-26");
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorFechaInicio(fechaInicio);
+            Assert.True(prestamosObtenidos.Count() == 0);
+        }
     }
 
     public class DatabaseFixtureQuery : IDisposable

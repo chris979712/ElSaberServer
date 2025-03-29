@@ -117,5 +117,92 @@ namespace ElSaberDataAccess.Operaciones
             }
             return resultadoVerificacion;
         }
+
+        public int DesactivarUsuarioPorId(int idUsuario) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoDesactivacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var usuario = contextoBaseDeDatos.Usuario.FirstOrDefault(entidad => entidad.IdUsuario == idUsuario);
+                    if (usuario != null)
+                    {
+                        usuario.estado = Enumeradores.EnumeradorEstadoUsuario.Desactivado.ToString();
+                        resultadoDesactivacion = contextoBaseDeDatos.SaveChanges();
+                    }
+                    else 
+                    {
+                        resultadoDesactivacion = Constantes.ValorPorDefecto;
+                    }
+                }                
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoDesactivacion;
+        }
+
+        public int EditarUsuarioPorIdAcceso(int idAcceso, Usuario usuarioEditado,string correoAcceso) 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoModificacion = Constantes.ErrorEnLaOperacion;
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    using (var transaccionBaseDeDatos = contextoBaseDeDatos.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            var acceso = contextoBaseDeDatos.Acceso.FirstOrDefault(entidad => entidad.IdAcceso == idAcceso);
+                            if (acceso != null)
+                            {
+                                var usuario = contextoBaseDeDatos.Usuario.FirstOrDefault(usuarioLambda => usuarioLambda.IdUsuario == acceso.FK_IdUsuario);
+                                var direccion = contextoBaseDeDatos.Direccion.FirstOrDefault(direccionLambda => direccionLambda.IdDireccion == usuario.FK_idDireccion);                                
+                                direccion.ciudad = usuarioEditado.Direccion.ciudad;
+                                direccion.codigoPostal = usuarioEditado.Direccion.codigoPostal;
+                                direccion.calle = usuarioEditado.Direccion.calle;
+                                direccion.numero = usuarioEditado.Direccion.numero;
+                                usuario.nombre= usuarioEditado.nombre;
+                                usuario.primerApellido = usuarioEditado.primerApellido;
+                                usuario.segundoApellido = usuarioEditado.segundoApellido;
+                                usuario.telefono=usuarioEditado.telefono;
+                                usuario.puesto= usuarioEditado.puesto;
+                                acceso.correo = correoAcceso;
+                                contextoBaseDeDatos.SaveChanges();
+                                transaccionBaseDeDatos.Commit();
+                                resultadoModificacion = Constantes.OperacionExitosa;
+                            }
+                            else
+                            {
+                                resultadoModificacion = Constantes.SinResultadosEncontrados;
+                            }
+                        }
+                        catch (DbUpdateException dpUpdateException)
+                        {
+                            logger.LogError(dpUpdateException);
+                            transaccionBaseDeDatos.Rollback();
+                        }
+                        catch (EntityException entityException)
+                        {
+                            logger.LogFatal(entityException);
+                            transaccionBaseDeDatos.Rollback();
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            return resultadoModificacion;
+        }
     }
 }
