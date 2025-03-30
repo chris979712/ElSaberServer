@@ -466,6 +466,28 @@ namespace ElSaberServerTest.Operaciones
             List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorFechaInicio(fechaInicio);
             Assert.True(prestamosObtenidos.Count() == 0);
         }
+
+        /**
+         * Pruebas de consulta de Multas
+         */
+        [Fact]
+        public void PruebaRecuperarMultasPendientesPorNumeroSocioExitosa() 
+        {
+            MultaOperaciones multaOperaciones=new MultaOperaciones();
+            int numeroSocio = 1;            
+            List<Multa> multasObtenidas=multaOperaciones.RecuperarMultasPendientesPorNumeroSocio(numeroSocio);
+            Multa multa=multasObtenidas.FirstOrDefault();
+            Assert.True(multa.IdMulta>0);
+        }
+
+        [Fact]
+        public void PruebaRecuperarMultasPendientesPorNumeroSocioFallida()
+        {
+            MultaOperaciones multaOperaciones = new MultaOperaciones();
+            int numeroSocio = 9999;
+            List<Multa> multasObtenidas = multaOperaciones.RecuperarMultasPendientesPorNumeroSocio(numeroSocio);            
+            Assert.True(multasObtenidas.Count==0);
+        }
     }
 
     public class DatabaseFixtureQuery : IDisposable

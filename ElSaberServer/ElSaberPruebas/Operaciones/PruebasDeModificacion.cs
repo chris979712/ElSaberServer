@@ -227,5 +227,16 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
+        //Prueba Modificacion Multa
+        [Fact]
+        public void PruebaRegistrarPagoMultaPorIdExitosa() 
+        {
+            MultaOperaciones multaOperaciones=new MultaOperaciones();
+            int idMulta = 1;
+            int resultadoEsperado = 1;
+            int resultadoObtenido = multaOperaciones.RegistrarPagoMultaPorId(idMulta);
+            Assert.Equal(resultadoEsperado,resultadoObtenido);
+        }
+
     }
 }
