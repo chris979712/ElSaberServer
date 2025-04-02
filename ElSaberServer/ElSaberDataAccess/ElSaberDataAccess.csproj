@@ -101,6 +101,7 @@
     <Compile Include="Operaciones\DevolucionOperaciones.cs" />
     <Compile Include="Operaciones\DireccionOperaciones.cs" />
     <Compile Include="Operaciones\LibroOperaciones.cs" />
+    <Compile Include="Operaciones\MultaOperaciones.cs" />
     <Compile Include="Operaciones\PrestamoOperaciones.cs" />
     <Compile Include="Operaciones\SocioOperaciones.cs" />
     <Compile Include="Operaciones\UsuarioOperaciones.cs" />
