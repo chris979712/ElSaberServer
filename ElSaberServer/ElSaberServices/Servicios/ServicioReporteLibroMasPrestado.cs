@@ -59,7 +59,7 @@ namespace ElSaberServices.Servicios
                 catch (PdfException pdfException)
                 {
                     logger.LogError(pdfException);
-                ReporteLibrosMasPrestados = new byte[1];
+                    ReporteLibrosMasPrestados = new byte[1];
                 }
             }
             return ReporteLibrosMasPrestados;

@@ -204,6 +204,14 @@ namespace ElSaberPruebas.Excepcion
             Assert.False(prestamo.IdPrestamo > 0);
         }
 
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosExcepcionExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            List<SocioPrestamoPendiente> sociosPrestamosPendientes = prestamoOperaciones.ObtenerPrestamosPendientes();
+            Assert.True(sociosPrestamosPendientes[0].idPrestamo == -1);
+        }
+
 
     }
 }

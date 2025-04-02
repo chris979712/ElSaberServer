@@ -42,7 +42,7 @@ namespace ElSaberServerTest.Operaciones
 
             Acceso acceso = new Acceso()
             {
-                correo = "chrisvasquez985@gmail.com",
+                correo = "chris@gmail.com",
                 contrasenia = contraseniaEncriptada,
                 tipoDeUsuario = "Administrador"
             };

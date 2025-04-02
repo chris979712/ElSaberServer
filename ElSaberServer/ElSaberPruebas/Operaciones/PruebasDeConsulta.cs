@@ -400,13 +400,21 @@ namespace ElSaberServerTest.Operaciones
             Assert.True(prestamo.IdPrestamo > 0);
         }
 
+        [Fact] 
+        public void PruebaRecuperarPrestamosActivosExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            List<SocioPrestamoPendiente> sociosPrestamosPendientes = prestamoOperaciones.ObtenerPrestamosPendientes();
+            Assert.True(sociosPrestamosPendientes.Count() >= 3);
+        }
+
     }
 
     public class DatabaseFixtureQuery : IDisposable
     {
         public DatabaseFixtureQuery()
         {
-            InsertarSociosPruebaDeConsulta();
+            //InsertarSociosPruebaDeConsulta();
             //InsertarPrestamosYLibros();
         }
 
