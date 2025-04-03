@@ -488,6 +488,15 @@ namespace ElSaberServerTest.Operaciones
             List<Multa> multasObtenidas = multaOperaciones.RecuperarMultasPendientesPorNumeroSocio(numeroSocio);            
             Assert.True(multasObtenidas.Count==0);
         }
+
+        [Fact]
+        public void PruebaActualizarMultasExitosa() 
+        {
+            MultaOperaciones multaOperaciones=new MultaOperaciones();
+            int resultadoEsperado = 1;
+            int resultadoObtenido = multaOperaciones.ActualizarMultas();
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
     }
 
     public class DatabaseFixtureQuery : IDisposable
