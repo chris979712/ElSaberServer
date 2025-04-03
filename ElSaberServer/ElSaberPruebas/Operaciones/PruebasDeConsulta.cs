@@ -440,6 +440,14 @@ namespace ElSaberServerTest.Operaciones
         }
 
         [Fact]
+        public void PruebaRecuperarPrestamosPendientesExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            List<SocioPrestamoPendiente> prestamosPendientes = prestamoOperaciones.ObtenerPrestamosPendientes();
+            Assert.True(prestamosPendientes.Count() >= 3);
+        } 
+
+        [Fact]
         public void PruebaRecuperarPrestamosActivosPorISBNFallida()
         {
             PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();

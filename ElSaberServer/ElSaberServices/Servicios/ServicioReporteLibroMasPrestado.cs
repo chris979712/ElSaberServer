@@ -20,12 +20,12 @@ namespace ElSaberServices.Servicios
     {
         public byte[] ObtenerReporteLibrosMasPrestado(string fechaInicioBusqueda, string fechaFinBusqueda)
         {
-            byte[] ReporteLibrosMasPrestados = new byte[0];
+            byte[] reporteLibrosMasPrestados = new byte[0];
             LibroOperaciones libroOperaciones = new LibroOperaciones();
             List<LibroMasPrestado> librosMasPrestados = libroOperaciones.ObtenerLibrosMasPrestadosPorFecha(fechaInicioBusqueda, fechaFinBusqueda);
             if (librosMasPrestados[0].cantidadDeEjemplares.Equals("-1"))
             {
-                ReporteLibrosMasPrestados = new byte[255];
+                reporteLibrosMasPrestados = new byte[255];
             }
             else if (!librosMasPrestados[0].cantidadDeEjemplares.Equals("0"))
             {
@@ -42,27 +42,27 @@ namespace ElSaberServices.Servicios
                         documento.SetMargins(40, 40, 40, 40);
                         Paragraph parrafoInicial = generadorElementos.GenerarParrafoInicial();
                         Paragraph tipoDeReporte = generadorElementos.GenerarTipoDeReporte("Reporte de Libros más prestados");
-                        Table tablaInventario = generadorElementos.GenerarTablaLibrosMasPrestados(librosMasPrestados);
+                        Table tablaLibrosMasPrestados = generadorElementos.GenerarTablaLibrosMasPrestados(librosMasPrestados);
                         Paragraph generarParrafoFinal = generadorElementos.GenerarPieFinalDeReporte("\nEl presente reporte muestra los libros más prestados " +
                             "en la Biblioteca El Saber desde entre las fechas "+fechaInicioBusqueda+" - "+fechaFinBusqueda);
                         Image imagenEncabezado = generadorElementos.AgregarImagenEncabezado(pdf);
                         documento.Add(imagenEncabezado);
                         documento.Add(parrafoInicial);
                         documento.Add(tipoDeReporte);
-                        documento.Add(tablaInventario);
+                        documento.Add(tablaLibrosMasPrestados);
                         documento.Add(generarParrafoFinal);
                         generadorElementos.AgregarBordeAlDocumento(pdf);
                         documento.Close();
-                        ReporteLibrosMasPrestados = memoriaStream.ToArray();
+                        reporteLibrosMasPrestados = memoriaStream.ToArray();
                     }
                 }
                 catch (PdfException pdfException)
                 {
                     logger.LogError(pdfException);
-                    ReporteLibrosMasPrestados = new byte[1];
+                    reporteLibrosMasPrestados = new byte[1];
                 }
             }
-            return ReporteLibrosMasPrestados;
+            return reporteLibrosMasPrestados;
         }
     }
 }

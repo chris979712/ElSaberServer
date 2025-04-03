@@ -58,6 +58,7 @@ namespace ElSaberPruebas.Excepcion
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
 
+        [Fact]
         public void PruebaModificarDatosSocioExitosa()
         {
             SocioOperaciones socioOperaciones = new SocioOperaciones();

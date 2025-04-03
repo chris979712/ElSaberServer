@@ -150,6 +150,7 @@
     <Compile Include="Contratos\IAccesoManejador.cs" />
     <Compile Include="Contratos\IDevolucionManejador.cs" />
     <Compile Include="Contratos\ILibroManejador.cs" />
+    <Compile Include="Contratos\IMultaManejador.cs" />
     <Compile Include="Contratos\IPrestamoManejador.cs" />
     <Compile Include="Contratos\IReporteInventarioLibroManejador.cs" />
     <Compile Include="Contratos\IReporteLibroMasPrestadoManejador.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Servicios\ServicioDevolucion.cs" />
     <Compile Include="Servicios\ServicioGeneradorDeElementosReporte.cs" />
     <Compile Include="Servicios\ServicioLibro.cs" />
+    <Compile Include="Servicios\ServicioMulta.cs" />
     <Compile Include="Servicios\ServicioPrestamo.cs" />
     <Compile Include="Servicios\ServicioReporteInventarioLibro.cs" />
     <Compile Include="Servicios\ServicioReporteLibroMasPrestado.cs" />
@@ -181,6 +183,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Utilidades\Buho.jpg" />
     <Content Include="Utilidades\CorreoContraseniaRestablecida.html" />
     <Content Include="Utilidades\CorreoRestablecimientoDeContrasenia.html" />
   </ItemGroup>
