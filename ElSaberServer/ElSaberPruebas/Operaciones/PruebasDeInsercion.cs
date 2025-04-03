@@ -173,8 +173,8 @@ namespace ElSaberServerTest.Operaciones
             Prestamo prestamo = new Prestamo()
             {
                 fechaPrestamo = DateTime.Today,
-                fechaDevolucionEsperada = DateTime.Today.AddDays(7),
-                nota="Buen libro",
+                fechaDevolucionEsperada = DateTime.Today,
+                nota="Probando multa",
                 FK_IdLibro=1,
                 FK_IdSocio=1,
                 FK_IdUsuario=1,

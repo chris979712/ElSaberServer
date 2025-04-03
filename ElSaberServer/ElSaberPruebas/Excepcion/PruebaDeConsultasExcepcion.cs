@@ -205,13 +205,33 @@ namespace ElSaberPruebas.Excepcion
         }
 
         [Fact]
-        public void PruebaRecuperarPrestamosActivosExcepcionExitosa()
+        public void PruebaRecuperarPrestamosActivosPorISBNExcepcion()
         {
             PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
-            List<SocioPrestamoPendiente> sociosPrestamosPendientes = prestamoOperaciones.ObtenerPrestamosPendientes();
-            Assert.True(sociosPrestamosPendientes[0].idPrestamo == -1);
+            string isbn = "9781501142970";
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorISBN(isbn);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo ==-1);
         }
 
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorNumeroSocioExcepcion()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            int numeroSocio = 1;
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorNumeroSocio(numeroSocio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo ==-1);
+        }
 
+        [Fact]
+        public void PruebaRecuperarPrestamosActivosPorFechaInicioExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            DateTime fechaInicio = DateTime.Parse("2025-03-26");
+            List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorFechaInicio(fechaInicio);
+            Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
+            Assert.True(prestamo.IdPrestamo == -1);
+        }
     }
 }

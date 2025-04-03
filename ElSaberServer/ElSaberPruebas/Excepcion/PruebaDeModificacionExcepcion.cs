@@ -34,6 +34,30 @@ namespace ElSaberPruebas.Excepcion
         }
 
         [Fact]
+        public void PruebaEditarUsuarioPorIdAccesoExcepcion()
+        {
+            UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
+            int idAcceso = 1;
+            int resultadoEsperado = -1;
+            Usuario usuario = new Usuario()
+            {
+                nombre = "Ivan",
+                primerApellido = "Rodriguez",
+                segundoApellido = "Franco",
+                telefono = "2294634506",
+                puesto = "Mostrador",
+                Direccion = new Direccion()
+                {
+                    calle = "Av. principal",
+                    ciudad = "Jalcomulco",
+                    codigoPostal = "94000",
+                }
+            };
+            string nuevoCorreo = "cetis175z@gmail.com";
+            int resultadoObtenido = usuarioOperaciones.EditarUsuarioPorIdAcceso(idAcceso, usuario, nuevoCorreo);
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
+        }
+
         public void PruebaModificarDatosSocioExitosa()
         {
             SocioOperaciones socioOperaciones = new SocioOperaciones();

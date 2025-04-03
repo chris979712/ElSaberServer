@@ -28,5 +28,11 @@ namespace ElSaberDataAccess.Utilidades
             Daniado,
         }
 
+        public enum EnumeradorEstadoMulta 
+        {
+            Pendiente,
+            Pagada,
+        }
+
     }
 }
