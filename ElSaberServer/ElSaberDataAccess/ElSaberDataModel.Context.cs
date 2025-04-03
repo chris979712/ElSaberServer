@@ -35,7 +35,6 @@ namespace ElSaberDataAccess
         public virtual DbSet<Multa> Multa { get; set; }
         public virtual DbSet<Prestamo> Prestamo { get; set; }
         public virtual DbSet<Socio> Socio { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
     }
 }

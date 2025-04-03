@@ -81,6 +81,7 @@
           <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="montoTotal" Type="float" Nullable="false" />
           <Property Name="FK_IdPrestamo" Type="int" Nullable="false" />
+          <Property Name="fechaPagoMulta" Type="date" />
         </EntityType>
         <EntityType Name="Prestamo">
           <Key>
@@ -108,16 +109,6 @@
           <Property Name="estado" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="FK_idDireccion" Type="int" Nullable="false" />
           <Property Name="fechaNacimiento" Type="date" Nullable="false" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -275,7 +266,6 @@
           <EntitySet Name="Multa" EntityType="Self.Multa" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Prestamo" EntityType="Self.Prestamo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Socio" EntityType="Self.Socio" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Dir" Association="Self.FK_Dir">
             <End Role="Direccion" EntitySet="Direccion" />
@@ -414,6 +404,7 @@
           <Property Name="montoTotal" Type="Double" Nullable="false" />
           <Property Name="FK_IdPrestamo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdPrestamo" FromRole="Multa" ToRole="Prestamo" />
+          <Property Name="fechaPagoMulta" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Prestamo">
           <Key>
@@ -448,16 +439,6 @@
           <NavigationProperty Name="Direccion" Relationship="Self.FK_Dir" FromRole="Socio" ToRole="Direccion" />
           <NavigationProperty Name="Prestamo" Relationship="Self.FK_IdSocio" FromRole="Socio" ToRole="Prestamo" />
           <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -618,7 +599,6 @@
           <EntitySet Name="Multa" EntityType="Self.Multa" />
           <EntitySet Name="Prestamo" EntityType="Self.Prestamo" />
           <EntitySet Name="Socio" EntityType="Self.Socio" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" />
           <AssociationSet Name="FK_IdUsuar" Association="Self.FK_IdUsuar">
             <End Role="Usuario" EntitySet="Usuario" />
@@ -749,6 +729,7 @@
           <EntitySetMapping Name="Multa">
             <EntityTypeMapping TypeName="ElSaberDBModel.Multa">
               <MappingFragment StoreEntitySet="Multa">
+                <ScalarProperty Name="fechaPagoMulta" ColumnName="fechaPagoMulta" />
                 <ScalarProperty Name="IdMulta" ColumnName="IdMulta" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="montoTotal" ColumnName="montoTotal" />
@@ -782,17 +763,6 @@
                 <ScalarProperty Name="fechaInscripcion" ColumnName="fechaInscripcion" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="FK_idDireccion" ColumnName="FK_idDireccion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ElSaberDBModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
