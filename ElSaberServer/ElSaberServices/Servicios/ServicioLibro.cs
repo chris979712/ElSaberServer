@@ -110,7 +110,7 @@ namespace ElSaberServices.Servicios
             return libroOperaciones.ObtenerIdLibroPorCodigoISBN(isbn);
         }
 
-        public byte[] ObtenerImagenLibro(string tituloLibro)
+        public byte[] ObtenerImagenLibro(string rutaLibro)
         {
             LoggerManager logger = new LoggerManager(this.GetType());
             Byte[] imagenObtenida = null;
@@ -119,14 +119,12 @@ namespace ElSaberServices.Servicios
                 string[] extensiones = { ".jpg", ".jpeg", ".png" };
                 string directorioBase = AppDomain.CurrentDomain.BaseDirectory;
                 string servidorPath = Path.GetFullPath(Path.Combine(directorioBase, "../../../"));
-                string rutaDestino = Path.Combine(servidorPath, "ElSaberServices/ImagenesLibro");
+                string rutaDestino = Path.Combine(servidorPath, rutaLibro);
                 foreach (var extension in extensiones)
                 {
-  
-                    string rutaArchivo = Path.Combine(rutaDestino, tituloLibro + extension);
-                    if (File.Exists(rutaArchivo))
+                    if (File.Exists(rutaDestino))
                     {
-                        imagenObtenida = File.ReadAllBytes(rutaArchivo);
+                        imagenObtenida = File.ReadAllBytes(rutaDestino);
                     }
                 }
             }
