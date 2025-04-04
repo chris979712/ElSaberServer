@@ -18,6 +18,7 @@ namespace ElSaberDataAccess
         public string estado { get; set; }
         public double montoTotal { get; set; }
         public int FK_IdPrestamo { get; set; }
+        public Nullable<System.DateTime> fechaPagoMulta { get; set; }
     
         public virtual Prestamo Prestamo { get; set; }
     }

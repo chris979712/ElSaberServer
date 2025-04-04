@@ -1,5 +1,6 @@
 ﻿using ElSaberDataAccess.Utilidades;
 using ElSaberDataAccess.Utilities;
+using log4net.Repository.Hierarchy;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
@@ -24,7 +25,7 @@ namespace ElSaberDataAccess.Operaciones
             try 
             {
                 using (var contextoBaseDeDatos = new ElSaberDBEntities())
-                {
+                {                    
                     multasObtenidas = (from multa in contextoBaseDeDatos.Multa
                                        join prestamo in contextoBaseDeDatos.Prestamo
                                        on multa.FK_IdPrestamo equals prestamo.IdPrestamo
@@ -58,6 +59,7 @@ namespace ElSaberDataAccess.Operaciones
                     if (multa != null)
                     {
                         multa.estado = Enumeradores.EnumeradorEstadoMulta.Pagada.ToString();
+                        multa.fechaPagoMulta = DateTime.Today;
                         resultadoRegistro=contextoBaseDeDatos.SaveChanges();
                     }
                     else 
@@ -79,6 +81,43 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return resultadoRegistro;
+        }
+
+        public int ActualizarMultas() 
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            int resultadoConsulta = Constantes.ErrorEnLaOperacion;
+            try 
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var actualizarEstadoQuery = @"UPDATE m
+                                          SET m.Estado = 'Pendiente'
+                                          FROM Multa m
+                                          INNER JOIN Prestamo p ON m.FK_IdPrestamo = p.idPrestamo
+                                          WHERE p.FechaDevolucionEsperada < CONVERT(DATE, GETDATE())
+                                          AND p.estado <> 'Devuelto'
+                                          AND m.Estado = 'Inactivo';";
+                    contextoBaseDeDatos.Database.ExecuteSqlCommand(actualizarEstadoQuery);
+                    var actualizarMontoQuery = @"
+                                            UPDATE m
+                                            SET m.MontoTotal = DATEDIFF(DAY, p.FechaDevolucionEsperada, GETDATE())
+                                            FROM Multa m
+                                            INNER JOIN Prestamo p ON m.FK_IdPrestamo = p.idPrestamo
+                                            WHERE m.Estado = 'Pendiente';";
+                    contextoBaseDeDatos.Database.ExecuteSqlCommand(actualizarMontoQuery);
+                    resultadoConsulta = Constantes.OperacionExitosa;
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+            }
+            return resultadoConsulta;
         }
     }
 }
