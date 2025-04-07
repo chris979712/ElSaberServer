@@ -440,6 +440,14 @@ namespace ElSaberServerTest.Operaciones
         }
 
         [Fact]
+        public void PruebaRecuperarPrestamosPendientesExitosa()
+        {
+            PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
+            List<SocioPrestamoPendiente> prestamosPendientes = prestamoOperaciones.ObtenerPrestamosPendientes();
+            Assert.True(prestamosPendientes.Count() >= 3);
+        } 
+
+        [Fact]
         public void PruebaRecuperarPrestamosActivosPorISBNFallida()
         {
             PrestamoOperaciones prestamoOperaciones = new PrestamoOperaciones();
@@ -487,6 +495,15 @@ namespace ElSaberServerTest.Operaciones
             int numeroSocio = 9999;
             List<Multa> multasObtenidas = multaOperaciones.RecuperarMultasPendientesPorNumeroSocio(numeroSocio);            
             Assert.True(multasObtenidas.Count==0);
+        }
+
+        [Fact]
+        public void PruebaActualizarMultasExitosa() 
+        {
+            MultaOperaciones multaOperaciones=new MultaOperaciones();
+            int resultadoEsperado = 1;
+            int resultadoObtenido = multaOperaciones.ActualizarMultas();
+            Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
     }
 

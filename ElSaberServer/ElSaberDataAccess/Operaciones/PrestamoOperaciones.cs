@@ -287,5 +287,59 @@ namespace ElSaberDataAccess.Operaciones
             return resultadoEdicion;
         }
 
+        public List<SocioPrestamoPendiente> ObtenerPrestamosPendientes()
+        {
+            List<SocioPrestamoPendiente> sociosPrestamosPendientes = new List<SocioPrestamoPendiente>();
+            LoggerManager logger = new LoggerManager(this.GetType());
+            SocioPrestamoPendiente socioPrestamoExcepcion = new SocioPrestamoPendiente()
+            {
+                idPrestamo = -1
+            };
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    var prestamosPendientes = contextoBaseDeDatos.Prestamo.Where(prestamoBD => prestamoBD.estado == Enumeradores.EnumeradoEstadoPrestamo.Activo.ToString()).ToList();
+                    if (prestamosPendientes.Count > 0) 
+                    {
+                        foreach(var prestamo in prestamosPendientes)
+                        {
+                            SocioPrestamoPendiente socioPrestamoPendiente = new SocioPrestamoPendiente()
+                            {
+                                fechaDevolucionEsperada = prestamo.fechaDevolucionEsperada.ToString("yyyy-MM-dd"),
+                                fechaPrestamo = prestamo.fechaPrestamo.ToString("yyyy-MM-dd"),
+                                nombreSocio = prestamo.Socio.nombre + " " + prestamo.Socio.primerApellido + " " + prestamo.Socio.segundoApellido,
+                                numeroSocio = prestamo.Socio.numeroDeSocio,
+                                telefonoSocio = prestamo.Socio.telefono.ToString(),
+                                isbnLibro = prestamo.Libro.isbn,
+                                idPrestamo = prestamo.IdPrestamo,
+                                tituloLibro = prestamo.Libro.titulo,
+
+                            };
+                            sociosPrestamosPendientes.Add(socioPrestamoPendiente);
+                        }
+                    }
+                    else
+                    {
+                        SocioPrestamoPendiente socioPrestamoSinDatosEncontrados = new SocioPrestamoPendiente()
+                        {
+                            idPrestamo = 0
+                        };
+                        sociosPrestamosPendientes.Add(socioPrestamoSinDatosEncontrados);
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                sociosPrestamosPendientes.Add(socioPrestamoExcepcion);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                sociosPrestamosPendientes.Add(socioPrestamoExcepcion);
+            }
+            return sociosPrestamosPendientes;
+        }
     }
 }

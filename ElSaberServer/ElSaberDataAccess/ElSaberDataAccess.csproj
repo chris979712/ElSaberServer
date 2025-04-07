@@ -124,6 +124,7 @@
     <Compile Include="Utilidades\InventarioLibro.cs" />
     <Compile Include="Utilidades\LibroMasPrestado.cs" />
     <Compile Include="Utilidades\LoggerManager.cs" />
+    <Compile Include="Utilidades\SocioPrestamoPendiente.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -24,8 +24,7 @@ namespace ElSaberDataAccess.Utilidades
         public enum EnumeradorEstadoLibro 
         {
             Disponible,
-            Prestado,
-            Daniado,
+            Desactivado
         }
 
         public enum EnumeradorEstadoMulta 

@@ -37,14 +37,14 @@ namespace ElSaberServerTest.Operaciones
                 primerApellido = "Vasquez",
                 segundoApellido = "Zapata",
                 telefono = "2281024672",
-                puesto = "Administrador"
+                puesto = "Bibliotecario"
             };
 
             Acceso acceso = new Acceso()
             {
-                correo = "chrisvasquez985@gmail.com",
+                correo = "jon@gmail.com",
                 contrasenia = contraseniaEncriptada,
-                tipoDeUsuario = "Administrador"
+                tipoDeUsuario = "Bibliotecario"
             };
             UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
             int resultadoObtenido = usuarioOperaciones.RegistrarUsuarioEnLaBaseDeDatos(usuario, acceso, direccion);

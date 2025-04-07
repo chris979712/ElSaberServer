@@ -1,4 +1,5 @@
-﻿using ElSaberDataAccess.Utilidades;
+﻿using ElSaberDataAccess;
+using ElSaberDataAccess.Utilidades;
 using iText.IO.Font.Constants;
 using iText.IO.Image;
 using iText.Kernel.Colors;
@@ -84,6 +85,31 @@ namespace ElSaberServices.Servicios
                 tablaLibrosMasPrestados.AddCell(CrearCeldaElementos(libro.cantidadDeEjemplares));
             }
             return tablaLibrosMasPrestados;
+        }
+
+        public Table GenerarTablaSocioConPrestamoPendiente(List<SocioPrestamoPendiente> sociosPrestamoPendientes)
+        {
+            Table tablaSocioPrestamoPendiente = new Table(8, true);
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("No.Socio"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Nombre socio"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Teléfono"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Id Prestamo"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("ISBN"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Titulo"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Fecha inicio prestamo"));
+            tablaSocioPrestamoPendiente.AddCell(CrearCeldaEncabezado("Fecha devolución esperada"));
+            foreach (var socio in sociosPrestamoPendientes)
+            {
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.numeroSocio.ToString()));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.nombreSocio));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.telefonoSocio));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.idPrestamo.ToString()));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.isbnLibro));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.tituloLibro));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.fechaPrestamo));
+                tablaSocioPrestamoPendiente.AddCell(CrearCeldaElementos(socio.fechaDevolucionEsperada));
+            }
+            return tablaSocioPrestamoPendiente;
         }
 
         private Cell CrearCeldaEncabezado(string texto)
