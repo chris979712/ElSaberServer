@@ -98,6 +98,15 @@ namespace ElSaberServerTest.Operaciones
             Assert.Equal(resultadoEsperado, usuarioObtenido.IdAcceso);
         }
 
+        [Fact]
+        public void PruebaObtenerUsuariosExitosa()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            List<Acceso> accesos = accesoOperaciones.ObtenerUsuarios();
+            Assert.NotNull(accesos);
+            Assert.True(accesos.Count > 0);
+        }
+
         /**
          * Pruebas de consulta de usuarios
          */

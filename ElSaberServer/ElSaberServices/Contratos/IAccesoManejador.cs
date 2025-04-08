@@ -22,6 +22,8 @@ namespace ElSaberServices.Contratos
 
         [OperationContract]
         AccesoBinding IniciarSesion(string correo, string contrasenia);
+        [OperationContract]
+        List<AccesoBinding> ObtenerUsuarios();
     }
 
     [DataContract]

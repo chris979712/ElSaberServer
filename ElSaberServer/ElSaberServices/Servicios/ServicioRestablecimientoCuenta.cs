@@ -153,6 +153,7 @@ namespace ElSaberServices.Servicios
             Random random = new Random();
             int codigoGenerado = random.Next(100000, 999999);
             string textoDeCodigoGenerado = codigoGenerado.ToString();
+            _codigosDeVerificacion.Add(correo, textoDeCodigoGenerado);
             return textoDeCodigoGenerado;
         }
 
