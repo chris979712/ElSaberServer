@@ -53,5 +53,41 @@ namespace ElSaberServices.Servicios
             };
             return accesoBinding;
         }
+
+        public List<AccesoBinding> ObtenerUsuarios()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            List<Acceso> accesosRecuperados = accesoOperaciones.ObtenerUsuarios();
+            List<AccesoBinding> accesosObtenidos = new List<AccesoBinding>();
+
+            foreach (Acceso accesoRecuperado in  accesosRecuperados)
+            {
+                DireccionBinding direccionBinding = new DireccionBinding()
+                {
+                    calle = accesoRecuperado.Usuario.Direccion.calle,
+                    ciudad = accesoRecuperado.Usuario.Direccion.ciudad,
+                    codigoPostal = accesoRecuperado.Usuario.Direccion.codigoPostal,
+                    numero = accesoRecuperado.Usuario.Direccion.numero
+                };
+                UsuarioBinding usuarioBinding = new UsuarioBinding()
+                {
+                    nombre = accesoRecuperado.Usuario.nombre,
+                    primerApellido = accesoRecuperado.Usuario.primerApellido,
+                    segundoApellido = accesoRecuperado.Usuario.segundoApellido,
+                    telefono = accesoRecuperado.Usuario.telefono,
+                    puesto = accesoRecuperado.Usuario.puesto,
+                    direccion = direccionBinding
+                };
+                AccesoBinding accesoBinding = new AccesoBinding()
+                {
+                    IdAcceso = accesoRecuperado.IdAcceso,
+                    correo = accesoRecuperado.correo,
+                    tipoDeUsuario = accesoRecuperado.tipoDeUsuario,
+                    IdUsuario = usuarioBinding
+                };
+                accesosObtenidos.Add(accesoBinding);
+            }
+            return accesosObtenidos;
+        }
     }
 }

@@ -30,11 +30,19 @@ namespace ElSaberPruebas.Excepcion
         }
 
         [Fact]
-        public void PruebaIniciarSesionEntityException()
+        public void PruebaIniciarSesionExcepcionExitosa()
         {
             AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
             DatosUsuario datosUsuario = accesoOperaciones.IniciarSesion("ejemplo@prueba.com", "secreto123");
             Assert.True(datosUsuario.IdAcceso == -1);
+        }
+
+        [Fact]
+        public void PruebaObtenerUsuariosExcepcionExitosa()
+        {
+            AccesoOperaciones accesoOperaciones = new AccesoOperaciones();
+            List<Acceso> accesos = accesoOperaciones.ObtenerUsuarios();
+            Assert.True(accesos.First().IdAcceso == -1);
         }
 
         /**

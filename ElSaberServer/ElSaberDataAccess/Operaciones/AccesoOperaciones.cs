@@ -126,12 +126,20 @@ namespace ElSaberDataAccess.Operaciones
                             Nombre = u.nombre,
                             PrimerApellido = u.primerApellido,
                             SegundoApellido = u.segundoApellido,
-                            Puesto = u.puesto
+                            Puesto = u.puesto,
+                            Estado = u.estado
                         }).FirstOrDefault();
                     
                     if (usuarioObtenido != null)
                     {
-                        usuario = usuarioObtenido;
+                        if (usuarioObtenido.Estado == Enumeradores.EnumeradorEstadoUsuario.Activo.ToString())
+                        {
+                            usuario = usuarioObtenido;
+                        }
+                        else
+                        {
+                            usuario.IdAcceso = Constantes.SinResultadosEncontrados;
+                        }
                     }
                     else
                     {
@@ -148,6 +156,39 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return usuario;
+        }
+
+        public List<Acceso> ObtenerUsuarios()
+        {
+            List<Acceso> accesosObtenidos = new List<Acceso>();
+            Acceso accesoError = new Acceso()
+            {
+                IdAcceso = Constantes.ErrorEnLaOperacion
+            };
+
+            LoggerManager logger = new LoggerManager(this.GetType());
+            try
+            {
+                using (var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    accesosObtenidos = contextoBaseDeDatos.Acceso
+                        .Include("Usuario")
+                        .Include("Usuario.Direccion")
+                        .Where(a => a.Usuario.estado == Enumeradores.EnumeradorEstadoUsuario.Activo.ToString())
+                        .ToList();
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                accesosObtenidos.Add(accesoError);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                accesosObtenidos.Add(accesoError);
+            }
+            return accesosObtenidos;
         }
     }
 }
