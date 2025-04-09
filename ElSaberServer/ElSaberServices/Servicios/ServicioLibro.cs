@@ -128,6 +128,10 @@ namespace ElSaberServices.Servicios
                     }
                 }
             }
+            catch(ArgumentException excepcionEnArgumento)
+            {
+                logger.LogError(excepcionEnArgumento);
+            }
             catch(FileNotFoundException fileNotFoundException)
             {
                 logger.LogError(fileNotFoundException);

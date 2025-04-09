@@ -22,7 +22,7 @@ namespace ElSaberServerTest.Operaciones
         [Fact]
         public void PruebaRegistrarUsuarioEnLaBaseDeDatosExitosa()
         {
-            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123");
+            string contraseniaEncriptada = Encriptado.hashToSHA2("contraseniasecreta123*");
             Direccion direccion = new Direccion()
             {
                 calle = "Juarez",
@@ -42,9 +42,9 @@ namespace ElSaberServerTest.Operaciones
 
             Acceso acceso = new Acceso()
             {
-                correo = "jon@gmail.com",
+                correo = "jonn@gmail.com",
                 contrasenia = contraseniaEncriptada,
-                tipoDeUsuario = "Bibliotecario"
+                tipoDeUsuario = "Administrador"
             };
             UsuarioOperaciones usuarioOperaciones = new UsuarioOperaciones();
             int resultadoObtenido = usuarioOperaciones.RegistrarUsuarioEnLaBaseDeDatos(usuario, acceso, direccion);

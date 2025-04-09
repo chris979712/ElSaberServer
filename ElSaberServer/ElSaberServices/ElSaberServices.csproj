@@ -183,6 +183,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ImagenesLibro\Los secretos de la FEI.jpg" />
     <Content Include="Utilidades\Buho.jpg" />
     <Content Include="Utilidades\CorreoContraseniaRestablecida.html" />
     <Content Include="Utilidades\CorreoRestablecimientoDeContrasenia.html" />
