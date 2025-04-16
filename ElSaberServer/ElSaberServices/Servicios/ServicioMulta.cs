@@ -30,6 +30,10 @@ namespace ElSaberServices.Servicios
                     FK_IdPrestamo=multa.FK_IdPrestamo,
                     Estado=multa.estado,
                     MontoTotal=multa.montoTotal,
+                    PrestamoAsociado=new PrestamoBinding 
+                    {
+                        FK_IdLibro=multa.Prestamo.FK_IdLibro,
+                    }
                 });
             }
             return multasObtenidas;

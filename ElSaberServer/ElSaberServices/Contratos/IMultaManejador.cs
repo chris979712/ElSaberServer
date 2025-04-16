@@ -36,5 +36,8 @@ namespace ElSaberServices.Contratos
 
         [DataMember]
         public string Estado;
+
+        [DataMember]
+        public PrestamoBinding PrestamoAsociado;
     }
 }

@@ -32,6 +32,18 @@ namespace ElSaberDataAccess.Operaciones
                                        where prestamo.FK_IdSocio == numeroSocio
                                        && multa.estado == Enumeradores.EnumeradorEstadoMulta.Pendiente.ToString()
                                        select multa).ToList();
+                    foreach (Multa multa1 in multasObtenidas) 
+                    {
+                        var prestamoAsociado = contextoBaseDeDatos.Prestamo.Where(entidad=>entidad.IdPrestamo==multa1.FK_IdPrestamo).FirstOrDefault();
+                        if (prestamoAsociado != null)
+                        {
+                            multa1.Prestamo = prestamoAsociado;
+                        }
+                        else 
+                        {
+                            multasObtenidas.Insert(0, multaError);
+                        }
+                    }
                 }
             }
             catch (SqlException sqlException)
