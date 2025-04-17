@@ -7,6 +7,7 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Infrastructure;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Data.Entity; 
 using System.Text;
 using System.Threading.Tasks;
 
@@ -130,6 +131,52 @@ namespace ElSaberDataAccess.Operaciones
                 logger.LogFatal(entityException);
             }
             return resultadoConsulta;
+        }
+
+        public List<Multa> ObtenerMultasPagadasEnDeterminadasFechas(string fechaInicioBusqueda, string fechaFinBusqueda)
+        {
+            LoggerManager logger = new LoggerManager(this.GetType());
+            List<Multa> multasObtenidas = new List<Multa>();
+            Multa multaError = new Multa(){
+                IdMulta = Constantes.ErrorEnLaOperacion
+            };
+            try
+            {
+                using(var contextoBaseDeDatos = new ElSaberDBEntities())
+                {
+                    DateTime fechaInicio = DateTime.Parse(fechaInicioBusqueda);
+                    DateTime fechaFin = DateTime.Parse(fechaFinBusqueda);
+                    var multas = contextoBaseDeDatos.Multa
+                        .Include(m => m.Prestamo)
+                        .Include(m => m.Prestamo.Socio)
+                        .Include(m => m.Prestamo.Libro)
+                        .Where(multa => multa.fechaPagoMulta <= fechaFin && multa.fechaPagoMulta >= fechaInicio)
+                        .ToList();
+                    if (multas.Count> 0 )
+                    {
+                        multasObtenidas = multas;
+                    }
+                    else
+                    {
+                        Multa multaSinCoincidencias = new Multa()
+                        {
+                            IdMulta = Constantes.SinResultadosEncontrados
+                        };
+                        multasObtenidas.Add(multaSinCoincidencias);
+                    }
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                logger.LogError(sqlException);
+                multasObtenidas.Add(multaError);
+            }
+            catch (EntityException entityException)
+            {
+                logger.LogFatal(entityException);
+                multasObtenidas.Add(multaError);
+            }
+            return multasObtenidas;
         }
     }
 }

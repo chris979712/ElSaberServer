@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servidor\PruebaReporteInventarioLibro.cs" />
     <Compile Include="Servidor\PruebaReporteLibroMasPrestado.cs" />
+    <Compile Include="Servidor\PruebaReporteMultasPagadas.cs" />
     <Compile Include="Servidor\PruebaReporteSocioConPrestamosPendientes.cs" />
     <Compile Include="Servidor\PruebasRestablecimientoCuenta.cs" />
     <Compile Include="Utilities\Encriptado.cs" />

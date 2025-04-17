@@ -112,6 +112,30 @@ namespace ElSaberServices.Servicios
             return tablaSocioPrestamoPendiente;
         }
 
+        public Table GenerarTablaMultasPagadas(List<Multa> multasPagadas)
+        {
+            Table tablaMultasPagadas = new Table(7, true);
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("Numero de socio"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("Id.Prestamo"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("Titulo libro"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("ISBN"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("No. de multa"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("Monto total"));
+            tablaMultasPagadas.AddCell(CrearCeldaEncabezado("Fecha de pago"));
+            foreach (var multa in multasPagadas)
+            {
+                string fechaPago = multa.fechaPagoMulta.Value.ToString("yyyy-MM-dd");
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.Prestamo.Socio.numeroDeSocio.ToString()));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.Prestamo.IdPrestamo.ToString()));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.Prestamo.Libro.titulo));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.Prestamo.Libro.isbn));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.IdMulta.ToString()));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(multa.montoTotal.ToString(fechaPago)));
+                tablaMultasPagadas.AddCell(CrearCeldaElementos(fechaPago));
+            }
+            return tablaMultasPagadas;
+        }
+
         private Cell CrearCeldaEncabezado(string texto)
         {
             var negrita = PdfFontFactory.CreateFont(StandardFonts.TIMES_BOLDITALIC);

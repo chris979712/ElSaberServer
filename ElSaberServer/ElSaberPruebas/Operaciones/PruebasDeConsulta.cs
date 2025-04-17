@@ -1,6 +1,7 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
 using ElSaberDataAccess.Utilidades;
+using ElSaberDataAccess.Utilities;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
@@ -514,14 +515,38 @@ namespace ElSaberServerTest.Operaciones
             int resultadoObtenido = multaOperaciones.ActualizarMultas();
             Assert.Equal(resultadoEsperado, resultadoObtenido);
         }
+
+        [Fact]
+        public void PruebaObtenerMultasPagadasPorFechaExitosa()
+        {
+            MultaOperaciones multaOperaciones = new MultaOperaciones();
+            List<Multa> multasObtenidas = multaOperaciones.ObtenerMultasPagadasEnDeterminadasFechas("2025-04-12", "2025-04-16");
+            Assert.True(multasObtenidas.Count > 1);
+        }
+
+        [Fact]
+        public void PruebaObtenerMultasPagadasPorFechaSinResultadosExitosa()
+        {
+            MultaOperaciones multaOperaciones = new MultaOperaciones();
+            List<Multa> multasObtenidas = multaOperaciones.ObtenerMultasPagadasEnDeterminadasFechas("2025-04-01", "2025-04-10");
+            Assert.Equal(multasObtenidas[0].IdMulta,Constantes.SinResultadosEncontrados);
+        }
     }
 
     public class DatabaseFixtureQuery : IDisposable
     {
         public DatabaseFixtureQuery()
         {
-            InsertarSociosPruebaDeConsulta();
+            //InsertarSociosPruebaDeConsulta();
             //InsertarPrestamosYLibros();
+        }
+
+        public void InsertarMultasPagadas()
+        {
+            MultaOperaciones multaOperaciones = new MultaOperaciones();
+            Multa multa1 = new Multa(){
+                
+            };
         }
 
         public void InsertarPrestamosYLibros()

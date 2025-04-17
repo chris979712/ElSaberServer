@@ -154,6 +154,7 @@
     <Compile Include="Contratos\IPrestamoManejador.cs" />
     <Compile Include="Contratos\IReporteInventarioLibroManejador.cs" />
     <Compile Include="Contratos\IReporteLibroMasPrestadoManejador.cs" />
+    <Compile Include="Contratos\IReporteMultasPagadas.cs" />
     <Compile Include="Contratos\IReporteSocioConPrestamosPendientes.cs" />
     <Compile Include="Contratos\IRestablecimientoCuentaManejador.cs" />
     <Compile Include="Contratos\IDireccionManejador.cs" />
@@ -167,6 +168,7 @@
     <Compile Include="Servicios\ServicioPrestamo.cs" />
     <Compile Include="Servicios\ServicioReporteInventarioLibro.cs" />
     <Compile Include="Servicios\ServicioReporteLibroMasPrestado.cs" />
+    <Compile Include="Servicios\ServicioReporteMultasPagadas.cs" />
     <Compile Include="Servicios\ServicioReportePrestamosPendientes.cs" />
     <Compile Include="Servicios\ServicioRestablecimientoCuenta.cs" />
     <Compile Include="Servicios\ServicioAcceso.cs" />
@@ -183,6 +185,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ImagenesLibro\El principito.jpg" />
     <Content Include="ImagenesLibro\Los secretos de la FEI.jpg" />
     <Content Include="Utilidades\Buho.jpg" />
     <Content Include="Utilidades\CorreoContraseniaRestablecida.html" />

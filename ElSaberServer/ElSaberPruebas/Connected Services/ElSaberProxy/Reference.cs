@@ -214,6 +214,12 @@ namespace ElSaberPruebas.ElSaberProxy {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccesoManejador/IniciarSesion", ReplyAction="http://tempuri.org/IAccesoManejador/IniciarSesionResponse")]
         System.Threading.Tasks.Task<ElSaberServices.Contratos.AccesoBinding> IniciarSesionAsync(string correo, string contrasenia);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccesoManejador/ObtenerUsuarios", ReplyAction="http://tempuri.org/IAccesoManejador/ObtenerUsuariosResponse")]
+        ElSaberServices.Contratos.AccesoBinding[] ObtenerUsuarios();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAccesoManejador/ObtenerUsuarios", ReplyAction="http://tempuri.org/IAccesoManejador/ObtenerUsuariosResponse")]
+        System.Threading.Tasks.Task<ElSaberServices.Contratos.AccesoBinding[]> ObtenerUsuariosAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -273,6 +279,14 @@ namespace ElSaberPruebas.ElSaberProxy {
         
         public System.Threading.Tasks.Task<ElSaberServices.Contratos.AccesoBinding> IniciarSesionAsync(string correo, string contrasenia) {
             return base.Channel.IniciarSesionAsync(correo, contrasenia);
+        }
+        
+        public ElSaberServices.Contratos.AccesoBinding[] ObtenerUsuarios() {
+            return base.Channel.ObtenerUsuarios();
+        }
+        
+        public System.Threading.Tasks.Task<ElSaberServices.Contratos.AccesoBinding[]> ObtenerUsuariosAsync() {
+            return base.Channel.ObtenerUsuariosAsync();
         }
     }
     
@@ -1101,6 +1115,55 @@ namespace ElSaberPruebas.ElSaberProxy {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ElSaberProxy.IReporteMultasPagadas")]
+    public interface IReporteMultasPagadas {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReporteMultasPagadas/ObtenerReporteMultasPagadasEnFechas", ReplyAction="http://tempuri.org/IReporteMultasPagadas/ObtenerReporteMultasPagadasEnFechasRespo" +
+            "nse")]
+        byte[] ObtenerReporteMultasPagadasEnFechas(string fechaInicioBusqueda, string fechaFinBusqueda);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IReporteMultasPagadas/ObtenerReporteMultasPagadasEnFechas", ReplyAction="http://tempuri.org/IReporteMultasPagadas/ObtenerReporteMultasPagadasEnFechasRespo" +
+            "nse")]
+        System.Threading.Tasks.Task<byte[]> ObtenerReporteMultasPagadasEnFechasAsync(string fechaInicioBusqueda, string fechaFinBusqueda);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IReporteMultasPagadasChannel : ElSaberPruebas.ElSaberProxy.IReporteMultasPagadas, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ReporteMultasPagadasClient : System.ServiceModel.ClientBase<ElSaberPruebas.ElSaberProxy.IReporteMultasPagadas>, ElSaberPruebas.ElSaberProxy.IReporteMultasPagadas {
+        
+        public ReporteMultasPagadasClient() {
+        }
+        
+        public ReporteMultasPagadasClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ReporteMultasPagadasClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ReporteMultasPagadasClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ReporteMultasPagadasClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public byte[] ObtenerReporteMultasPagadasEnFechas(string fechaInicioBusqueda, string fechaFinBusqueda) {
+            return base.Channel.ObtenerReporteMultasPagadasEnFechas(fechaInicioBusqueda, fechaFinBusqueda);
+        }
+        
+        public System.Threading.Tasks.Task<byte[]> ObtenerReporteMultasPagadasEnFechasAsync(string fechaInicioBusqueda, string fechaFinBusqueda) {
+            return base.Channel.ObtenerReporteMultasPagadasEnFechasAsync(fechaInicioBusqueda, fechaFinBusqueda);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ElSaberProxy.IMultaManejador")]
     public interface IMultaManejador {
         
@@ -1115,6 +1178,12 @@ namespace ElSaberPruebas.ElSaberProxy {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMultaManejador/ObtenerMultasPendientesPorNumeroSocio", ReplyAction="http://tempuri.org/IMultaManejador/ObtenerMultasPendientesPorNumeroSocioResponse")]
         System.Threading.Tasks.Task<ElSaberServices.Contratos.MultaBinding[]> ObtenerMultasPendientesPorNumeroSocioAsync(int numeroSocio);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMultaManejador/ActualizarEstadoMultas", ReplyAction="http://tempuri.org/IMultaManejador/ActualizarEstadoMultasResponse")]
+        int ActualizarEstadoMultas();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMultaManejador/ActualizarEstadoMultas", ReplyAction="http://tempuri.org/IMultaManejador/ActualizarEstadoMultasResponse")]
+        System.Threading.Tasks.Task<int> ActualizarEstadoMultasAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1158,6 +1227,14 @@ namespace ElSaberPruebas.ElSaberProxy {
         
         public System.Threading.Tasks.Task<ElSaberServices.Contratos.MultaBinding[]> ObtenerMultasPendientesPorNumeroSocioAsync(int numeroSocio) {
             return base.Channel.ObtenerMultasPendientesPorNumeroSocioAsync(numeroSocio);
+        }
+        
+        public int ActualizarEstadoMultas() {
+            return base.Channel.ActualizarEstadoMultas();
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarEstadoMultasAsync() {
+            return base.Channel.ActualizarEstadoMultasAsync();
         }
     }
 }

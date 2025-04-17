@@ -1,6 +1,7 @@
 ﻿using ElSaberDataAccess;
 using ElSaberDataAccess.Operaciones;
 using ElSaberDataAccess.Utilidades;
+using ElSaberDataAccess.Utilities;
 using ElSaberPruebas.Utilities;
 using System;
 using System.Collections.Generic;
@@ -240,6 +241,14 @@ namespace ElSaberPruebas.Excepcion
             List<Prestamo> prestamosObtenidos = prestamoOperaciones.RecuperarPrestamosActivosPorFechaInicio(fechaInicio);
             Prestamo prestamo = prestamosObtenidos.FirstOrDefault();
             Assert.True(prestamo.IdPrestamo == -1);
+        }
+
+        [Fact]
+        public void PruebaObtenerMultasPagadasPorFechaExcepcionExitosa()
+        {
+            MultaOperaciones multaOperaciones = new MultaOperaciones();
+            List<Multa> multasObtenidas = multaOperaciones.ObtenerMultasPagadasEnDeterminadasFechas("2025-04-01", "2025-04-10");
+            Assert.Equal(multasObtenidas[0].IdMulta, Constantes.ErrorEnLaOperacion);
         }
     }
 }
