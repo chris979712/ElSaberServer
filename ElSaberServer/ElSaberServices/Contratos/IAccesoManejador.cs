@@ -23,6 +23,8 @@ namespace ElSaberServices.Contratos
         [OperationContract]
         AccesoBinding IniciarSesion(string correo, string contrasenia);
         [OperationContract]
+        int CerrarSesion(string correo);
+        [OperationContract]
         List<AccesoBinding> ObtenerUsuarios();
     }
 
