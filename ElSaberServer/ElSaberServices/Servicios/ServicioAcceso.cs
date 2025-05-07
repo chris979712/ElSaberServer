@@ -69,7 +69,7 @@ namespace ElSaberServices.Servicios
                     },
                 };
 
-                if (accesoBinding != null)
+                if (accesoBinding.IdAcceso != 0)
                 {
                     usuariosActivos.AddOrUpdate(correo, accesoBinding, (llave, valorExistente) => accesoBinding);
                 }
