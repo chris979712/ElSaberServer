@@ -96,43 +96,6 @@ namespace ElSaberDataAccess.Operaciones
             return resultadoRegistro;
         }
 
-        public int ActualizarMultas() 
-        {
-            LoggerManager logger = new LoggerManager(this.GetType());
-            int resultadoConsulta = Constantes.ErrorEnLaOperacion;
-            try 
-            {
-                using (var contextoBaseDeDatos = new ElSaberDBEntities())
-                {
-                    var actualizarEstadoQuery = @"UPDATE m
-                                          SET m.Estado = 'Pendiente'
-                                          FROM Multa m
-                                          INNER JOIN Prestamo p ON m.FK_IdPrestamo = p.idPrestamo
-                                          WHERE p.FechaDevolucionEsperada < CONVERT(DATE, GETDATE())
-                                          AND p.estado <> 'Devuelto'
-                                          AND m.Estado = 'Inactivo';";
-                    contextoBaseDeDatos.Database.ExecuteSqlCommand(actualizarEstadoQuery);
-                    var actualizarMontoQuery = @"
-                                            UPDATE m
-                                            SET m.MontoTotal = DATEDIFF(DAY, p.FechaDevolucionEsperada, GETDATE())
-                                            FROM Multa m
-                                            INNER JOIN Prestamo p ON m.FK_IdPrestamo = p.idPrestamo
-                                            WHERE m.Estado = 'Pendiente';";
-                    contextoBaseDeDatos.Database.ExecuteSqlCommand(actualizarMontoQuery);
-                    resultadoConsulta = Constantes.OperacionExitosa;
-                }
-            }
-            catch (SqlException sqlException)
-            {
-                logger.LogError(sqlException);
-            }
-            catch (EntityException entityException)
-            {
-                logger.LogFatal(entityException);
-            }
-            return resultadoConsulta;
-        }
-
         public List<Multa> ObtenerMultasPagadasEnDeterminadasFechas(string fechaInicioBusqueda, string fechaFinBusqueda)
         {
             LoggerManager logger = new LoggerManager(this.GetType());

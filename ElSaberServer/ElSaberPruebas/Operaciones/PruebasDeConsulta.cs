@@ -508,15 +508,6 @@ namespace ElSaberServerTest.Operaciones
         }
 
         [Fact]
-        public void PruebaActualizarMultasExitosa() 
-        {
-            MultaOperaciones multaOperaciones=new MultaOperaciones();
-            int resultadoEsperado = 1;
-            int resultadoObtenido = multaOperaciones.ActualizarMultas();
-            Assert.Equal(resultadoEsperado, resultadoObtenido);
-        }
-
-        [Fact]
         public void PruebaObtenerMultasPagadasPorFechaExitosa()
         {
             MultaOperaciones multaOperaciones = new MultaOperaciones();

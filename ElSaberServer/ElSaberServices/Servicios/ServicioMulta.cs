@@ -11,12 +11,6 @@ namespace ElSaberServices.Servicios
 {
     public partial class ElSaberServices : IMultaManejador
     {
-        public int ActualizarEstadoMultas()
-        {
-            MultaOperaciones multaOperaciones= new MultaOperaciones();
-            return multaOperaciones.ActualizarMultas();
-        }
-
         public List<MultaBinding> ObtenerMultasPendientesPorNumeroSocio(int numeroSocio)
         {
             MultaOperaciones multaOperaciones = new MultaOperaciones();

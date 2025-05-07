@@ -18,8 +18,6 @@ namespace ElSaberServices.Contratos
         [OperationContract]
         List<MultaBinding> ObtenerMultasPendientesPorNumeroSocio(int numeroSocio);
 
-        [OperationContract]
-        int ActualizarEstadoMultas();
     }
 
     [DataContract]
